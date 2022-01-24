@@ -2,7 +2,8 @@
 
 [![](https://img.shields.io/npm/l/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
 [![](https://img.shields.io/npm/v/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/bundlephobia/min/@yoskutik/mobx-react-mvvm?label=size)](https://github.com/Yoskutik/mobx-react-mvvm)
+[![](https://img.shields.io/npm/dw/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![](https://img.shields.io/github/languages/code-size/yoskutik/mobx-react-mvvm)](https://github.com/Yoskutik/mobx-react-mvvm)
 ![](https://img.shields.io/lgtm/grade/javascript/github/Yoskutik/mobx-react-mvvm?label=Quality)
 ![](https://img.shields.io/lgtm/alerts/github/Yoskutik/mobx-react-mvvm?label=Vulnerabilities)
 

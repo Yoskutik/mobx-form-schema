@@ -1,13 +1,15 @@
 # React MVVM Framework
 
-Badges section
+[![](https://img.shields.io/npm/l/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![](https://img.shields.io/npm/v/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![](https://img.shields.io/bundlephobia/min/@yoskutik/mobx-react-mvvm?label=size)](https://github.com/Yoskutik/mobx-react-mvvm)
+![](https://img.shields.io/lgtm/grade/javascript/github/Yoskutik/mobx-react-mvvm?label=Quality)
+![](https://img.shields.io/lgtm/alerts/github/Yoskutik/mobx-react-mvvm?label=Vulnerabilities)
 
 `@yoskutik/mobx-react-mvvm` is a React MVVM Framework based on using MobX and
 TSyringe
 
-<br/>
-
-### Examples
+## Examples
 
 ```typescript
 import 'reflect-metadata'
@@ -36,9 +38,7 @@ const SomeView = view(SomeViewModel)(({ viewModel }) => (
 ));
 ```
 
-<br/>
-
-### Links
+## Links
 
 [MobX documentation]()  
 [TSyringe documentation]()

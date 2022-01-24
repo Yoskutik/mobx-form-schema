@@ -1,0 +1,57 @@
+import 'reflect-metadata';
+import '@testing-library/jest-dom';
+import React, { VFC } from 'react';
+import { view, ViewModel } from '../src';
+import { container, injectable, singleton } from 'tsyringe';
+import { render, waitFor } from '@testing-library/react';
+import { makeObservable, observable } from 'mobx';
+
+describe('View checking', () => {
+    test('Testing observable fields', async () => {
+        @singleton()
+        class SomeViewModel extends ViewModel {
+            @observable n = 0;
+
+            constructor() {
+                super();
+                makeObservable(this);
+            }
+        }
+
+        const viewModel = container.resolve(SomeViewModel);
+        const SomeView = view(SomeViewModel)(({ viewModel }) => (
+            <div>{viewModel.n}</div>
+        ));
+
+        const { getByText } = render(<SomeView/>);
+
+        viewModel.n++;
+        await waitFor(() => expect(getByText(viewModel.n.toString())).toBeInTheDocument());
+
+        viewModel.n++;
+        await waitFor(() => expect(getByText(viewModel.n.toString())).toBeInTheDocument());
+
+        viewModel.n++;
+        await waitFor(() => expect(getByText(viewModel.n.toString())).toBeInTheDocument());
+    });
+
+    test('Testing error boundary', async () => {
+        @injectable()
+        class SomeViewModel extends ViewModel {}
+
+        const ErrorView = () => {
+            throw new Error();
+        };
+
+        const SomeView = view(SomeViewModel)(() => <ErrorView/>);
+
+        const { getByText } = render(
+            <div>
+                <span>Test text</span>
+                <SomeView/>
+            </div>
+        );
+
+        expect(getByText('Test text')).toBeInTheDocument();
+    });
+});

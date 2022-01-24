@@ -1,0 +1,5 @@
+/dist
+/.idea
+/.gitignore
+/node_modules
+/__tests__

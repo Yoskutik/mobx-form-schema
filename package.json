@@ -1,5 +1,5 @@
 {
-  "name": "@yoskutik/test-mobx-react-mvvm",
+  "name": "@yoskutik/mobx-react-mvvm",
   "version": "0.2.0",
   "description": "An MVVM implementation for React using MobX and TSyringe",
   "main": "dist/index.js",

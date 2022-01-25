@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/mobx-react-mvvm",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "An MVVM implementation for React using MobX and TSyringe",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,23 +9,23 @@
     "react-dom": "^16.8.0 || ^17"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "jest": "^27.4.7",
     "ts-jest": "^27.1.3",
     "react": "^16.8.0 || ^17",
     "react-dom": "^16.8.0 || ^17",
-    "reflect-metadata": "0.1.13"
-  },
-  "dependencies": {
-    "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "mobx": "^6.3.13",
-    "mobx-react": "^7.2.1",
-    "tsyringe": "^4.6.0",
+    "reflect-metadata": "0.1.13",
     "typescript": "^4.5.5"
   },
+  "dependencies": {
+    "mobx": "^6",
+    "mobx-react": "^7",
+    "tsyringe": "^4.6.0"
+  },
   "author": "Yoskutik <yoskutik@gmail.com>",
-  "license": "ISC"
+  "license": "MIT"
 }

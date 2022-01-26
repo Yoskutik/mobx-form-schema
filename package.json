@@ -1,24 +1,46 @@
 {
   "name": "@yoskutik/mobx-react-mvvm",
-  "version": "0.2.4",
+  "version": "0.2.7",
   "description": "An MVVM implementation for React using MobX and TSyringe",
+  "keywords": [
+    "react",
+    "mobx",
+    "mvvm",
+    "di",
+    "architecture",
+    "tsyringe",
+    "lightweight"
+  ],
+  "homepage": "https://github.com/Yoskutik/mobx-react-mvvm",
+  "bugs": {
+    "url" : "https://github.com/Yoskutik/mobx-react-mvvm/issues",
+    "email" : "yoskutik@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoskutik/mobx-react-mvvm.git"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
   "peerDependencies": {
     "react": "^16.8.0 || ^17",
     "react-dom": "^16.8.0 || ^17"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.4.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
     "jest": "^27.4.7",
-    "ts-jest": "^27.1.3",
     "react": "^16.8.0 || ^17",
     "react-dom": "^16.8.0 || ^17",
     "reflect-metadata": "0.1.13",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
     "typescript": "^4.5.5"
   },
   "dependencies": {

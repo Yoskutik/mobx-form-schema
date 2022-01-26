@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "removeComments": false,
     "declaration": true,
     "outDir": "dist",
     "esModuleInterop": true

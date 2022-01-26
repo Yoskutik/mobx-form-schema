@@ -13,7 +13,7 @@ In fact, this is not so much a framework as a demonstration of an approach to fr
 development. I think that such a wide spread of the Flux architecture and in particular
 the Redux framework is not due to anything.
 
-The main idea of this framework is that **MobX + DI + MVVM pattern >> Flux**.
+The main idea of this framework is that **MobX + DI pattern + MVVM pattern >> Flux**.
 
 ## View
 
@@ -21,7 +21,7 @@ View is just a MobX's observer. Also, a View has an ErrorBound, which means if a
 component of the View would raise an error, View will just disappear and stop error from
 spreading.
 
-In TypeScript the View has type `FVC`. Every View have a special property `viewModel`, that
+In TypeScript the View has type `FVC`. Every View has a special property `viewModel`, that
 is equal to an instance of ViewModel that was given to the `view` function.
 
 A View can be created using `view` function from the package:
@@ -40,6 +40,34 @@ const SomeView: VFC<SomeViewProps> = view(SomeViewModel)(({ viewModel, prop1, pr
 ));
 ```
 
+### ChildView
+
+This architecture also has a ChildView entity. A ChildView is an observer which has access
+to the View's ViewModel. A ChildView's mounting and unmounting does not effect on ViewModel's
+fields.
+
+In TypeScript the ChildView has type `FVC`. Every ChildView has a special property
+`viewModel`, which type is equal to a type that was given to the `childView` function.
+
+To create a ChildView use `childView` function:
+
+```typescript
+import React, { VFC } from 'react';
+import { childView } from '@yoskutik/mobx-react-mvvm';
+import type { SomeViewModel } from './SomeViewModel';
+ 
+interface SomeSomeChildProps {
+  prop1: number;
+}
+
+const SomeChild: VFC<SomeSomeChildProps> = childView<SomeViewModel>(({ viewModel, prop1 }) => (
+  <div/>
+));
+```
+
+Note that is better to use `import type` instead of `import` in case you need to import
+View's ViewModel type to prevent the occurrence of cyclic dependencies.
+
 ## ViewModel
 
 ViewModel must have a decorator `@singleton` or `@injetable` from TSyringe.
@@ -48,16 +76,21 @@ These are fields and methods that are available for all ViewModels:
 
 | |Modifier|Description|
 |-----|--------|-----------|
-|`parent`|`protected`|A link for a parent ViewModel|
-|`viewProps`|`protected`|Properties that were given to a View|
-|`onDispose`|`protected`|This function is called after the View has become unmounted|
-|`isActive`|`public`|Flag that tell whether the View is in the virtual DOM|
+|`viewProps`|`protected readonly`|Properties that were given to a View|
+|`onDispose`|`protected readonly`|This function is called after the View has become unmounted|
+|`parent`|`public readonly`|A link for a parent ViewModel|
+|`isActive`|`public readonly`|Flag that tell whether the View is in the virtual DOM|
 
 <br/>
 
-ViewModel can access `parent` and `viewProps` only after the constructor has done. `viewProps`
-are updated every time HOC of the View is updated. Because of the HOC is memorized they are
-updated every time when the properties are new.
+The fields `parent` and `viewProps` are initialized only after the constructor has done. But
+they both are `observable.ref`, so you can use `reaction`, `autorun` and `observe` in the
+constructor.
+
+The `viewProps` are updated every time HOC of the View is updated. Because of the HOC is
+memorized they are updated every time when the properties are new.
+
+To specify the typing of the `parent` and `viewProps` fields use generics of `ViewModel` class.
 
 Every view supposed to be extended from `ViewModel`:
 
@@ -65,9 +98,11 @@ Every view supposed to be extended from `ViewModel`:
 import { injectable } from 'tsyringe';
 import { ViewModel } from '@yoskutik/mobx-react-mvvm';
 import { observable, makeObservable } from 'mobx';
+import type { ParentViewModel } from './ParentViewModel';
+import type { SomeViewProps } from './SomeView';
 
 @injectable()
-class SomeViewModel extends ViewModel {
+class SomeViewModel extends ViewModel<ParentViewModel, SomeViewProps> {
   @observable count = 0;
 
   constructor() {
@@ -78,35 +113,14 @@ class SomeViewModel extends ViewModel {
   @action add = () => this.count++;
 }
 ```
+
+Note that is better to use `import type` instead of `import` in case you need to import
+parent View's ViewModel type or/and View's props type to prevent the occurrence of cyclic
+dependencies.
 
 ## Examples
 
-```typescript
-import 'reflect-metadata'
-import React from 'react';
-import { injectable } from 'tsyringe';
-import { observable, makeObservable, action } from 'mobx';
-import { view, ViewModel } from '@yoskutik/mobx-react-mvvm';
-
-@injectable()
-class SomeViewModel extends ViewModel {
-  @observable count = 0;
-
-  constructor() {
-    super();
-    makeObservable(this);
-  }
-
-  @action add = () => this.count++;
-}
-
-const SomeView = view(SomeViewModel)(({ viewModel }) => (
-  <div>
-    {viewModel.count}
-    <button onClick={viewModel.add}>Add</button>
-  </div>
-));
-```
+* [[codesandbox] TODO List](https://codesandbox.io/s/uv5hw) (View, ChildView, ViewModel)
 
 ## Links
 

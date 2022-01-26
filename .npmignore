@@ -4,3 +4,4 @@
 /node_modules
 /__tests__
 /tsconfig.json
+/jest.config.js

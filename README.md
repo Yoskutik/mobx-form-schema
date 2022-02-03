@@ -1,11 +1,12 @@
 # React MVVM Framework
 
-[![](https://img.shields.io/npm/v/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/npm/l/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/npm/dw/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/lgtm/grade/javascript/github/Yoskutik/mobx-react-mvvm?label=Quality)](https://github.com/Yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/lgtm/alerts/github/Yoskutik/mobx-react-mvvm?label=Vulnerabilities)](https://github.com/Yoskutik/mobx-react-mvvm)
-[![](https://img.shields.io/github/languages/code-size/yoskutik/mobx-react-mvvm?label=Size)](https://github.com/Yoskutik/mobx-react-mvvm)
+[![version](https://img.shields.io/npm/v/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![license](https://img.shields.io/npm/l/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![downloads](https://img.shields.io/npm/dw/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
+[![Quality](https://img.shields.io/lgtm/grade/javascript/github/Yoskutik/mobx-react-mvvm?label=Quality)](https://github.com/Yoskutik/mobx-react-mvvm)
+[![Vulnerabilities](https://img.shields.io/lgtm/alerts/github/Yoskutik/mobx-react-mvvm?label=Vulnerabilities)](https://github.com/Yoskutik/mobx-react-mvvm)
+[![codecov](https://codecov.io/gh/Yoskutik/mobx-react-mvvm/branch/master/graph/badge.svg?token=05X4P8AVXD)](https://codecov.io/gh/Yoskutik/mobx-react-mvvm)
+[![Size](https://img.shields.io/github/languages/code-size/yoskutik/mobx-react-mvvm?label=Size)](https://github.com/Yoskutik/mobx-react-mvvm)
 
 A super lightweight React MVVM Framework based on using MobX and TSyringe.
 
@@ -52,7 +53,7 @@ In TypeScript the ChildView has type `FVC`. Every ChildView has a special proper
 To create a ChildView use `childView` function:
 
 ```typescript
-import React, { VFC } from 'react';
+import React from 'react';
 import { childView } from '@yoskutik/mobx-react-mvvm';
 import type { SomeViewModel } from './SomeViewModel';
  
@@ -60,7 +61,7 @@ interface SomeSomeChildProps {
   prop1: number;
 }
 
-const SomeChild: VFC<SomeSomeChildProps> = childView<SomeViewModel>(({ viewModel, prop1 }) => (
+const SomeChild = childView<SomeViewModel, SomeSomeChildProps>(({ viewModel, prop1 }) => (
   <div/>
 ));
 ```
@@ -92,7 +93,7 @@ memorized they are updated every time when the properties are new.
 
 To specify the typing of the `parent` and `viewProps` fields use generics of `ViewModel` class.
 
-Every view supposed to be extended from `ViewModel`:
+Every ViewModel supposed to be extended from `ViewModel`:
 
 ```typescript
 import { injectable } from 'tsyringe';
@@ -118,9 +119,18 @@ Note that is better to use `import type` instead of `import` in case you need to
 parent View's ViewModel type or/and View's props type to prevent the occurrence of cyclic
 dependencies.
 
+## Diagram
+
+![](https://raw.githubusercontent.com/Yoskutik/mobx-react-mvvm/master/diagram_en.png)
+
 ## Examples
 
-* [[codesandbox] TODO List](https://codesandbox.io/s/uv5hw) (View, ChildView, ViewModel)
+  * TODO List (an example for View, ChildView and ViewModel):
+    * [CodeSandbox](https://codesandbox.io/s/uv5hw)
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview-1)
+  * Articles reader (with DI):
+    * [CodeSandbox](https://codesandbox.io/s/solitary-snow-4ncxb)
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview-2)
 
 ## Links
 

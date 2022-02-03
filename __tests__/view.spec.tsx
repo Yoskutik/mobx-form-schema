@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import '@testing-library/jest-dom';
 import React, { VFC } from 'react';
-import { view, ViewModel } from '../src';
+import { childView, view, ViewModel } from '../src';
 import { container, injectable, singleton } from 'tsyringe';
 import { render, waitFor } from '@testing-library/react';
 import { makeObservable, observable } from 'mobx';
@@ -53,5 +53,22 @@ describe('View checking', () => {
         );
 
         expect(getByText('Test text')).toBeInTheDocument();
+    });
+
+    test('Testing child view', async () => {
+        @injectable()
+        class SomeViewModel extends ViewModel {
+            field = 'Field';
+        }
+
+        const SomeView = childView<SomeViewModel>(({ viewModel }) => (
+            <span>{viewModel.field}</span>
+        ));
+
+        const SomeParentView = view(SomeViewModel)(() => <SomeView/>);
+
+        const { getByText } = render(<SomeParentView/>);
+
+        expect(getByText('Field')).toBeInTheDocument();
     });
 });

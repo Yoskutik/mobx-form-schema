@@ -1,5 +1,5 @@
-import { action, makeObservable, observable } from "mobx";
-import { singleton } from "tsyringe";
+import { action, makeObservable, observable } from 'mobx';
+import { singleton } from 'tsyringe';
 
 export type TToast = {
   id: string;

@@ -1,7 +1,7 @@
-import { observer } from "mobx-react-lite";
-import React, { useEffect, useState, VFC } from "react";
-import { container } from "tsyringe";
-import { ToastsService, TToast } from "../services";
+import { observer } from 'mobx-react-lite';
+import React, { useEffect, useState, VFC } from 'react';
+import { container } from 'tsyringe';
+import { ToastsService, TToast } from '@services';
 
 const service = container.resolve(ToastsService);
 
@@ -10,7 +10,7 @@ export const Toast: VFC<{ data: TToast }> = ({ data }) => {
 
   useEffect(() => {
     setVisible(true);
-    setTimeout(() => setVisible(false), 1500);
+    setTimeout(() => setVisible(false), 2_000);
   }, [data]);
 
   return (

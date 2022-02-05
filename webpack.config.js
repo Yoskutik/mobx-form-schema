@@ -30,6 +30,10 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx'],
+      alias: ['services', 'utils', 'components'].reduce((acc, it) => ({
+        [`@${it}`]: path.resolve(__dirname, 'src', it),
+        ...acc,
+      }), {}),
     },
     performance: { hints: false },
     infrastructureLogging: { level: 'error' },

@@ -1,11 +1,12 @@
-import { view, ViewModel } from '@yoskutik/mobx-react-mvvm';
 import React from 'react';
 import { injectable } from 'tsyringe';
 import { makeObservable } from 'mobx';
-import { SignUpPage } from './SignUp/SignUpPage';
+import { view, ViewModel } from '@yoskutik/mobx-react-mvvm';
 import { ToastsContainer } from '@components';
 import { AuthService } from '@services';
-import './Style.scss';
+import { SignUpPage } from './SignUp/SignUpPage';
+import { Main } from './Main/Main';
+import '../Style.scss';
 
 @injectable()
 export class AppViewModel extends ViewModel {
@@ -16,6 +17,10 @@ export class AppViewModel extends ViewModel {
 }
 
 export const App = view(AppViewModel)(({ viewModel }) => <>
-    {!viewModel.authService.isAuthed && <SignUpPage/>}
+    {!viewModel.authService.isAuthed ? (
+      <SignUpPage/>
+    ) : (
+      <Main/>
+    )}
     <ToastsContainer/>
 </>);

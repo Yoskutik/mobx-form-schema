@@ -1,11 +1,9 @@
-import "reflect-metadata";
-import React from "react";
-import ReactDOM from "react-dom";
-import { App } from "./App";
-import { configure } from "mobx";
+import 'reflect-metadata';
+import React from 'react';
+import { render } from 'react-dom';
+import { App } from './views/App';
+import { configure } from 'mobx';
 
-configure({
-  enforceActions: "never",
-});
+configure({ enforceActions: 'never' });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById('root'));

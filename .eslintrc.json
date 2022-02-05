@@ -1,7 +1,6 @@
 {
     "env": {
         "browser": true,
-        "node": true,
         "es2020": true
     },
     "extends": [
@@ -9,25 +8,15 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true,
-            "arrowFunctions": true,
-            "classes": true
-        },
         "ecmaVersion": 11,
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint"
-    ],
     "settings": {
         "import/resolver": {
             "typescript": {}
@@ -37,30 +26,10 @@
         }
     },
     "rules": {
-        "class-methods-use-this": "off",
-        "no-restricted-syntax": "off",
-        "no-underscore-dangle": "off",
         "no-return-assign": "off",
         "linebreak-style": "off",
-        "no-continue": "off",
         "no-plusplus": "off",
-        "func-names": "off",
-        "no-nested-ternary": "warn",
         "no-param-reassign": ["error", { "props": false }],
-        "no-empty": ["error", { "allowEmptyCatch": true }],
-        "object-curly-newline": ["error", {
-            "ImportDeclaration": { "minProperties": 5 }
-        }],
-        "arrow-parens": ["error", "as-needed"],
-        "quote-props": ["error", "as-needed"],
-        "max-len": ["error", {"code":  110}],
-        "indent": ["error", 4, {
-            "ignoredNodes": ["JSXElement *"]
-        }],
-        "prefer-destructuring": ["error", {
-            "array": false,
-            "object": true
-        }],
         "no-console": "error",
         "max-lines": "error",
 
@@ -68,21 +37,11 @@
         "import/extensions": "off",
         "import/no-cycle": "error",
 
-        "react/display-name": "off",
         "react/prop-types": "off",
-        "react/jsx-closing-bracket-location": ["error", "after-props"],
-        "react/jsx-indent": ["error", 4],
 
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-unused-expressions": "off",
-        "@typescript-eslint/no-throw-literal": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-unused-vars": ["error", {
             "args": "after-used"
-        }],
-        "@typescript-eslint/indent": ["error", 4, {
-            "ignoredNodes": ["JSXElement *"]
         }]
     }
 }

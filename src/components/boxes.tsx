@@ -5,14 +5,24 @@ type FlexBoxProps = {
   cls?: string;
   wrap?: boolean;
   justify?: 'space-between' | 'center' | 'right' | 'space-around',
+  align?: 'start' | 'center',
+  onFocus?: () => void;
+  onBlur?: () => void;
 };
 
-const FlexBox: FC<FlexBoxProps & { type: 'v' | 'h' }> = ({ children, style, cls = '', wrap, type, justify }) => (
-  <div style={style} className={`${cls} flex-box ${type} ${wrap ? 'wrap' : ''} ${justify ?? ''}`}>
+const Box: FC<FlexBoxProps & { type: 'v' | 'h' }> = ({
+  children, style, cls = '', wrap, type, justify, onFocus, onBlur, align,
+}) => (
+  <div
+    style={style}
+    className={`${cls} flex-box ${type} ${wrap ? 'wrap' : ''} ${justify ? `justify-${justify}` : ''} ${align ? `align-${align}` : ''}`}
+    onFocus={onFocus}
+    onBlur={onBlur}
+  >
     {children}
   </div>
 );
 
-export const HFlexBox: FC<FlexBoxProps> = props => <FlexBox type="h" {...props}/>;
+export const HBox: FC<FlexBoxProps> = props => <Box type="h" {...props}/>;
 
-export const VFlexBox: FC<FlexBoxProps> = props => <FlexBox type="v" {...props}/>;
+export const VBox: FC<FlexBoxProps> = props => <Box type="v" {...props}/>;

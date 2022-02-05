@@ -132,7 +132,7 @@ export class Model {
         return Object.values(this.errors).every(it => !it);
     }
 
-    protected constructor() {
+    constructor() {
         makeObservable(this);
     }
 

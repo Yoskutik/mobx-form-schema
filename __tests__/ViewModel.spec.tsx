@@ -60,12 +60,12 @@ describe('ViewModel checking', () => {
         render(<SomeView />);
 
         expect(viewModel.isActive).toEqual(true);
-        expect(viewModel.onDispose).toHaveBeenCalledTimes(0);
+        expect(viewModel.onViewUnmount).toHaveBeenCalledTimes(0);
 
         cleanup();
 
         expect(viewModel.isActive).toEqual(false);
-        expect(viewModel.onDispose).toBeCalledTimes(1);
+        expect(viewModel.onViewUnmount).toBeCalledTimes(1);
     });
 
     test('Testing observable fields', () => {

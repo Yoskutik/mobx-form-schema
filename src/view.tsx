@@ -32,7 +32,7 @@ export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Con
         useEffect(() => () => {
             const untypedViewModel = viewModel as any;
             untypedViewModel.isActive = false;
-            untypedViewModel.onDispose?.();
+            untypedViewModel.onViewUnmount?.();
         }, []);
 
         return (

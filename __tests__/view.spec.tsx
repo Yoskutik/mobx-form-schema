@@ -73,4 +73,32 @@ describe('View checking', () => {
 
         expect(getByText('Field')).toBeInTheDocument();
     });
+
+    test('Testing not observer child view', async () => {
+        @singleton()
+        class SomeViewModel extends ViewModel {
+            @observable field = 'Field';
+
+            constructor() {
+                super();
+                makeObservable(this);
+            }
+        }
+
+        const viewModel = container.resolve(SomeViewModel);
+
+        const SomeView = childView<SomeViewModel>(({ viewModel }) => (
+            <span>{viewModel.field}</span>
+        ), false);
+
+        const SomeParentView = view(SomeViewModel)(() => <SomeView/>);
+
+        const { getByText } = render(<SomeParentView/>);
+
+        expect(getByText('Field')).toBeInTheDocument();
+
+        viewModel.field = 'asdasd';
+
+        expect(getByText('Field')).toBeInTheDocument();
+    });
 });

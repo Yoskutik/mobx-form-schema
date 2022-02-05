@@ -42,8 +42,14 @@ describe('Model checking', () => {
 
     test('Validate preprocess check', () => {
         class SomeModel extends Model {
-            @validate({ preprocess: value => value?.trim(), validators: [required()] })
+            @validate({
+                preprocess: value => value?.trim(),
+                validators: [required()],
+                shouldCheckValidity: record => record.shouldCheckValidity
+            })
             @observable field: string = undefined;
+
+            shouldCheckValidity = true;
 
             constructor() {
                 super();
@@ -55,15 +61,21 @@ describe('Model checking', () => {
         expect(model.errors.field).toEqual('Must be defined');
         model.field = '  ';
         expect(model.errors.field).toEqual('Must be defined');
+        expect(model.isValid).toBeFalsy();
         model.field = 'a';
         expect(model.errors.field).toBeFalsy();
+
+        model.shouldCheckValidity = false;
+        model.field = '';
+        expect(model.errors.field).toBeFalsy();
+        expect(model.isValid).toBeTruthy();
     });
 
     test('Dirty mechanism check', () => {
         class SomeModel extends Model {
             @field() @observable field: string = undefined;
 
-            @field() @observable field1: string = undefined;
+            @field({ label: 'Label', factory: record => record.field1 + '1' }) @observable field1: string = undefined;
 
             @observable field2: string = undefined;
 
@@ -74,7 +86,9 @@ describe('Model checking', () => {
         }
 
         const model = SomeModel.create({ field: 'field', field1: 'field1', field2: 'field2' });
+        expect(model.field1).toEqual('field11');
         expect(model.isDirty).toBeFalsy();
+        expect(model.labels?.field1).toEqual('Label')
 
         model.field = 'aa';
         expect(model.isDirty).toBeTruthy();
@@ -84,10 +98,10 @@ describe('Model checking', () => {
         model.field1 = 'aa';
         expect(model.isDirty).toBeTruthy();
         expect(model.getInitial('field')).toEqual('field');
-        expect(model.getInitial('field1')).toEqual('field1');
+        expect(model.getInitial('field1')).toEqual('field11');
 
         model.field = 'field';
-        model.field1 = 'field1';
+        model.field1 = 'field11';
         expect(model.isDirty).toBeFalsy();
         expect(model.getInitial('field')).toBeFalsy();
         expect(model.getInitial('field1')).toBeFalsy();
@@ -130,5 +144,24 @@ describe('Model checking', () => {
 
         model.field2 = { a: 1, b: 2 };
         expect(model.isDirty).toBeFalsy();
+    });
+
+    test('State check', () => {
+        class SomeModel extends Model {
+            @field()
+            @observable field = 'field';
+
+            field2 = 2;
+
+            constructor() {
+                super();
+                makeObservable(this);
+            }
+        }
+
+        const model = SomeModel.create();
+
+        expect(model.state?.field).toEqual('field');
+        expect(model.state?.field2).toEqual(2);
     });
 });

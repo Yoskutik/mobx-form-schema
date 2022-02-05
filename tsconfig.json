@@ -13,10 +13,16 @@
     "removeComments": false,
     "declaration": true,
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@yoskutik/mobx-react-mvvm": ["src"]
+    }
   },
   "include": [
-    "src"
+    "src",
+    "test",
+    "metadata.d.ts"
   ],
   "exclude": [
     "node_modules",

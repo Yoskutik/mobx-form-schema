@@ -1,10 +1,12 @@
 import 'reflect-metadata';
 import '@testing-library/jest-dom';
-import React, { VFC } from 'react';
-import { childView, view, ViewModel } from '../src';
+import React from 'react';
+import { childView, view, ViewModel } from '@yoskutik/mobx-react-mvvm';
 import { container, injectable, singleton } from 'tsyringe';
 import { render, waitFor } from '@testing-library/react';
-import { makeObservable, observable } from 'mobx';
+import {configure, makeObservable, observable} from 'mobx';
+
+configure({ enforceActions: "never" });
 
 describe('View checking', () => {
     test('Testing observable fields', async () => {

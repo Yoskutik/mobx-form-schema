@@ -2,17 +2,14 @@ import React, {
     Component, createContext, memo, ReactNode, useContext, useEffect, useMemo, VFC,
 } from 'react';
 import { observer } from 'mobx-react';
-import { ViewModel } from './ViewModel';
 import { container } from 'tsyringe';
 import { runInAction } from 'mobx';
-
-type Constructable<T> = new (...args: any[]) => T;
+import { ViewModel } from './ViewModel';
+import { Constructable } from './types';
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
-    state = { hasError: false };
-
     static getDerivedStateFromError = () => ({ hasError: true });
-
+    state = { hasError: false };
     render = () => !this.state.hasError && this.props.children;
 }
 
@@ -48,8 +45,8 @@ export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Con
     })
 );
 
-export const childView = <T extends ViewModel, R extends Record<string, any> = {}>(Component: VFC<R & { viewModel: T }>): VFC<R> => memo(props => {
-    const ObservableComponent = useMemo(() => observer(Component) as any, []);
+export const childView = <T extends ViewModel, R extends Record<string, any> = {}>(Component: VFC<R & { viewModel: T }>, makeObservable = true): VFC<R> => memo(props => {
+    const ObservableComponent = useMemo(() => makeObservable ? observer(Component) as any : Component, []);
     const viewModel = useContext(ViewModelContext);
 
     return (

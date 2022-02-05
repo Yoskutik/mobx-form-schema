@@ -5,3 +5,7 @@
 /__tests__
 /tsconfig.json
 /jest.config.js
+/coverage
+/metadata.d.ts
+/diagram_en.png
+/diagram_ru.png

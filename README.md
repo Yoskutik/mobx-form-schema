@@ -78,7 +78,7 @@ These are fields and methods that are available for all ViewModels:
 | |Modifier|Description|
 |-----|--------|-----------|
 |`viewProps`|`protected readonly`|Properties that were given to a View|
-|`onDispose`|`protected readonly`|This function is called after the View has become unmounted|
+|`onViewUnmount`|`protected`|This function is called after the View has become unmounted|
 |`parent`|`public readonly`|A link for a parent ViewModel|
 |`isActive`|`public readonly`|Flag that tell whether the View is in the virtual DOM|
 
@@ -127,10 +127,12 @@ dependencies.
 
   * TODO List (an example for View, ChildView and ViewModel):
     * [CodeSandbox](https://codesandbox.io/s/uv5hw)
-    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview-1)
-  * Articles reader (with DI):
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/ViewViewModel)
+  * Articles reader (DI):
     * [CodeSandbox](https://codesandbox.io/s/solitary-snow-4ncxb)
-    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview-2)
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/DI)
+  * Forms (Model):
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/DI)
 
 ## Links
 

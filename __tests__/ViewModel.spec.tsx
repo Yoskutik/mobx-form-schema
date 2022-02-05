@@ -1,9 +1,11 @@
 import 'reflect-metadata';
 import React, { VFC } from 'react';
-import { view, ViewModel } from '../src';
+import { view, ViewModel } from '@yoskutik/mobx-react-mvvm';
 import { container, singleton } from 'tsyringe';
 import { cleanup, render } from '@testing-library/react';
-import { autorun, reaction } from 'mobx';
+import { reaction, configure } from 'mobx';
+
+configure({ enforceActions: "never" });
 
 describe('ViewModel checking', () => {
     test('Testing parent view model initialization', () => {
@@ -47,7 +49,7 @@ describe('ViewModel checking', () => {
     test('Testing activeness', () => {
         @singleton()
         class SomeViewModel extends ViewModel {
-            onDispose = jest.fn();
+            onViewUnmount = jest.fn();
         }
 
         const SomeView = view(SomeViewModel)(() => <div/>);

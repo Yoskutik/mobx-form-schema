@@ -1,6 +1,6 @@
 import { makeObservable, observable } from 'mobx';
 
-export abstract class ViewModel<T extends ViewModel = any, R extends Record<string, any> = unknown> {
+export abstract class ViewModel<T extends ViewModel | unknown = unknown, R extends Record<string, any> = unknown> {
     /** Properties that were given to a View */
     @observable.ref protected readonly viewProps: R = undefined;
 
@@ -15,5 +15,5 @@ export abstract class ViewModel<T extends ViewModel = any, R extends Record<stri
     }
 
     /** A function that is called after the View has become unmounted */
-    protected onDispose: () => void | Promise<void>;
+    protected onViewUnmount: () => void | Promise<void>;
 }

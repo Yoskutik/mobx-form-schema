@@ -37,6 +37,7 @@
         "import/extensions": "off",
         "import/no-cycle": "error",
 
+        "react/display-name": "off",
         "react/prop-types": "off",
 
         "@typescript-eslint/no-unused-expressions": "off",

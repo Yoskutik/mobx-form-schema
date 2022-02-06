@@ -1,0 +1,49 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "airbnb-typescript/base",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        },
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "no-return-assign": "off",
+        "linebreak-style": "off",
+        "no-plusplus": "off",
+        "no-param-reassign": ["error", { "props": false }],
+        "no-console": "error",
+        "max-lines": "error",
+
+        "import/prefer-default-export": "off",
+        "import/extensions": "off",
+        "import/no-cycle": "error",
+
+        "react/display-name": "off",
+        "react/prop-types": "off",
+
+        "@typescript-eslint/no-unused-expressions": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": ["error", {
+            "args": "after-used"
+        }]
+    }
+}

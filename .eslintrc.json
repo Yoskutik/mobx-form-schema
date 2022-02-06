@@ -7,7 +7,6 @@
         "airbnb-typescript/base",
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended"
     ],
@@ -29,7 +28,6 @@
         "no-return-assign": "off",
         "linebreak-style": "off",
         "no-plusplus": "off",
-        "no-param-reassign": ["error", { "props": false }],
         "no-console": "error",
         "max-lines": "error",
 

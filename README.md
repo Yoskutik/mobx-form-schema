@@ -119,9 +119,9 @@ Note that is better to use `import type` instead of `import` in case you need to
 parent View's ViewModel type or/and View's props type to prevent the occurrence of cyclic
 dependencies.
 
-## Diagram
+## Diagrams
 
-![](https://raw.githubusercontent.com/Yoskutik/mobx-react-mvvm/master/diagram_en.png)
+![](https://raw.githubusercontent.com/Yoskutik/mobx-react-mvvm/master/MVVM%201.png)
 
 ## Examples
 
@@ -132,7 +132,7 @@ dependencies.
     * [CodeSandbox](https://codesandbox.io/s/solitary-snow-4ncxb)
     * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/DI)
   * Forms (Model):
-    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/DI)
+    * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/Model)
 
 ## Links
 

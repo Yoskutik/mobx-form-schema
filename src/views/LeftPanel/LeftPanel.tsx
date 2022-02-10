@@ -3,6 +3,9 @@ import { VBox } from '@components';
 import { SearchTodoField } from './SearchTodoField';
 import { List } from './List';
 
+/**
+ * LeftPanel is a plain functional component, which controls the state of the search string.
+ */
 export const LeftPanel = memo(() => {
   const [searchText, setSearchText] = useState('');
 

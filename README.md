@@ -1,4 +1,6 @@
-## Todo List
+# MobX MVVM Preview
+
+## View, ChildView and ViewModel
 
 This sandbox was made to demonstrate the capabilities of the MobX + DI +
 MVVM architecture. Here you can find an examples of using View, ChildView

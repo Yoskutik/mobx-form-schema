@@ -4,15 +4,16 @@ import { childView } from '@yoskutik/mobx-react-mvvm';
 import { HBox, VBox } from '@components';
 import type { AppViewModel } from '../App';
 
-const Button: VFC<{ text: string; onClick: () => void }> = ({
-  text,
-  onClick,
-}) => (
+const Button: VFC<{ text: string; onClick: () => void }> = ({ text, onClick }) => (
   <button onClick={() => onClick()} style={{ marginRight: 10 }}>
     {text}
   </button>
 );
 
+/**
+ * This is a ChildView. The closest View in the React's DOM is App, which means that ChosenItem's viewModel
+ * must be AppViewModel
+ */
 export const ChosenItem = childView<AppViewModel>(({ viewModel }) => {
   const item = viewModel.chosenTodo;
   if (!item) return null;

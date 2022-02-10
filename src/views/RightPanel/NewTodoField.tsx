@@ -11,12 +11,8 @@ export const NewTodoField: VFC<{ onAdd: (title: string) => void }> = ({ onAdd })
 
   return (
     <HBox style={{ marginBottom: 10 }}>
-      <input
-        value={value}
-        onChange={(evt) => setValue(evt.target.value)}
-        style={{ marginRight: 10 }}
-        placeholder="Enter new Todo"
-      />
+      <input value={value} style={{ marginRight: 10 }} placeholder="Enter new Todo"
+             onChange={(evt) => setValue(evt.target.value)}/>
       <button onClick={onClick} disabled={!value}>
         Add
       </button>

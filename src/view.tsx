@@ -27,14 +27,17 @@ const useViewModel = <T extends ViewModel>(VM: Constructable<ViewModel>, props: 
 });
 
 export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Constructable<R>) => (
-  (ViewComponent: VFC<T & { viewModel: R }>): VFC<T> => memo(props => {
-    const ObservableComponent = useMemo(() => observer(ViewComponent) as any, []);
+  (ViewComponent: VFC<T & { viewModel: R }>, makeObserver = true): VFC<T> => memo(props => {
+    const ObservableComponent = useMemo(() => makeObserver ? observer(ViewComponent) : ViewComponent as any, []);
     const viewModel = useViewModel<R>(VM, props);
 
-    useEffect(() => () => {
+    useEffect(() => {
       const untypedViewModel = viewModel as any;
-      untypedViewModel.isActive = false;
-      untypedViewModel.onViewUnmount?.();
+      untypedViewModel.onViewMount?.();
+      return () => {
+        untypedViewModel.isActive = false;
+        untypedViewModel.onViewUnmount?.();
+      };
     }, []);
 
     return (
@@ -48,9 +51,9 @@ export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Con
 );
 
 export const childView = <T extends ViewModel, R extends Record<string, any> = unknown>(
-  ChildViewComponent: VFC<R & { viewModel: T }>, makeObservable = true,
+  ChildViewComponent: VFC<R & { viewModel: T }>, makeObserver = true,
 ): VFC<R> => memo(props => {
-    const ObservableComponent = useMemo(() => makeObservable ? observer(ChildViewComponent) as any : ChildViewComponent, []);
+    const ObservableComponent = useMemo(() => makeObserver ? observer(ChildViewComponent) as any : ChildViewComponent, []);
     const viewModel = useContext(ViewModelContext);
 
     return (

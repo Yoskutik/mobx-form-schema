@@ -14,6 +14,9 @@ export abstract class ViewModel<T extends ViewModel | unknown = unknown, R exten
     makeObservable(this);
   }
 
+  /** A function that is called after the View has become mounted */
+  protected onViewMount: () => void | Promise<void>;
+
   /** A function that is called after the View has become unmounted */
   protected onViewUnmount: () => void | Promise<void>;
 }

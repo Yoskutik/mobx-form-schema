@@ -34,7 +34,7 @@ view(ViewModel)(component, makeObserver);
   * `makeObserver` - a flag that tells whether to make a component an observer or not.
   By default `true`.
 
-#### Example:
+#### Example
 
 ```typescript jsx
 import React, { VFC } from 'react';
@@ -239,7 +239,7 @@ Parameters:
     * [CodeSandbox](https://codesandbox.io/embed/mobx-mvvm-preview-view-childview-and-viewmodel-0p63t?fontsize=14&hidenavigation=1&theme=dark)
     * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/DI)
   * Forms (Model):
-    * [CodeSandbox](https://codesandbox.io/embed/small-http-s7xld?fontsize=14&hidenavigation=1&theme=darkhttps://codesandbox.io/embed/small-http-s7xld?fontsize=14&hidenavigation=1&theme=darka)
+    * [CodeSandbox](https://codesandbox.io/embed/delicate-paper-dg5hq?fontsize=14&hidenavigation=1&theme=dark)
     * [GitHub](https://github.com/Yoskutik/mobx-react-mvvm-preview/tree/Model)
 
 ## Links

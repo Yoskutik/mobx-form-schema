@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/mobx-react-mvvm",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "An MVVM implementation for React using MobX and TSyringe",
   "keywords": [
     "typescript",

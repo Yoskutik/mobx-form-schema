@@ -50,21 +50,27 @@ describe('ViewModel checking', () => {
     @singleton()
     class SomeViewModel extends ViewModel {
       onViewUnmount = jest.fn();
+
+      onViewMount = jest.fn();
     }
 
     const SomeView = view(SomeViewModel)(() => <div/>);
     const viewModel: any = container.resolve(SomeViewModel);
 
     expect(viewModel.isActive).toBeFalsy();
+    expect(viewModel.onViewMount).toHaveBeenCalledTimes(0);
+    expect(viewModel.onViewUnmount).toHaveBeenCalledTimes(0);
 
     render(<SomeView />);
 
     expect(viewModel.isActive).toEqual(true);
+    expect(viewModel.onViewMount).toHaveBeenCalledTimes(1);
     expect(viewModel.onViewUnmount).toHaveBeenCalledTimes(0);
 
     cleanup();
 
     expect(viewModel.isActive).toEqual(false);
+    expect(viewModel.onViewMount).toHaveBeenCalledTimes(1);
     expect(viewModel.onViewUnmount).toBeCalledTimes(1);
   });
 

@@ -1,5 +1,5 @@
 import React, {
-  Component, createContext, memo, ReactNode, useContext, useEffect, useMemo, VFC,
+  Component, createContext, memo, ReactNode, useContext, useEffect, useState, VFC,
 } from 'react';
 import { observer } from 'mobx-react';
 import { container } from 'tsyringe';
@@ -17,26 +17,32 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 
 const ViewModelContext = createContext<ViewModel>(null);
 
-const useViewModel = <T extends ViewModel>(VM: Constructable<ViewModel>, props: Record<string, any>): T => runInAction(() => {
-  const viewModel = useMemo(() => container.resolve(VM), []);
-  const untypedViewModel = viewModel as any;
-  untypedViewModel.isActive = true;
-  untypedViewModel.parent = useContext(ViewModelContext);
-  untypedViewModel.viewProps = { ...props };
-  return untypedViewModel;
-});
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+const useValue = <T extends unknown>(state: () => T) => useState(state)[0];
+
+const useViewModel = <T extends ViewModel>(VM: Constructable<ViewModel>, props: Record<string, any>): T => {
+  const viewModel = useValue(() => container.resolve(VM)) as any;
+  const parent = useContext(ViewModelContext);
+
+  useEffect(() => runInAction(() => {
+    viewModel.isActive = true;
+    viewModel.parent = parent;
+    viewModel.viewProps = props;
+  }));
+
+  return viewModel;
+};
 
 export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Constructable<R>) => (
   (ViewComponent: VFC<T & { viewModel: R }>, makeObserver = true): VFC<T> => memo(props => {
-    const ObservableComponent = useMemo(() => makeObserver ? observer(ViewComponent) : ViewComponent as any, []);
-    const viewModel = useViewModel<R>(VM, props);
+    const ObservableComponent = useValue(() => (makeObserver ? observer(ViewComponent) : ViewComponent));
+    const viewModel = useViewModel<R>(VM, props) as any;
 
     useEffect(() => {
-      const untypedViewModel = viewModel as any;
-      untypedViewModel.onViewMount?.();
+      viewModel.onViewMount?.();
       return () => {
-        untypedViewModel.isActive = false;
-        untypedViewModel.onViewUnmount?.();
+        viewModel.isActive = false;
+        viewModel.onViewUnmount?.();
       };
     }, []);
 
@@ -53,7 +59,7 @@ export const view = <T extends Record<string, any>, R extends ViewModel>(VM: Con
 export const childView = <T extends ViewModel, R extends Record<string, any> = unknown>(
   ChildViewComponent: VFC<R & { viewModel: T }>, makeObserver = true,
 ): VFC<R> => memo(props => {
-    const ObservableComponent = useMemo(() => makeObserver ? observer(ChildViewComponent) as any : ChildViewComponent, []);
+    const ObservableComponent = useValue(() => (makeObserver ? observer(ChildViewComponent) : ChildViewComponent)) as any;
     const viewModel = useContext(ViewModelContext);
 
     return (

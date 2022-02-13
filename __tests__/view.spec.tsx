@@ -37,7 +37,7 @@ describe('View checking', () => {
     await waitFor(() => expect(getByText(viewModel.n.toString())).toBeInTheDocument());
   });
 
-  test('Testing error boundary', async () => {
+  test('Testing error boundary', () => {
     @injectable()
     class SomeViewModel extends ViewModel {}
 
@@ -57,7 +57,7 @@ describe('View checking', () => {
     expect(getByText('Test text')).toBeInTheDocument();
   });
 
-  test('Testing child view', async () => {
+  test('Testing child view', () => {
     @injectable()
     class SomeViewModel extends ViewModel {
       field = 'Field';
@@ -74,7 +74,32 @@ describe('View checking', () => {
     expect(getByText('Field')).toBeInTheDocument();
   });
 
-  test('Testing not observer child view', async () => {
+  test('Testing not observer view', () => {
+    @singleton()
+    class SomeViewModel extends ViewModel {
+      @observable field = 'Field';
+
+      constructor() {
+        super();
+        makeObservable(this);
+      }
+    }
+
+    const viewModel = container.resolve(SomeViewModel);
+
+    const SomeView = view(SomeViewModel)(({ viewModel }) => (
+      <span>{viewModel.field}</span>
+    ), false);
+    const { getByText } = render(<SomeView/>);
+
+    expect(getByText('Field')).toBeInTheDocument();
+
+    viewModel.field = 'asdasd';
+
+    expect(getByText('Field')).toBeInTheDocument();
+  });
+
+  test('Testing not observer child view', () => {
     @singleton()
     class SomeViewModel extends ViewModel {
       @observable field = 'Field';

@@ -22,11 +22,10 @@ export const ChosenItem = childView<AppViewModel>(({ viewModel }) => {
     item.done = !item.done;
   };
 
-  const oRemoveClick = () =>
-    runInAction(() => {
-      viewModel.todos = viewModel.todos.filter((it) => it.id !== item.id);
-      viewModel.chosenTodo = null;
-    });
+  const oRemoveClick = () => runInAction(() => {
+    viewModel.todos = viewModel.todos.filter(it => it.id !== item.id);
+    viewModel.chosenTodo = null;
+  });
 
   return (
     <VBox>

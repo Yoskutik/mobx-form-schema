@@ -47,4 +47,4 @@ export const App = view(AppViewModel)(({ viewModel }) => (
       <RightPanel onAdd={viewModel.addNewTodo}/>
     </HBox>
   </VBox>
-));
+), false);

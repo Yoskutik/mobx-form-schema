@@ -28,7 +28,7 @@ class ListViewModel extends ViewModel<AppViewModel, ListProps> {
     autorun(() => {
       this.filteredData = this.parent?.todos.filter(it => (
         !this.viewProps?.searchText || it.title.toLowerCase().includes(this.viewProps.searchText)
-      ));
+      )) || [];
     });
   }
 
@@ -43,7 +43,7 @@ export const List: VFC<ListProps> = view(ListViewModel)(({ viewModel }) => (
       viewModel.filteredData.map((it) => (
         <div key={it.id} onClick={() => viewModel.onItemClick(it.id)}
              className={`list__item ${it.done ? 'done' : ''} ${
-               (viewModel as any).parent.chosenTodo?.id === it.id ? 'chosen' : ''
+               viewModel.parent.chosenTodo?.id === it.id ? 'chosen' : ''
              }`}>
           {it.title}
         </div>

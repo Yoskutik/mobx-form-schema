@@ -490,10 +490,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@yoskutik/mobx-react-mvvm@0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@yoskutik/mobx-react-mvvm/-/mobx-react-mvvm-0.4.0.tgz#ba56085e1694e130ef801ca72555281c17f5a3ef"
-  integrity sha512-WNy+fy7vKBFyVJ5Ywip0xk5wUkHeqy0L8WYkm1P4TNlDlBSpzPAe0TlSEiAqlRgbdubSa7V8ks9hFUcpAWyc4A==
+"@yoskutik/mobx-react-mvvm@0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@yoskutik/mobx-react-mvvm/-/mobx-react-mvvm-0.4.3.tgz#02abf9b08ba619ec2fa35705ec5b8eded8cd5475"
+  integrity sha512-/ikUMrwecheXPJtbB5CbYMxX1G7EnwGOVJaKafguRrJr/TXvH6+AAXx2+0wr3FsJIvPFxKaiYLU1INX8koZTKw==
   dependencies:
     mobx "^6"
     mobx-react "^7"

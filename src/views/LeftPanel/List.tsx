@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { injectable } from 'tsyringe';
-import { makeObservable, observable, autorun, action } from 'mobx';
+import { makeObservable, computed, action } from 'mobx';
 import { view, ViewModel } from '@yoskutik/mobx-react-mvvm';
 import { VBox } from '@components';
 import type { TTodoItem, AppViewModel } from '../App';
@@ -19,17 +19,19 @@ type ListProps = {
  */
 @injectable()
 class ListViewModel extends ViewModel<AppViewModel, ListProps> {
-  @observable.shallow filteredData: TTodoItem[] = [];
+  @computed get filteredData(): TTodoItem[] {
+    return (
+      this.parent?.todos.filter(
+        (it) =>
+          !this.viewProps?.searchText ||
+          it.title.toLowerCase().includes(this.viewProps.searchText)
+      ) || []
+    );
+  }
 
   constructor() {
     super();
     makeObservable(this);
-
-    autorun(() => {
-      this.filteredData = this.parent?.todos.filter(it => (
-        !this.viewProps?.searchText || it.title.toLowerCase().includes(this.viewProps.searchText)
-      )) || [];
-    });
   }
 
   @action onItemClick = (id: string) => {

@@ -1,4 +1,3 @@
-import { runInAction } from 'mobx';
 import React, { VFC } from 'react';
 import { childView } from '@yoskutik/mobx-react-mvvm';
 import { HBox, VBox } from '@components';
@@ -22,10 +21,7 @@ export const ChosenItem = childView<AppViewModel>(({ viewModel }) => {
     item.done = !item.done;
   };
 
-  const oRemoveClick = () => runInAction(() => {
-    viewModel.todos = viewModel.todos.filter(it => it.id !== item.id);
-    viewModel.chosenTodo = null;
-  });
+  const oRemoveClick = () => viewModel.removeTodo(item.id);
 
   return (
     <VBox>

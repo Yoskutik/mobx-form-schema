@@ -34,6 +34,11 @@ export class AppViewModel extends ViewModel {
   @action addNewTodo = (title: string) => {
     this.todos.push({ id: Math.random().toString(), title, done: false });
   };
+
+  @action removeTodo = (id: string) => {
+    this.todos = this.todos.filter((it) => it.id !== id);
+    this.chosenTodo = null;
+  };
 }
 
 /**

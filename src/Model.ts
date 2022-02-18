@@ -87,28 +87,26 @@ export class Model {
     });
 
     Object.keys(validateMetadata).forEach(key => {
-      if (key in validateMetadata) {
-        const { preprocess, validators, shouldCheckValidity } = validateMetadata[key];
-        observe(record, key as any, ({ newValue: value }) => {
-          if (shouldCheckValidity && !shouldCheckValidity(record)) {
-            delete record.errors[key];
-            (record as any).errors = { ...record.errors };
-            return;
-          }
-          const preprocessedValue = preprocess ? preprocess(value, record) : value;
-          let message: string | boolean;
-          for (const validator of validators) {
-            message = validator(preprocessedValue, record);
-            if (message) break;
-          }
-          if (typeof message === 'string' || message === true) {
-            record.errors[key] !== message && ((record as any).errors = { ...record.errors, [key]: message });
-          } else {
-            delete record.errors[key];
-            (record as any).errors = { ...record.errors };
-          }
-        }, true);
-      }
+      const { preprocess, validators, shouldCheckValidity } = validateMetadata[key];
+      observe(record, key as any, ({ newValue: value }) => {
+        if (shouldCheckValidity && !shouldCheckValidity(record)) {
+          delete record.errors[key];
+          (record as any).errors = { ...record.errors };
+          return;
+        }
+        const preprocessedValue = preprocess ? preprocess(value, record) : value;
+        let message: string | boolean;
+        for (const validator of validators) {
+          message = validator(preprocessedValue, record);
+          if (message) break;
+        }
+        if (typeof message === 'string' || message === true) {
+          record.errors[key] !== message && ((record as any).errors = { ...record.errors, [key]: message });
+        } else {
+          delete record.errors[key];
+          (record as any).errors = { ...record.errors };
+        }
+      }, true);
     });
 
     return record;

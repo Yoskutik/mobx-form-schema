@@ -2,11 +2,28 @@
 
 [![version](https://img.shields.io/npm/v/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
 [![license](https://img.shields.io/npm/l/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![downloads](https://img.shields.io/npm/dw/@yoskutik/mobx-react-mvvm)](https://www.npmjs.com/package/@yoskutik/mobx-react-mvvm)
-[![Quality](https://img.shields.io/lgtm/grade/javascript/github/Yoskutik/mobx-react-mvvm?label=Quality)](https://github.com/Yoskutik/mobx-react-mvvm)
-[![Vulnerabilities](https://img.shields.io/lgtm/alerts/github/Yoskutik/mobx-react-mvvm?label=Vulnerabilities)](https://github.com/Yoskutik/mobx-react-mvvm)
 [![codecov](https://codecov.io/gh/Yoskutik/mobx-react-mvvm/branch/master/graph/badge.svg?token=05X4P8AVXD)](https://codecov.io/gh/Yoskutik/mobx-react-mvvm)
 [![Tests](https://github.com/Yoskutik/mobx-react-mvvm/actions/workflows/tests.yml/badge.svg)](https://github.com/Yoskutik/mobx-react-mvvm/actions/workflows/tests.yml)
+
+---
+
+# Attention!
+  
+This package is **deprecated**.
+Instead, you can use new version of this package -
+[React VVM](https://www.npmjs.com/package/@yoskutik/react-vvm)
+ 
+It's lighter, works with several versions of React and MobX and most
+important - **_[it's well documented](https://yoskutik.github.io/react-vvm/)_**.
+ 
+It also doesn't have the `Model` entity, because not every React
+application needs such an entity. If you need, you can just copy the
+[source code](https://github.com/Yoskutik/mobx-react-mvvm/blob/master/src/Model.ts)
+of it.
+
+---
+
+<br/>
 
 A super lightweight React MVVM Framework based on using MobX and TSyringe.
 

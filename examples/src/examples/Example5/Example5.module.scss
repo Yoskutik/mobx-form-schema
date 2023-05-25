@@ -1,0 +1,24 @@
+.experienceBlock {
+  display: flex;
+  gap: 20px;
+
+  & > * {
+    flex: 1;
+  }
+}
+
+.addExperienceBlock {
+  margin-top: 16px;
+}
+
+.block {
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+}
+
+.blockTitle {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}

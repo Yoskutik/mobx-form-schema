@@ -1,0 +1,108 @@
+.base {
+  flex-direction: column;
+  position: relative;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+
+    &, & * {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.label {
+  margin-bottom: 4px;
+}
+
+.input {
+  border: 1px solid black;
+  padding: 4px 6px;
+  border-radius: 4px;
+
+  &.inputWithError {
+    border-color: red;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.selectDropdown {
+  box-shadow: 0 1px 4px rgba(#000, 0.25);
+  border: 1px solid black;
+  top: calc(100% + 4px);
+  position: absolute;
+  border-radius: 4px;
+  background: #fff;
+  z-index: 1;
+  width: 100%;
+
+  ul {
+    padding: 4px 0;
+    margin: 0;
+  }
+
+  li {
+    border-bottom: 1px solid black;
+    list-style: none;
+    cursor: pointer;
+    padding: 4px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: #fafafa;
+    }
+
+    &:active {
+      background: darken(#fafafa, 5%);
+    }
+  }
+}
+
+.choiceBlock {
+  margin-bottom: 6px;
+}
+
+.choiceClose {
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 2px;
+  cursor: pointer;
+  display: flex;
+  width: 18px;
+
+  &:hover {
+    background: darken(#0077be, 5%);
+  }
+}
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  background: #0077be;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  padding: 2px 4px;
+  color: #fff;
+}
+
+.checkboxField {
+  flex-direction: row;
+  align-items: center;
+
+  .label {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+    "lib": ["dom", "es2022"],
+    "jsx": "react",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": false,
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@yoskutik/mobx-react-mvvm": ["src"]
+    }
+  },
+  "include": [
+    "src",
+    "metadata.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

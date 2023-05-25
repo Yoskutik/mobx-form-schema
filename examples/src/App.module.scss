@@ -1,0 +1,24 @@
+:global html {
+  font-family: Arial;
+  line-height: 18px;
+  font-size: 14px;
+}
+
+:global * {
+  box-sizing: border-box;
+}
+
+.example {
+  align-items: flex-start;
+  margin: 20px auto;
+  max-width: 900px;
+  flex-wrap: wrap;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.form {
+  min-width: 400px;
+  flex: 1;
+}

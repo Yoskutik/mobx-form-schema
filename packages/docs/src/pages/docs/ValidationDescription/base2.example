@@ -1,0 +1,21 @@
+const schema = SignUpSchema.create();
+
+console.log(
+  schema.password, // ''
+  schema.errors,   // { password: 'The field is required' }
+  schema.isValid,  // false
+);
+
+schema.password = '1234';
+console.log(
+  schema.password, // '1234'
+  schema.errors,   // { password: 'The field is supposed to be 8 symbols at least' }
+  schema.isValid,  // false
+);
+
+schema.password = '12345678';
+console.log(
+  schema.password, // '12345678'
+  schema.errors,   // {}
+  schema.isValid,  // true
+);

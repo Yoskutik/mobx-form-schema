@@ -1,21 +1,20 @@
 import 'reflect-metadata';
+import { makeObservable } from 'mobx';
 import { createRoot } from 'react-dom/client';
-import React from 'react';
+import { PrismLight } from 'react-syntax-highlighter';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material/styles';
+import { configure } from '@yoskutik/react-vvm';
+import { App } from './layout';
 
-createRoot(document.getElementById('root')!).render(
-  <div style={{
-    position: 'fixed',
-    inset: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    fontFamily: 'Arial',
-  }}>
-    <h1>MobX Form Schema</h1>
+PrismLight.registerLanguage('tsx', tsx);
 
-    <p>
-      Right now documentation is under construction
-    </p>
-  </div>,
+configure({
+  vmFactory: VM => makeObservable(new VM()),
+});
+
+createRoot(document.getElementById('root')).render(
+  <ThemeProvider theme={responsiveFontSizes(createTheme())}>
+    <App />
+  </ThemeProvider>,
 );

@@ -31,7 +31,7 @@ export const Highlighter: FC<Props> = ({ code, sx, style, forceShowCopy, languag
   return (
     <Block sx={sx}>
       <PrismLight
-        customStyle={{ borderRadius: '0.4rem', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.1)', margin: 0, ...style }}
+        customStyle={{ borderRadius: 8, fontSize: '0.9rem', boxShadow: '0 1px 4px 0 rgba(0,0,0,0.1)', margin: 0, ...style }}
         language={language}
         style={dracula}
       >

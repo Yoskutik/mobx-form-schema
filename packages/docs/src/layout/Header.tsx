@@ -53,14 +53,13 @@ const DrawerLink: FC<Props & { onClick: () => void }> = ({ href, text, onClick }
 };
 
 const pages = [
-  { href: '/', title: 'About' },
   { href: '/getting-started', title: 'Getting started' },
   { href: '/docs', title: 'Docs' },
-  { href: '/examples', title: 'Examples' },
 ];
 
 export const Header: FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -71,8 +70,15 @@ export const Header: FC = () => {
               {isDrawerOpen ? <ChevronLeft /> : <Menu />}
             </IconButton>
           </Box>
-          <Typography component="h1" variant="h5">
-            React VVM
+          <Typography
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+            component="h1"
+            role="button"
+            tabIndex={0}
+            variant="h5"
+          >
+            MobX Form Schema
           </Typography>
           <div style={{ flex: 1 }} />
 
@@ -81,7 +87,7 @@ export const Header: FC = () => {
               <Link text={title} href={href} key={href} />
             ))}
             <IconButton
-              href="https://github.com/yoskutik/react-vvm"
+              href="https://github.com/yoskutik/mobx-form-schema"
               target="_blank"
               color="inherit"
               rel="noreferer"
@@ -101,7 +107,7 @@ export const Header: FC = () => {
             <DrawerLink text={title} href={href} key={href} onClick={() => setIsDrawerOpen(false)} />
           ))}
           <DrawerLink
-            href="https://github.com/yoskutik/react-vvm"
+            href="https://github.com/yoskutik/mobx-form-schema"
             onClick={() => setIsDrawerOpen(false)}
             text="GitHub"
           />

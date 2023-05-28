@@ -26,7 +26,7 @@ You can find the _MobX Form Schema_ documentation
 
 Just look at the short example of schema description
 
-```javascript
+```typescript
 import { FormSchema, watch, validate } from '@yoskutik/mobx-form-schema';
 import { required, minLength } from 'path/to/validators';
 
@@ -125,8 +125,8 @@ convert ISO Date string into `Date` instance.
 ## Simple presentation!
 
 Each form schema instance have its _presentation_ - an object that contains
-only data of form's fields without. It can be use ful if you want to cut off
-methods and getters of the instance.
+only data of form's fields without any utility data or methods. This object
+can be used as final presentation of your form and send to the server.
 
 But also **you can add a transformation function for each property to
 transform the presentation**. For example, you trim your strings or convert

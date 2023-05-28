@@ -1,6 +1,7 @@
 import type { FormSchema } from './FormSchema';
-import { WatchSymbol } from './symbols';
+import { WatchSymbol, InitialValuesSymbol } from './symbols';
 import { defineMetadata, getMetadata, getNewMetadata } from './utils';
+import { runInAction } from 'mobx';
 
 type TComparator = (newValue: any, oldValue: any) => boolean;
 type TObjectSaveFn = (newValue: any, schema: any) => any;
@@ -71,11 +72,12 @@ const checkSchemasEquality = (newSchema?: FormSchema, oldSchema?: FormSchema) =>
     for (const key in watchConfig) {
       const config = watchConfig[key];
 
-      if (config && config.comparator) {
-        return config.comparator(oldSchema[key], newSchema[key]);
-      }
-
-      if (oldSchema[key] !== newSchema[key]) {
+      if (
+        config.comparator ?
+          !config.comparator(newSchema[key], oldSchema[key])
+          : oldSchema[key] !== newSchema[key]
+      ) {
+        runInAction(() => newSchema[InitialValuesSymbol] = oldSchema[InitialValuesSymbol]);
         return false;
       }
     }

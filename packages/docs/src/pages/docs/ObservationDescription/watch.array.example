@@ -1,0 +1,21 @@
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+
+export class CVSchema extends FormSchema {
+  @watch.array skills = [];
+}
+
+const schema = CVFormSchema.create({
+  skills: ['JavaScript', 'HTML'],
+});
+
+console.log(schema.isChanged); // false
+
+schema.skills.push('CSS');
+console.log(schema.isChanged); // true
+
+schema.skills.pop();
+console.log(schema.isChanged); // false
+
+// The array is new, but its content the same as in initial one
+schema.skills = ['JavaScript', 'HTML'];
+console.log(schema.isChanged); // false

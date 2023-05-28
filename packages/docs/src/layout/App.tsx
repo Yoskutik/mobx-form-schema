@@ -6,7 +6,6 @@ import { Footer } from './Footer';
 
 const Home = React.lazy(() => import('@pages/home/Home'));
 const Docs = React.lazy(() => import('@pages/docs/Docs'));
-const Examples = React.lazy(() => import('@pages/examples/Examples'));
 const GettingStarted = React.lazy(() => import('@pages/getting-started/GettingStarted'));
 
 const LoadingMask: FC = () => (
@@ -38,7 +37,6 @@ export const App: FC = () => (
         <Route path="/" element={<Home />} />
         <Route path="/getting-started" element={<GettingStarted />} />
         <Route path="/docs" element={<Docs />} />
-        <Route path="/examples" element={<Examples />} />
       </Routes>
     </React.Suspense>
 

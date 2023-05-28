@@ -3,7 +3,7 @@
 _MobX Form Schema_ does not provide any validation rules out of the box, but
 you can your own.
 
-You can use `isVaid` getter to understand whether all the fields are valid.
+You can use `isValid` getter to understand whether all the fields are valid.
 
 You can use `errors` getter to get all the errors of the form.
 
@@ -313,7 +313,7 @@ schema.nested.field--;
 console.log(schema.isChanged); // false
 
 // The schema is new, but its content the same as in initial one
-schema.skills = NestedSchema.create();
+schema.nested = NestedSchema.create();
 console.log(schema.isChanged); // false
 ```
 
@@ -346,7 +346,52 @@ schema.nested[0].field--;
 console.log(schema.isChanged); // false
 
 // The array is new, but its content the same as in initial one
-schema.skills = [NestedSchema.create(), NestedSchema.create()];
+schema.nested = [NestedSchema.create(), NestedSchema.create()];
+console.log(schema.isChanged); // false
+```
+
+### More advanced observation
+
+Basically, `watch`, `watch.set`, `watch.array`, `watch.schema`
+and `watch.schemasArray` can cover most of your need. But, if 
+you need to use any non-primitive value, you can use `watch.configure`
+method to create your own decorator.
+
+> Please make sure that the need for a new decorator is justified.
+> Perhaps if you change your approach, existing decorators will be enough.
+
+The example below present observation rule for observing only the second value
+in the array. That means, that the schema will be considered changed only if
+the second value is changed.
+
+```typescript
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+
+const customDecorator = watch.configure(
+  (newValue, oldValue) => newValue[1] === oldValue[1],
+  (newValue) => newValue.slice(),
+  (newValue) => newValue.slice(),
+);
+
+export class Schema extends FormSchema {
+  @customDecorator nested: [string, number] = ['field', 0];
+}
+
+const schema = Schema.create();
+
+console.log(schema.isChanged); // false
+
+schema.nested[0] = 'other value';
+console.log(schema.isChanged); // false
+
+schema.nested[1]++;
+console.log(schema.isChanged); // true
+
+schema.nested[1]--;
+console.log(schema.isChanged); // false
+
+// The array is new, but the second item's content the same as in initial one
+schema.nested = ['', 0];
 console.log(schema.isChanged); // false
 ```
 

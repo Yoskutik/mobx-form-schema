@@ -1,0 +1,19 @@
+const schema = SignUpSchema.create();
+
+schema.password = '12345678';
+console.log(
+  schema.errors,   // { repeatedPassword: 'Your passwords are mispamatched' }
+  schema.isValid,  // false
+);
+
+schema.repeatedPassword = '12345678';
+console.log(
+  schema.errors,   // {}
+  schema.isValid,  // true
+);
+
+schema.password = 'another password';
+console.log(
+  schema.errors,   // { repeatedPassword: 'Your passwords are mispamatched' }
+  schema.isValid,  // false
+);

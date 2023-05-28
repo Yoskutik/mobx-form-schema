@@ -1,1 +1,1 @@
-export * from './ViewDescription';
+export * from './ValidationDescription';

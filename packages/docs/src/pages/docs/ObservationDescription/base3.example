@@ -1,0 +1,18 @@
+const schema = UserSchema.create({
+  name: 'Initial name',
+  surname: 'Initial surname',
+});
+
+console.log(
+  schema.isChanged,         // false
+  schema.presentation,      // { name: 'Initial name', surname: 'Initial surname' }
+),
+
+  schema.name = 'Changed name';
+console.log(
+  schema.isChanged,           // true
+  schema.getInitial('name'),  // 'Initial name'
+);
+
+schema.name = 'Initial name';
+console.log(schema.isChanged) // false

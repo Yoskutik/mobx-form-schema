@@ -16,6 +16,36 @@
   background: #e0e0e0;
   border-radius: 3px;
 }
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container--checkbox {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.input-container:not(:first-child) {
+  margin-top: 8px;
+}
+
+.input-error-message {
+  color: red;
+}
+
+input.error {
+  border-color: red;
+}
+
+.form-footer {
+  margin-top: 16px;
+}
     </style>
   </head>
   <body>

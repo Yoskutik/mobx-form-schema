@@ -5,4 +5,5 @@ export const Code = styled('code')`
   background-color: #f6f7f8;
   border-radius: 0.5rem;
   padding: 0 0.3rem;
+  white-space: pre;
 `;

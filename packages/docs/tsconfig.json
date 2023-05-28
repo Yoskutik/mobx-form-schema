@@ -28,5 +28,8 @@
   "include": [
     "src",
     "modules.d.ts"
+  ],
+  "exclude": [
+    "*.example"
   ]
 }

@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { FormSchema, watch } from '@yoskutik/mobx-react-mvvm';
-import { observable, runInAction } from 'mobx';
+import { observable, runInAction, toJS } from 'mobx';
+import { ChangedKeysSymbol, InitialValuesSymbol } from '../../src/symbols';
 
 describe('watch.schema decorator', () => {
   class Schema1 extends FormSchema {

@@ -1,0 +1,12 @@
+const schema = SignUpSchema.create();
+
+console.log(schema.errors);
+// { name: 'The field is required' }
+
+schema.wantToFillInTheName = false;
+console.log(schema.errors);
+// {}
+
+schema.email = 'not.valid.email';
+console.log(schema.errors);
+// { email: 'The email is not valid' }

@@ -1,0 +1,15 @@
+import { FormSchema, validate, watch } from '@yoskutik/mobx-form-schema';
+import { required, minLength } from 'path/to/validators';
+
+export const repeatedPassword = () => (repeatedPassword, schema) => {
+  if (repeatedPassword === schema.password) return false;
+  return 'Passwords are mismatched';
+};
+
+class SignUpSchema extends FormSchema {
+  @validate(required(), minLength(8))
+  @watch password = '';
+
+  @validate(required(), repeatedPassword())
+  @watch repeatedPassword = '';
+}

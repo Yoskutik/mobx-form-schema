@@ -29,7 +29,7 @@ export const PageBlock: FC<Props> = ({ title, description, children, forcedLevel
       </Title>
 
       {description && (
-        <Grid container gap={2} sx={{ mt: ({ 1: -2, 2: -1, 3: undefined })[level] }}>
+        <Grid container gap={2} sx={{ mt: ({ 1: -2, 2: -1, 3: undefined })[level] }} flexDirection="column">
           {typeof description === 'string' ? (
             <Typography component="p">
               {description}

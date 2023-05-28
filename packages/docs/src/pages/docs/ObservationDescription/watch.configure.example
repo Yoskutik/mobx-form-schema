@@ -1,0 +1,28 @@
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+
+const customDecorator = watch.configure(
+  (newValue, oldValue) => newValue[1] === oldValue[1],
+  (newValue) => newValue.slice(),
+  (newValue) => newValue.slice(),
+);
+
+export class Schema extends FormSchema {
+  @customDecorator nested: [string, number] = ['field', 0];
+}
+
+const schema = Schema.create();
+
+console.log(schema.isChanged); // false
+
+schema.nested[0] = 'other value';
+console.log(schema.isChanged); // false
+
+schema.nested[1]++;
+console.log(schema.isChanged); // true
+
+schema.nested[1]--;
+console.log(schema.isChanged); // false
+
+// The array is new, but the second item's content the same as in initial one
+schema.nested = ['', 0];
+console.log(schema.isChanged); // false

@@ -4,11 +4,8 @@ import { PageWithNavigationViewModel } from './PageWithNavigationViewModel';
 
 const Link = childView<PageWithNavigationViewModel>()<{ text: string, id: string }>(({ text, id, viewModel }) => (
   <Button
+    style={{ backgroundColor: viewModel.firstVisibleHeader === id ? '#f0f7ff' : undefined }}
     color={viewModel.firstVisibleHeader === id ? 'primary' : 'inherit'}
-    style={{
-      backgroundColor: viewModel.firstVisibleHeader === id ? '#f0f7ff' : undefined,
-      fontWeight: viewModel.firstVisibleHeader === id ? 'bold' : undefined,
-    }}
     sx={{
       transitionProperty: 'font-weight, background-color',
       justifyContent: 'flex-start',

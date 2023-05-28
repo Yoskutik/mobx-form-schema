@@ -1,35 +1,34 @@
-import { FC, memo } from 'react';
-import { Box, Grid, SxProps, Typography } from '@mui/material';
-import { TextLink } from '@components';
-import { Features } from './Features';
-import { Block, CodeExample } from './components';
-import { ItsFlexible } from './ItsFlexible';
-import contextExample from './InsteadContext.example';
-import separatedExample from './SeparatedLogic.example';
-import hooksExample from './Hooks.example';
+import { FC, memo, ReactNode } from 'react';
+import { Box, Card, Grid, SxProps, Typography } from '@mui/material';
+import { Block } from './components';
+
+import { ValidateIt } from './Validation/ValidateIt';
+import { ObserveIt } from './Observation/ObserveIt';
+import { InitializeIt } from './Initialization/InitializeIt';
+import { PresentIt } from './Presentation/PresentIt';
 
 const Badges: FC = () => (
   <Box sx={{ backgroundColor: 'rgba(0,0,0,0.03)' }}>
     <Grid justifyContent="center" gap={1} container sx={{ width: '1200px', m: '0 auto', p: 2, maxWidth: '100%' }}>
-      <img src="https://img.shields.io/npm/v/@yoskutik/react-vvm" alt="NPM version" />
+      <img src="https://img.shields.io/npm/v/@yoskutik/mobx-form-schema" alt="NPM version" />
       <img src="https://img.shields.io/badge/EcmaScript-v.6-blue" alt="EcmaScript 6" />
-      <img src="https://raw.githubusercontent.com/Yoskutik/react-vvm/master/badges/weight.svg" alt="Weight" />
-      <img src="https://img.shields.io/npm/l/@yoskutik/react-vvm" alt="License" />
+      <img src="https://raw.githubusercontent.com/Yoskutik/mobx-form-schema/master/badges/weight.svg" alt="Weight" />
+      <img src="https://img.shields.io/npm/l/@yoskutik/mobx-form-schema" alt="License" />
       <img
-        src="https://img.shields.io/snyk/vulnerabilities/npm/@yoskutik/react-vvm?label=Vulnerabilities"
+        src="https://img.shields.io/snyk/vulnerabilities/npm/@yoskutik/mobx-form-schema?label=Vulnerabilities"
         alt="Vulnerabilities"
       />
       <img
-        src="https://raw.githubusercontent.com/Yoskutik/react-vvm/master/badges/coverage-jest%20coverage.svg"
+        src="https://raw.githubusercontent.com/Yoskutik/mobx-form-schema/master/badges/coverage-jest%20coverage.svg"
         alt="Coverage"
       />
-      <img src="https://github.com/Yoskutik/react-vvm/actions/workflows/build.yml/badge.svg" alt="Build" />
+      <img src="https://github.com/Yoskutik/mobx-form-schema/actions/workflows/build.yml/badge.svg" alt="Build" />
     </Grid>
   </Box>
 );
 
-const Description: FC<{ children: string, sx?: SxProps }> = ({ children, sx }) => (
-  <Typography component="p" sx={{ fontSize: '1.3rem', textIndent: '3rem', textAlign: 'justify', ...sx }}>
+const Description: FC<{ children: ReactNode, sx?: SxProps }> = ({ children, sx }) => (
+  <Typography component="p" sx={{ fontSize: '1.3rem', ...sx }}>
     {children}
   </Typography>
 );
@@ -38,53 +37,53 @@ const Home: FC = memo(() => (
   <Box>
     <Badges />
     <Box>
-      <Block style={{ height: '280px', alignItems: 'center', padding: '1rem 1rem 3.2rem' }}>
+      <Block style={{ height: 220, alignItems: 'center', padding: '1rem' }}>
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h2" component="h1">
-            React VVM
+            MobX Form Schema
           </Typography>
           <Typography variant="h5" component="h2" sx={{ mt: 2 }}>
-            An implementation of MVVM for React applications with MobX
+            Organize your form simpler!
           </Typography>
         </Box>
       </Block>
 
       <Block>
-        <Box sx={{ width: '800px', padding: 4, maxWidth: '100%' }}>
+        <Card sx={{ width: '800px', p: 4, maxWidth: '100%' }}>
           <Description>
-            React VVM is a library which simplifies the usage of MobX with React by applying MVVM pattern. With this
-            package you can create views and view models and keep the logic and presentation separately.
+            Mobx Form Schema is a small library that can simplify forms developing process by providing
+            a <b>Form Schema</b> concept.
           </Description>
           <Description sx={{ mt: 2 }}>
-            The library allows you to form a strict approach to development, as well as simplify the development
-            process by taking into account the proposed approach.
+            MobX Form Schema gives you a convenient way to describe your form - its <b>validation</b>, {' '}
+            <b>presentation</b>, <b>initialization</b> and <b>observation</b>.
           </Description>
-        </Box>
+          <hr style={{ width: '60%', margin: '24px auto' }} />
+          <Description>
+            The developing process of forms may be quite repetitive - fields from different forms can
+            have same validation rules; in order to understand whether the form is changed you have
+            to manually check all the properties; etc. And <i>MobX Form Schema</i> <b>can help you with
+            it!</b>
+          </Description>
+          <Description sx={{ mt: 2 }}>
+            With <i>MobX Form Schema</i> you can:
+            <ul>
+              <li>simplify your validation;</li>
+              <li>automate changes observation;</li>
+              <li>configure form's presentation;</li>
+              <li>create rules for its initialization.</li>
+            </ul>
+          </Description>
+        </Card>
       </Block>
 
-      <Features />
-      <CodeExample
-        title="You can easily separate your business logic and user interface controls"
-        code={separatedExample}
-      />
-      <CodeExample title="You can use it instead of React Context API" code={contextExample} />
-      <CodeExample title="You can get rid of hooks" code={hooksExample} />
-      <ItsFlexible />
+      <ValidateIt />
 
-      <Block>
-        <Box sx={{ width: '1000px', padding: 4, maxWidth: '100%' }}>
-          <Typography component="h5" variant="h5">
-            And there&apos;s more!
-          </Typography>
-          <Typography component="p" sx={{ mt: 2, fontSize: '1.2rem' }}>
-            You can check the
-            <TextLink href="#/examples" text="examples page" />
-            {' '}
-            and see some other
-            <TextLink id="useful-examples" text="useful cases" />!
-          </Typography>
-        </Box>
-      </Block>
+      <ObserveIt />
+
+      <InitializeIt />
+
+      <PresentIt />
     </Box>
   </Box>
 ));

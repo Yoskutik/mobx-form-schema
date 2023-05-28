@@ -35,7 +35,6 @@ module.exports = (env, argv) => {
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
         '@pages': path.resolve(__dirname, 'src/pages'),
-        '@yoskutik/mobx-form-schema': path.resolve(__dirname, '../mobx-form-schema/src'),
       },
       extensions: ['.js', '.ts', '.tsx'],
     },

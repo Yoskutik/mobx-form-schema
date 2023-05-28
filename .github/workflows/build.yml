@@ -24,9 +24,9 @@ jobs:
           cache: 'yarn'
 
       - name: Install
-        run:
-         - yarn cache clean
-         - yarn install
+        run: |
+          yarn cache clean
+          yarn install
 
       - name: Log
         run: ls ./node_modules/@yoskutik

@@ -49,7 +49,7 @@ const Home: FC = memo(() => (
       </Block>
 
       <Block>
-        <Card sx={{ width: '800px', p: 4, maxWidth: '100%' }}>
+        <Card sx={{ width: '800px', p: 4, maxWidth: '95vw' }}>
           <Description>
             Mobx Form Schema is a small library that can simplify forms developing process by providing
             a <b>Form Schema</b> concept.

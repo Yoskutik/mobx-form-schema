@@ -17,7 +17,13 @@ type HomeBlockProps = {
 
 export const HomeBlock: FC<HomeBlockProps> = ({ title, titleActions, children }) => (
   <VFlexBox sx={{ backgroundColor: 'rgba(0, 0, 0, 0.03)', p: '32px 0' }}>
-    <Card sx={{ display: 'flex', m: '0 auto', flexDirection: 'column', maxWidth: 'min(1100px, 95vw)', p: 6 }}>
+    <Card sx={{
+      maxWidth: 'min(1100px, 95vw)',
+      flexDirection: 'column',
+      display: 'flex',
+      m: '0 auto',
+      p: { xs: 2, sm: 4, md: 6 },
+    }}>
       <HFlexBox flexWrap="wrap">
         <Typography variant="h2" sx={{ mr: 3 }}>
           {title}

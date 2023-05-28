@@ -8,7 +8,7 @@
   "scripts": {
     "pub": "yarn --cwd packages/mobx-form-schema pub && cp packages/mobx-form-schema/README.md README.md",
     "lint": "yarn --cwd packages/mobx-form-schema lint",
-    "build": "yarn --cwd packages/docs build",
+    "build": "yarn --cwd packages/mobx-form-schema build && yarn --cwd packages/docs build",
     "start": "yarn --cwd packages/docs start"
   },
   "bugs": {

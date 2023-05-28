@@ -43,7 +43,7 @@ const Home: FC = memo(() => (
             MobX Form Schema
           </Typography>
           <Typography variant="h5" component="h2" sx={{ mt: 2 }}>
-            Organize your form simpler!
+            The simple way to organize you forms!
           </Typography>
         </Box>
       </Block>

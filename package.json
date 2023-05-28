@@ -2,8 +2,13 @@
   "name": "@yoskutik/mobx-form-schema-monorepo",
   "version": "0.1.0",
   "private": true,
-  "description": "",
-  "keywords": [],
+  "description": "The simple way to organize you forms!",
+  "keywords": [
+    "forms",
+    "validation",
+    "mobx",
+    "decorator"
+  ],
   "homepage": "https://yoskutik.github.io/mobx-form-schema",
   "scripts": {
     "pub": "yarn --cwd packages/mobx-form-schema pub && cp packages/mobx-form-schema/README.md README.md",

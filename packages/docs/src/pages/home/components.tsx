@@ -1,6 +1,6 @@
 import { Box, Card, styled, Typography } from '@mui/material';
 import { FC, ReactNode } from 'react';
-import { Highlighter, VFlexBox } from '@components';
+import { HFlexBox, Highlighter, VFlexBox } from '@components';
 
 export const Block = styled(Box)`
   background-color: rgba(0, 0, 0, 0.03);
@@ -18,13 +18,13 @@ type HomeBlockProps = {
 export const HomeBlock: FC<HomeBlockProps> = ({ title, titleActions, children }) => (
   <VFlexBox sx={{ backgroundColor: 'rgba(0, 0, 0, 0.03)', p: '32px 0' }}>
     <Card sx={{ display: 'flex', m: '0 auto', flexDirection: 'column', maxWidth: 'min(1100px, 95vw)', p: 6 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <HFlexBox flexWrap="wrap">
         <Typography variant="h2" sx={{ mr: 3 }}>
           {title}
         </Typography>
 
         {titleActions}
-      </Box>
+      </HFlexBox>
 
       {children}
     </Card>

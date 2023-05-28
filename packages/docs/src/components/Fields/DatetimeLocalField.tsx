@@ -1,3 +1,5 @@
+// Shared file
+
 import React, { ComponentProps } from 'react';
 import { FormSchema } from '@yoskutik/mobx-form-schema';
 import { observer } from 'mobx-react';

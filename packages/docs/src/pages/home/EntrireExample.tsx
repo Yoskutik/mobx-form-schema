@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useState, MouseEvent } from 'react';
 import { Box, styled } from '@mui/material';
 import { Highlighter, VFlexBox } from '@components';
 
@@ -18,6 +18,19 @@ const FileTab = styled('div')`
   &.active {
     background: rgba(255, 255, 255, 0.2);
     border-color: white;
+  }
+`;
+
+const FileTabContainer = styled(Box)`
+  display: flex;
+  padding: 16px 16px 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
   }
 `;
 
@@ -70,31 +83,46 @@ const Block = styled(Box)`
   }
 `;
 
+type TFile = {
+  code: string;
+  filename: string;
+};
+
 type Props = {
-  items: Array<{
-    code: string;
-    filename: string;
-  }>;
+  items: TFile[];
   children: ReactNode;
 };
 
 export const EntireExample: FC<Props> = ({ items, children }) => {
   const [chosenItem, setChosenItem] = useState(items[0]);
 
+  const createFileTabHandler = (it: TFile) => (evt: MouseEvent) => {
+    setChosenItem(it);
+
+    const target = evt.target as HTMLDivElement;
+    const parent = target.parentElement as HTMLDivElement;
+    console.log(target.offsetLeft - parent.offsetLeft);
+
+    parent.scroll({
+      left: target.offsetLeft - parent.offsetLeft - 50,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <Block>
       <VFlexBox sx={{ background: 'rgb(40, 42, 54)', overflow: 'hidden', flex: 1 }}>
-        <Box sx={{ display: 'flex', p: '16px 16px 0 16px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+        <FileTabContainer>
           {items.map(it => (
             <FileTab
               className={it === chosenItem ? 'active' : undefined}
-              onClick={() => setChosenItem(it)}
+              onClick={createFileTabHandler(it)}
               key={it.filename}
             >
               {it.filename}
             </FileTab>
           ))}
-        </Box>
+        </FileTabContainer>
         <Highlighter code={chosenItem.code} style={{ height: 400, minHeight: '100%' }} sx={{ flex: 1 }} />
       </VFlexBox>
 

@@ -7,8 +7,8 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export const Button = styled('button')<Props>`
   padding: ${props => props.size === 'm' ? '4px 8px' : '2px 4px'};
-  
-  &:not(:first-child) {
+
+  &:not(:first-of-type) {
     margin-left: 8px;
   }
 `;

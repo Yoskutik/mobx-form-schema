@@ -27,8 +27,8 @@
   }
 `,I=(0,i.childView)()((0,s.forwardRef)(({text:e,variant:n,sx:t,viewModel:o,children:i},a)=>{let{title:l}=H(),c=(0,s.useRef)(),d=(0,s.useRef)(),p=a||c;return(0,s.useLayoutEffect)(()=>{let e=[],t=l;for(;null==t?void 0:t.ref.current;)e.unshift(t.ref.current.textContent),t=t.parent;e.push(p.current.textContent),d.current=e.join(".").toLowerCase().replace(/ /g,"-").replace(/[^a-z-.]/g,""),o.addHeader(d.current,+n.slice(-1)-3,p.current);let r=new IntersectionObserver(e=>{o.toggleHeaderVisibility(d.current,e[0].intersectionRatio>0)},{rootMargin:"-64px 0px 0px 0px"}),i=p.current;return r.observe(i),()=>r.unobserve(i)},[]),(0,r.jsxs)(Z,Object.assign({sx:Object.assign({padding:"4px 8px",ml:-1},t),ref:p},{children:[(0,r.jsx)("img",{alt:"",src:T(),width:18,height:18,onClick:()=>{let e=location.hash.split("?")[0];location.hash=`${e}?heading=${d.current}`,o.scrollToHeading(d.current)}}),(0,r.jsx)(S.Z,Object.assign({component:n,variant:n},{children:null!=e?e:i}))]}))})),R=({title:e,description:n,children:t,forcedLevel:i})=>{let{level:a,title:l}=H(i),c=(0,s.useRef)();return(0,r.jsxs)(o.ZP,Object.assign({container:!0,gap:{1:4,2:3,3:2}[a],direction:"column"},{children:[(0,r.jsx)(I,Object.assign({variant:`h${a+2}`,ref:c},{children:e})),n&&(0,r.jsx)(o.ZP,Object.assign({container:!0,gap:2,sx:{mt:{1:-2,2:-1,3:void 0}[a]},flexDirection:"column"},{children:"string"==typeof n?(0,r.jsx)(S.Z,Object.assign({component:"p"},{children:n})):n})),(0,r.jsx)(E,Object.assign({value:{level:a+1,title:{parent:l,ref:c}}},{children:t}))]}))},L=(0,P.ZP)("button")`
   padding: ${e=>"m"===e.size?"4px 8px":"2px 4px"};
-  
-  &:not(:first-child) {
+
+  &:not(:first-of-type) {
     margin-left: 8px;
   }
 `;L.defaultProps={type:"button",size:"m"};let A=(0,P.ZP)("code")`

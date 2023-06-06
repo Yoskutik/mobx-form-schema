@@ -1,8 +1,8 @@
 // Shared file
 
-import React, { FC, InputHTMLAttributes, useEffect, useRef, useState } from 'react';
+import React, { FC, ComponentProps, useEffect, useRef, useState } from 'react';
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = ComponentProps<'input'> & {
   label?: string;
   error?: string | boolean;
 };

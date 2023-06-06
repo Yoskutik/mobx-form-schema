@@ -1,4 +1,4 @@
-import { FormSchema, validate, watch } from '@yoskutik/mobx-form-schema';
+import { FormSchema, presentation, validate, watch } from '@yoskutik/mobx-form-schema';
 import { email, minLength, required } from '@utils';
 
 const repeatedPassword = () => (password: string, record: SignUpSchema) => {
@@ -19,6 +19,7 @@ export class SignUpSchema extends FormSchema {
   @validate(required(), minLength(8))
   @watch password = '';
 
+  @presentation(() => undefined)
   @validate(required(), repeatedPassword())
   @watch repeatedPassword = '';
 }

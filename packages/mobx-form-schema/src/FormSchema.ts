@@ -50,7 +50,7 @@ export class FormSchema {
    *
    * @see {@link factory}
    */
-  static create<T extends FormSchema>(this: Constructable<T>, data: Record<string | symbol, any> = {}): T {
+  static create<T extends FormSchema>(this: Constructable<T>, data: ChildProps<T, any> = {}): T {
     const record = new this(data);
 
     if (!isObservable(record)) {

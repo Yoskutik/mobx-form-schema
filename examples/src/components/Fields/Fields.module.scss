@@ -1,7 +1,5 @@
 .base {
-  flex-direction: column;
   position: relative;
-  display: flex;
 
   &:not(:last-child) {
     margin-bottom: 16px;

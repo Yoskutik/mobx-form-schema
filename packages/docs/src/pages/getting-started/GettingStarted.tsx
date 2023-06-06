@@ -51,11 +51,12 @@ const GettingStarted: FC = memo(() => (
       title="Examples"
       description={(
         <Typography component="p">
-          You can also see a small example of using MobX Form Schema in React application in
+          You can also see a complete example of all using MobX Form Schema features in React
+          application in
           <TextLink
             href="https://github.com/Yoskutik/mobx-form-schema/tree/master/examples"
             text="this repository"
-          />
+          />.
         </Typography>
       )}
     />

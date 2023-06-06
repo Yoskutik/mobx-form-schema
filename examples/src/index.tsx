@@ -7,6 +7,7 @@ import { Example2 } from './examples/Example2/Example2';
 import { Example3 } from './examples/Example3/Example3';
 import { Example4 } from './examples/Example4/Example4';
 import { Example5 } from './examples/Example5/Example5';
+import { Example6 } from './examples/Example6/Example6';
 
 const App = () => (
   <>
@@ -19,6 +20,8 @@ const App = () => (
     <Example4 />
     <hr style={{ margin: '16px 0' }} />
     <Example5 />
+    <hr style={{ margin: '16px 0' }} />
+    <Example6 />
   </>
 );
 

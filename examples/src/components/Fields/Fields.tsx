@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { action } from 'mobx';
 
 import styles from './Fields.module.scss';
+import { VBox } from '../Boxes/Boxes';
 
 type BaseInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -58,7 +59,7 @@ const BaseField: FC<FieldWrapperProps> = ({
   };
 
   return (
-    <div className={clsx(styles.base, baseClassName, props.disabled && styles.disabled)}>
+    <VBox className={clsx(styles.base, baseClassName, props.disabled && styles.disabled)}>
       {typeof label === 'string' ? (
         <label className={styles.label} htmlFor={id}>
           {label}
@@ -81,7 +82,7 @@ const BaseField: FC<FieldWrapperProps> = ({
           {error}
         </span>
       )}
-    </div>
+    </VBox>
   );
 };
 
@@ -187,7 +188,7 @@ export const ChoiceField = observer(
     const itemsAsArray = [...items];
 
     return (
-      <div className={styles.base}>
+      <VBox className={styles.base}>
         {itemsAsArray.length > 0 && (
           <div className={styles.choiceBlock}>
             {itemsAsArray.map((it, i) => (
@@ -206,7 +207,7 @@ export const ChoiceField = observer(
           value={value}
           name={field}
         />
-      </div>
+      </VBox>
     );
   },
 );

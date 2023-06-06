@@ -9,13 +9,21 @@
 }
 
 .example {
-  align-items: flex-start;
   margin: 20px auto;
   max-width: 900px;
-  flex-wrap: wrap;
   padding: 20px;
+}
+
+.exampleContent {
+  align-items: flex-start;
+  margin-top: 8px;
+  flex-wrap: wrap;
   display: flex;
   gap: 20px;
+}
+
+.mb8 {
+  margin-bottom: 8px;
 }
 
 .form {

@@ -39,7 +39,7 @@ module.exports = (env, argv) => {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[hash:base64:5]',
+                localIdentName: '[hash:base64:4]',
               }
             }
           },

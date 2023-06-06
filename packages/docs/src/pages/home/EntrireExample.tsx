@@ -101,7 +101,6 @@ export const EntireExample: FC<Props> = ({ items, children }) => {
 
     const target = evt.target as HTMLDivElement;
     const parent = target.parentElement as HTMLDivElement;
-    console.log(target.offsetLeft - parent.offsetLeft);
 
     parent.scroll({
       left: target.offsetLeft - parent.offsetLeft - 50,

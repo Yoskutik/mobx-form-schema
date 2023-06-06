@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { view, ViewModel } from '@yoskutik/react-vvm';
 import { action, makeObservable, observable } from 'mobx';
@@ -111,7 +112,8 @@ const NestedSchemasDescription = () => (
 class ObserveItViewModel extends ViewModel {
   @observable toggleValue: 'basic' | 'predefined' | 'sets-n-arrays' | 'nested-schemas' = 'basic';
 
-  @action handleToggleChange = (_evt: React.MouseEvent, value: this['toggleValue']) => {
+  @action handleToggleChange = (_evt: MouseEvent, value: this['toggleValue']) => {
+    if (!value) return;
     this.toggleValue = value;
   }
 

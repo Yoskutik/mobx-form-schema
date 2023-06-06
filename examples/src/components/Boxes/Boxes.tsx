@@ -7,29 +7,29 @@ type Props = ComponentProps<'div'> & {
   justifyContent?:  'start' | 'center' | 'end';
 };
 
-export const HBox: FC<Props> = (props) => (
+export const HBox: FC<Props> = ({ alignItems, justifyContent, className, ...props }) => (
   <div
     {...props}
     className={
       clsx(
-        props.className,
+        className,
         styles.hbox,
-        props.alignItems && styles[`align-${props.alignItems}`],
-        props.justifyContent && styles[`justify-${props.justifyContent}`],
+        alignItems && styles[`align-${alignItems}`],
+        justifyContent && styles[`justify-${justifyContent}`],
       )
     }
   />
 );
 
-export const VBox: FC<Props> = (props) => (
+export const VBox: FC<Props> = ({ alignItems, justifyContent, className, ...props }) => (
   <div
     {...props}
     className={
       clsx(
-        props.className,
+        className,
         styles.vbox,
-        props.alignItems && styles[`align-${props.alignItems}`],
-        props.justifyContent && styles[`justify-${props.justifyContent}`],
+        alignItems && styles[`align-${alignItems}`],
+        justifyContent && styles[`justify-${justifyContent}`],
       )
     }
   />

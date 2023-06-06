@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { ButtonFooter, SchemaInformer, TextField } from '@components';
+import { ButtonFooter, SchemaInformer, TextField, Title, VBox } from '@components';
 import { useFormSchema } from '@utils';
 
 import styles from '../../App.module.scss';
@@ -17,16 +17,35 @@ export const Example2 = observer(() => {
   };
 
   return (
-    <div className={styles.example}>
-      <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
-        <TextField schema={schema} field="name" label="Name" />
-        <TextField schema={schema} field="surname" label="Surname" />
-        <TextField schema={schema} field="email" label="Email"/>
-        <TextField schema={schema} field="password" label="Password" type="password" />
-        <TextField schema={schema} field="repeatedPassword" label="Repeat password" type="password" />
-        <ButtonFooter schema={schema} />
-      </form>
-      <SchemaInformer schema={schema} />
-    </div>
+    <VBox className={styles.example}>
+      <Title variant="h2" className={styles.mb8}>
+        #2 Advanced validation
+      </Title>
+
+      <p className={styles.mb8}>
+        Things become a bit complex now. Every field beside <b>E-mail</b> are required to
+        fill. But if a user type anything into <b>E-mail</b> field, it should be
+        validated to be a valid email address. Also, <b>Password</b> must be at least 8
+        characters, and <b>Repeated password</b> must match the Password's value.
+      </p>
+
+      <p className={styles.mb8}>
+        The <b>Repeated password</b> is the real field for the user, but backend doesn't
+        need it to be in the request's body. So, we add a <i>presentation</i> of
+        the <b>Repeated password</b> field to remove it from schema's presentation.
+      </p>
+
+      <div className={styles.exampleContent}>
+        <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
+          <TextField schema={schema} field="name" label="Name" />
+          <TextField schema={schema} field="surname" label="Surname" />
+          <TextField schema={schema} field="email" label="Email"/>
+          <TextField schema={schema} field="password" label="Password" type="password" />
+          <TextField schema={schema} field="repeatedPassword" label="Repeat password" type="password" />
+          <ButtonFooter schema={schema} submit />
+        </form>
+        <SchemaInformer schema={schema} />
+      </div>
+    </VBox>
   );
 });

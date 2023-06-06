@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ComponentProps } from 'react';
 import { styled } from '@mui/material';
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = ComponentProps<'button'> & {
   size?: 'm' | 's';
 }
 

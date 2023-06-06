@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { action, makeObservable, observable } from 'mobx';
 import { view, ViewModel } from '@yoskutik/react-vvm';
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
@@ -81,7 +82,8 @@ const ConditionalDescription = () => (
 class ValidateItViewModel extends ViewModel {
   @observable toggleValue: 'simple' | 'advanced' | 'conditional' = 'simple';
 
-  @action handleToggleChange = (_evt: React.MouseEvent, value: this['toggleValue']) => {
+  @action handleToggleChange = (_evt: MouseEvent, value: this['toggleValue']) => {
+    if (!value) return;
     this.toggleValue = value;
   }
 

@@ -1,6 +1,13 @@
 .buttons {
-  align-items: center;
   margin-top: 24px;
-  display: flex;
   gap: 16px;
+
+  &.size--s {
+    margin-top: 0;
+  }
+}
+
+.label {
+  font-weight: 300;
+  font-size: 13px;
 }

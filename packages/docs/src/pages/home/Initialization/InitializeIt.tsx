@@ -47,6 +47,7 @@ class InitializeItViewModel extends ViewModel {
   @observable toggleValue: 'default' | 'with-transform' = 'default';
 
   @action handleToggleChange = (_evt: React.MouseEvent, value: this['toggleValue']) => {
+    if (!value) return;
     this.toggleValue = value;
   }
 

@@ -16,7 +16,7 @@ const Block = styled(Box)`
 type Props = {
   code: string;
   forceShowCopy?: boolean;
-  language?: string
+  language?: 'tsx' | 'json' | 'bash';
   style?: CSSProperties;
   sx?: SxProps;
 };

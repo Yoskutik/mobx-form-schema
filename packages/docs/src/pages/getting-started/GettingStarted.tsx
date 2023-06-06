@@ -1,8 +1,8 @@
 import { FC, memo } from 'react';
 import { Typography } from '@mui/material';
 import { Code, Highlighter, PageBlock, PageWithNavigation, TextLink } from '@components';
-import preparationExample from './Preparation.example';
-import webpackExample from './WebpackIgnoreWarning.example';
+import tsconfigExample from './tsconfig.json.example';
+import reflectExample from './reflect.example';
 
 const InstallBlock: FC<{ title: string, code: string }> = ({ title, code }) => (
   <PageBlock title={title}>
@@ -43,6 +43,26 @@ const GettingStarted: FC = memo(() => (
             <TextLink href="#/" text="visit the home page" /> to
             see some usage examples.
           </Typography>
+        </>
+      )}
+    />
+
+    <PageBlock
+      title="Enabling decorators"
+      description={(
+        <>
+          <Typography component="p">
+            For now MobX Form Schema only capable with TypeScript's legacy decorators. To enable
+            them, you must update your <b>tsconfig.json</b> file:
+          </Typography>
+
+          <Highlighter language="json" code={tsconfigExample} />
+
+          <Typography component="p">
+            Also, you have to import <Code>reflect-medata</Code> package in your main entry point.
+          </Typography>
+
+          <Highlighter code={reflectExample} />
         </>
       )}
     />

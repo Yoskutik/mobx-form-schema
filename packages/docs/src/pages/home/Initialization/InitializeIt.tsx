@@ -25,6 +25,13 @@ const DefaultDescription = () => (
       In your schema you can set default values for your fields. And also you can pass
       the data into <Code>create</Code> static method.
     </Typography>
+
+    <Typography component="p" sx={{ mt: 2 }}>
+      By the way, you don't have to call <Code>makeObservable</Code> function in the
+      constructor of the schema, because it will be called in the <Code>create</Code> static
+      method. But if you have to call it, for example to create reaction in the constructor,
+      you can safely to it - there will be no errors.
+    </Typography>
   </>
 );
 

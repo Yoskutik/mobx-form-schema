@@ -65,15 +65,15 @@ const Home: FC = memo(() => (
             to manually check all the properties; etc. And <i>MobX Form Schema</i> <b>can help you with
             it!</b>
           </Description>
-          <Description sx={{ mt: 2 }}>
+          <Box sx={{ fontSize: '1.3rem', mt: 2 }}>
             With <i>MobX Form Schema</i> you can:
-            <ul>
+            <ul style={{ marginTop: 8 }}>
               <li>simplify your validation;</li>
               <li>automate changes observation;</li>
               <li>configure form's presentation;</li>
               <li>create rules for its initialization.</li>
             </ul>
-          </Description>
+          </Box>
         </Card>
       </Block>
 

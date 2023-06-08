@@ -52,7 +52,7 @@ export const ChoiceField = observer(
         {itemsAsArray.length > 0 && (
           <div>
             {itemsAsArray.map((it, i) => (
-              <span key={it}>
+              <span key={it} style={{ marginRight: 4 }}>
                 {it}
                 <Button size="s" onClick={() => remove(it, i)}>
                   x

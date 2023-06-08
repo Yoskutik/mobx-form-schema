@@ -23,26 +23,16 @@ const BasicDescription = () => (
   <>
     <Typography component="p" sx={{ mt: 4 }}>
       With <i>MobX Form Schema</i> you can <b>understand whether the content of your
-      form is changed</b>. It can be useful, if you want to disable submit ability
-      if the form is not changed.
-    </Typography>
-
-    <Typography component="p" sx={{ mt: 2 }}>
-      Simply apply <Code>@watch</Code> decorator to the fields you want to observe
-      for changes.
+      form is changed</b>. It can be useful, if you want to disable submit availability
+      if the form is not changed. Simply apply <Code>@watch</Code> decorator to the
+      fields you want to observe for changes.
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
       By the way, if you use <Code>@watch</Code>, the <Code>@observable</Code> will
       be applied automatically, so you don't need to use them both. But if you
-      want to use any other observable modifier you must apply it
-      explicitly, like so: <Code>@watch @observable.ref</Code>.
-    </Typography>
-
-    <Typography component="p" sx={{ mt: 2 }}>
-      And also you don't have to call <Code>makeObservable</Code> in each of your
-      schemas - it'll be called inside <Code>create</Code> method. But if you have
-      to create some reactions inside schema's constructor, you can safely use it.
+      want to use any other observable modifier you must apply it explicitly, like
+      so: <Code>@watch @observable.ref</Code>.
     </Typography>
   </>
 );
@@ -55,9 +45,9 @@ const PredefinedDescription = () => (
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
-      In fact, with <Code>@watch</Code> decorator you can also restore your form into
-      the initial state or save the current state as the initial - you can try using
-      "Save" and "Restore" buttons in the example below.
+      Also, with <Code>@watch</Code> decorator you can also restore your form into
+      the initial state or save the current state as the initial - you can try
+      clicking "Save" and "Restore" buttons in the example below.
     </Typography>
   </>
 );
@@ -67,11 +57,7 @@ const SetsNArraysDescription = () => (
     <Typography component="p" sx={{ mt: 4 }}>
       You can observe not only primitive values, but also <b>sets or arrays</b> of
       primitive values. It can be useful, if you have fields for choosing several
-      items.
-    </Typography>
-
-    <Typography component="p" sx={{ mt: 2 }}>
-      Simply apply <Code>@watch.set</Code> or <Code>@watch.array</Code> decorator
+      items. Simply apply <Code>@watch.set</Code> or <Code>@watch.array</Code> decorator
       to enable set or array observation.
     </Typography>
 

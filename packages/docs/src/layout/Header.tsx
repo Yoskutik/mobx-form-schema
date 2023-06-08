@@ -1,6 +1,18 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import {
-  AppBar, Box, Button, Toolbar, Typography, IconButton, Theme, Drawer, ListItem, ListItemText, List, ListItemButton,
+  AppBar,
+  Box,
+  Button,
+  Toolbar,
+  Typography,
+  IconButton,
+  Theme,
+  Drawer,
+  ListItem,
+  ListItemText,
+  List,
+  ListItemButton,
+  styled,
 } from '@mui/material';
 import { GitHub, Menu, ChevronLeft } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -52,6 +64,28 @@ const DrawerLink: FC<Props & { onClick: () => void }> = ({ href, text, onClick }
   );
 };
 
+const StyledAppBar = styled(AppBar)`
+  transition-property: background-color, border-radius, margin, top, height, width;
+  z-index: ${({ theme }) => theme.zIndex.drawer + 1 };
+  transition-duration: 0.2s;
+  height: 64px;
+  top: 0;
+
+  &.detached {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fff;
+    background-color: rgb(245, 245, 245, 0.95);
+    width: calc(100% - 20px);
+    border-radius: 8px;
+    margin: 0 10px;
+    height: 54px;
+    top: 5px;
+  }
+
+  .MuiToolbar-root {
+    min-height: 100%;
+  }
+`;
+
 const pages = [
   { href: '/getting-started', title: 'Getting started' },
   { href: '/docs', title: 'Docs' },
@@ -59,11 +93,24 @@ const pages = [
 
 export const Header: FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDetached, setIsDetached] = useState(false);
   const navigate = useNavigate();
+  const detachedRef = useRef(isDetached);
+  detachedRef.current = isDetached;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const shouldBeDetached = document.body.parentElement.scrollTop > 5;
+      detachedRef.current !== shouldBeDetached && setIsDetached(shouldBeDetached);
+    };
+
+    document.addEventListener('scroll', handleScroll);
+    return () => document.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <AppBar color="default" position="sticky" sx={{ zIndex: theme => theme.zIndex.drawer + 1, top: 0 }}>
+      <StyledAppBar color="default" position="sticky" className={isDetached && !isDrawerOpen ? 'detached' : undefined}>
         <Toolbar>
           <Box sx={{ display: { xs: 'block', sm: 'none' }, mr: 1 }}>
             <IconButton onClick={() => setIsDrawerOpen(v => !v)}>
@@ -98,7 +145,7 @@ export const Header: FC = () => {
             </IconButton>
           </Box>
         </Toolbar>
-      </AppBar>
+      </StyledAppBar>
 
       <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} disableScrollLock>
         <Toolbar />

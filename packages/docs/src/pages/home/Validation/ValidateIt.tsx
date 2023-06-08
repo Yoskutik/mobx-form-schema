@@ -21,13 +21,13 @@ import ValidatorsSource from 'source-loader!./validators';
 const SimpleDescription = () => (
   <>
     <Typography component="p" sx={{ mt: 4 }}>
-      You can easy <b>apply any validation function</b> to any of your form fields - just
+      You can easily <b>apply any validation function</b> to any field of your form - just
       use <Code>@validate</Code> decorator. You can also apply <b>several functions</b> in
-      order to get different error messages for different validation errors.
+      order to get different error messages for different validation rules.
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
-      And you can easily <b>access the errors</b> of the form and <b>understand whether the
+      You can not only <b>access the error messages</b> but also <b>understand whether the
       entire form is valid</b> or not.
     </Typography>
 
@@ -45,14 +45,15 @@ const SimpleDescription = () => (
 const AdvancedDescription = () => (
   <>
     <Typography component="p" sx={{ mt: 4 }}>
-      Inside a validation function you can use not only current value of the field, but
-      also <b>entire schema as well</b>. It is useful if the validation is depends on
+      Inside a validation function you can use not just the current value, but actually
+      also <b>entire form as well</b>. It is useful if the validation is depends on
       other field's value. For example, if you want to make sure that repeated password
       is equal to the original one.
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
-      And it completely automatic as well.
+      And it completely automatic as well. In the passwords example the validation will
+      be applied whenever the password or repeated password is changed.
     </Typography>
   </>
 );
@@ -67,10 +68,10 @@ const ConditionalDescription = () => (
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
-      And you can also <b>make the condition based on entire schema</b> as well. It can be
+      And you can also <b>make the condition based on any other field</b> as well. It can be
       useful, if the condition is based on some other properties of your form. Just as it
       works in the example below - the validation for <Code>name</Code> field will be
-      applied only <i>What to share name</i> checkbox is active.
+      applied only when <i>"What to share name"</i> checkbox is checked.
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>

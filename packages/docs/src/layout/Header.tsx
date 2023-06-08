@@ -65,7 +65,7 @@ const DrawerLink: FC<Props & { onClick: () => void }> = ({ href, text, onClick }
 };
 
 const StyledAppBar = styled(AppBar)`
-  transition-property: background-color, border-radius, margin, top, height, width;
+  transition-property: background-color, border-radius, margin, top, height, width, backdrop-filter;
   z-index: ${({ theme }) => theme.zIndex.drawer + 1 };
   transition-duration: 0.2s;
   height: 64px;
@@ -73,7 +73,8 @@ const StyledAppBar = styled(AppBar)`
 
   &.detached {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fff;
-    background-color: rgb(245, 245, 245, 0.95);
+    background-color: rgb(245, 245, 245, 0.8);
+    backdrop-filter: blur(3px);
     width: calc(100% - 20px);
     border-radius: 8px;
     margin: 0 10px;

@@ -1,16 +1,16 @@
-import { FormSchema, validate, watch } from '@yoskutik/mobx-form-schema';
-import { required } from 'path/to/validators';
+import { FormSchema, validate } from '@yoskutik/mobx-form-schema';
+import { observable } from 'mobx';
+import { required, email } from 'path/to/validators';
 
-const shouldValidateName = (_, schema: SignUpSchema) => (
-  schema.wantToFillInTheName
-);
+const shouldValidateName = (_name: string, schema: SignUpSchema) =>
+  schema.wantToShareName;
 
 class SignUpSchema extends FormSchema {
-  @validate(email()).if(email => !!email) // or simply `.if(Boolean)`
-  @watch email = '';
+  @validate(email()).if(Boolean) // or .if((email) => !!email)
+  @observable email = '';
 
-  @validate(required()).if(shouldValidateName) // or simply `.if(Boolean)`
-  @watch name = '';
+  @validate(required()).if(shouldValidateName)
+  @observable name = '';
 
-  @watch wantToFillInTheName = true;
+  @observable wantToShareName = true;
 }

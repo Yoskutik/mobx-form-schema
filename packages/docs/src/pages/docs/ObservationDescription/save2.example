@@ -1,0 +1,36 @@
+const schema = UserSchema.create({
+  name: 'Dmitrii Aleksandrovich',
+  skills: ['JS', 'CSS', 'HTML'],
+  contacts: UserContactsSchema.create({
+    email: 'yoskutik@gmail.com',
+    github: 'https://github.com/Yoskutik',
+  }),
+});
+
+schema.name = 'Dmitrii';
+schema.skills.pop();
+schema.contacts.email = 'intruder@malicious.com';
+
+console.log(schema.isChanged);                    // true
+console.log(schema.getInitial('name'));           // 'Dmitrii Aleksandrovich'
+console.log(schema.getInitial('skills'));         // ['JS', 'CSS', 'HTML']
+console.log(schema.getInitial('contacts').email); // 'yoskutik@gmail.com'
+
+// Resetting schema into initial state
+schema.reset();
+console.log(schema.isChanged);                    // false
+console.log(schema.name);                         // 'Dmitrii Aleksandrovich'
+console.log(schema.skills);                       // ['JS', 'CSS', 'HTML']
+console.log(schema.contacts.email);               // 'yoskutik@gmail.com'
+
+schema.name = 'Dmitrii';
+schema.skills.pop();
+schema.contacts.email = 'intruder@malicious.com';
+console.log(schema.isChanged);                    // true
+
+// Saving current state as the initial
+schema.sync();
+console.log(schema.isChanged);                    // false
+console.log(schema.getInitial('name'));           // 'Dmitrii'
+console.log(schema.getInitial('skills'));         // ['JS', 'CSS']
+console.log(schema.getInitial('contacts').email); // 'intruder@malicious.com'

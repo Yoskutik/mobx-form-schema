@@ -10,7 +10,8 @@ export const email = () => (value: string) => {
   return 'Invalid email format';
 };
 
-export const minLength = (n: number) => (value: string) => {
-  if (value.length >= n) return false;
-  return `The value should be at least ${n} symbols`;
+export const lengthBetween = (min: number, max: number) => (value: string) => {
+  if (value.length >= min && value.length <= max) return false;
+  if (value.length < min) return `Should be longer than ${min} characters`;
+  return `Should be shorter than ${max} characters`;
 };

@@ -65,26 +65,9 @@ const DrawerLink: FC<Props & { onClick: () => void }> = ({ href, text, onClick }
 };
 
 const StyledAppBar = styled(AppBar)`
-  transition-property: background-color, border-radius, margin, top, height, width, backdrop-filter;
   z-index: ${({ theme }) => theme.zIndex.drawer + 1 };
-  transition-duration: 0.2s;
   height: 64px;
   top: 0;
-
-  &.detached {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fff;
-    background-color: rgb(245, 245, 245, 0.8);
-    backdrop-filter: blur(3px);
-    width: calc(100% - 20px);
-    border-radius: 8px;
-    margin: 0 10px;
-    height: 54px;
-    top: 5px;
-  }
-
-  .MuiToolbar-root {
-    min-height: 100%;
-  }
 `;
 
 const pages = [
@@ -94,24 +77,11 @@ const pages = [
 
 export const Header: FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isDetached, setIsDetached] = useState(false);
   const navigate = useNavigate();
-  const detachedRef = useRef(isDetached);
-  detachedRef.current = isDetached;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const shouldBeDetached = document.body.parentElement.scrollTop > 5;
-      detachedRef.current !== shouldBeDetached && setIsDetached(shouldBeDetached);
-    };
-
-    document.addEventListener('scroll', handleScroll);
-    return () => document.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <>
-      <StyledAppBar color="default" position="sticky" className={isDetached && !isDrawerOpen ? 'detached' : undefined}>
+      <StyledAppBar color="default" position="sticky">
         <Toolbar>
           <Box sx={{ display: { xs: 'block', sm: 'none' }, mr: 1 }}>
             <IconButton onClick={() => setIsDrawerOpen(v => !v)}>

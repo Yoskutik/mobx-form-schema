@@ -1,25 +1,16 @@
-import { presentation, FormSchema } from '@yoskutik/mobx-form-schema';
-import { format } from 'date-fns';
+import { FormSchema, factory } from '@yoskutik/mobx-form-schema';
 
 export class Schema extends FormSchema {
-  @presentation(value => value.trim())
-  description = '  Description  ';
+  @factory(schema => new Date(schema.data))
+  realDate: Date;
 
-  @presentation(value => format(value, 'yyyy-MM'))
-  month = new Date();
-
-  name = 'Name';
+  stringDate: string;
 }
 
-const schema = Schema.create();
-console.log(schema.presentation);
-// {
-//   description: 'Description',
-//   month: '2023-05',
-//   name: 'Name',
-// }
+const schema = Schema.create({
+  realDate: '2023-05-25T10:00:00.000Z',
+  stringDate: '2023-05-25T10:00:00.000Z',
+});
 
-// But the real values remains the same
-console.log(schema.description);  // '  Description  '
-console.log(schema.month);        // Fri May 26 2023 00:00:00 GMT+0000 (Eastern European Summer Time)
-console.log(schema.name);         // 'Name'
+console.log(schema.realDate instanceof Date);    // true
+console.log(schema.stringDate instanceof Date);  // false

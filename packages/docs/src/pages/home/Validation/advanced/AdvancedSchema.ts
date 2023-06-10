@@ -1,6 +1,6 @@
 import { FormSchema, validate } from '@yoskutik/mobx-form-schema';
 import { observable } from 'mobx';
-import { required, minLength } from '../validators';
+import { required, lengthBetween } from '../validators';
 
 const repeatedPassword = () => (repeated: string, schema: AdvancedSchema) => {
   if (repeated === schema.password) return false;
@@ -11,7 +11,7 @@ export class AdvancedSchema extends FormSchema {
   @validate(required())
   @observable login = '';
 
-  @validate(required(), minLength(8))
+  @validate(required(), lengthBetween(8, 32))
   @observable password = '';
 
   @validate(required(), repeatedPassword())

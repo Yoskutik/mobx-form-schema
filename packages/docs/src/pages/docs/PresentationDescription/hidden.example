@@ -1,0 +1,14 @@
+import { presentation, FormSchema } from '@yoskutik/mobx-form-schema';
+
+export class Schema extends FormSchema {
+  password = '12345678';
+
+  @presentation.hidden
+  repeatedPassword = '12345678';
+}
+
+const schema = Schema.create();
+console.log(schema.presentation);
+// {
+//   password: '12345678',
+// }

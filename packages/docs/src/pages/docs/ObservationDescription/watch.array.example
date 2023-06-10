@@ -1,10 +1,11 @@
 import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+import { observable } from 'mobx';
 
 export class CVSchema extends FormSchema {
-  @watch.array skills = [];
+  @watch.array @observable.shallow skills = [];
 }
 
-const schema = CVFormSchema.create({
+const schema = CVSchema.create({
   skills: ['JavaScript', 'HTML'],
 });
 

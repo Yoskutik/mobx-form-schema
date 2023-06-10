@@ -14,7 +14,7 @@ import {
 import { TValidationConfig } from './validate';
 import { TWatchConfig } from './watch';
 import { TFactory } from './factory';
-import { TPresentation } from './presentation';
+import { TPresentationConfig } from './presentation';
 import {
   ChangedKeysSymbol,
   ErrorsSymbol,
@@ -147,11 +147,15 @@ export class FormSchema {
    * value.
    */
   get presentation(): ChildProps<this, any> {
-    const presentationMetadata: Record<string, TPresentation> = getMetadata(PresentationSymbol, this);
+    const presentationMetadata: Record<string, TPresentationConfig> = getMetadata(PresentationSymbol, this);
     const state: Record<string, any> = {};
     for (const key in this) {
-      state[key] = presentationMetadata[key]
-        ? presentationMetadata[key](this[key], this)
+      const config = presentationMetadata[key];
+
+      if (config && config.hidden) continue;
+
+      state[key] = config && config.presentation
+        ? config.presentation(this[key], this)
         : this[key];
     }
     return state as ChildProps<this, any>;

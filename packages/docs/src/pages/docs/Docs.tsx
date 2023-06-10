@@ -10,6 +10,7 @@ const Docs = memo(() => (
     <ValidationDescription />
     <ObservationDescription />
     <InitializationDescription />
+    <PresentationDescription />
   </PageWithNavigation>
 ));
 

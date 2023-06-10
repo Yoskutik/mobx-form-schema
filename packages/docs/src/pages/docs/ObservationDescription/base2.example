@@ -1,12 +1,10 @@
 const schema = UserSchema.create();
 
-console.log(schema.isChanged) // false
+console.log(schema.isChanged); // false
 
-schema.name = 'Name';
-console.log(
-  schema.isChanged,           // true
-  schema.getInitial('name'),  // ''
-);
+schema.name = 'New Name';
+console.log(schema.isChanged); // true
+console.log(schema.getInitial('name'));  // ''
 
 schema.name = '';
-console.log(schema.isChanged) // false
+console.log(schema.isChanged); // false

@@ -19,7 +19,7 @@ export class SignUpSchema extends FormSchema {
   @validate(required(), minLength(8))
   @watch password = '';
 
-  @presentation(() => undefined)
+  @presentation.hidden
   @validate(required(), repeatedPassword())
   @watch repeatedPassword = '';
 }

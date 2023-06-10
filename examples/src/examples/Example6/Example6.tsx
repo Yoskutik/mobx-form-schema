@@ -80,8 +80,8 @@ const BackgroundBlock: FC<{ schema: CVFormSchema }> = observer(({ schema }) => {
                 <TextField schema={it} field="responsibilities" label="Responsibilities" />
                 <ButtonFooter
                   className={styles.nestedButtons}
-                  schema={schema.contacts}
                   label={title}
+                  schema={it}
                   size="s"
                   cancel
                   save

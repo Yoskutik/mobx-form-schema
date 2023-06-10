@@ -3,16 +3,13 @@ const schema = UserSchema.create({
   surname: 'Initial surname',
 });
 
-console.log(
-  schema.isChanged,         // false
-  schema.presentation,      // { name: 'Initial name', surname: 'Initial surname' }
-),
+console.log(schema.isChanged); // false
+console.log(schema.name);      // 'Initial name'
+console.log(schema.surname);   // 'Initial surname'
 
-  schema.name = 'Changed name';
-console.log(
-  schema.isChanged,           // true
-  schema.getInitial('name'),  // 'Initial name'
-);
+schema.name = 'Changed name';
+console.log(schema.isChanged); // true
+console.log(schema.getInitial('name'));  // 'Initial name'
 
 schema.name = 'Initial name';
 console.log(schema.isChanged) // false

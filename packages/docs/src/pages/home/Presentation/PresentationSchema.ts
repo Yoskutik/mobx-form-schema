@@ -1,6 +1,6 @@
 import { FormSchema, presentation, validate } from '@yoskutik/mobx-form-schema';
 import { observable } from 'mobx';
-import { required, minLength } from '../Validation/validators';
+import { required, lengthBetween } from '../Validation/validators';
 
 const repeatedPassword = () => (repeated: string, schema: PresentationSchema) => {
   if (repeated === schema.password) return false;
@@ -14,10 +14,10 @@ export class PresentationSchema extends FormSchema {
   @validate(required())
   @observable login = '';
 
-  @validate(required(), minLength(8))
+  @validate(required(), lengthBetween(8, 32))
   @observable password = '';
 
-  @presentation(() => undefined)
+  @presentation.hidden
   @validate(required(), repeatedPassword())
   @observable repeatedPassword = '';
 }

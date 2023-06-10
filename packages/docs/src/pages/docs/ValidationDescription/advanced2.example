@@ -1,19 +1,14 @@
 const schema = SignUpSchema.create();
 
 schema.password = '12345678';
-console.log(
-  schema.errors,   // { repeatedPassword: 'Your passwords are mispamatched' }
-  schema.isValid,  // false
-);
+console.log(schema.isValid); // false
+console.log(schema.errors);  // { repeatedPassword: 'Passwords are mismatched' }
 
 schema.repeatedPassword = '12345678';
-console.log(
-  schema.errors,   // {}
-  schema.isValid,  // true
-);
+console.log(schema.isValid); // true
+console.log(schema.errors);  // {}
 
+// The validation is also applies when password is changed
 schema.password = 'another password';
-console.log(
-  schema.errors,   // { repeatedPassword: 'Your passwords are mispamatched' }
-  schema.isValid,  // false
-);
+console.log(schema.isValid); // false
+console.log(schema.errors);  // { repeatedPassword: 'Passwords are mismatched' }

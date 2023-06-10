@@ -19,7 +19,7 @@ const validateFromYear = () => (year: number, record: ExperienceItemSchema) => {
 const shouldValidateToDates = (_: unknown, schema: ExperienceItemSchema) => !schema.stillWorking;
 
 export class ExperienceItemSchema extends FormSchema {
-  @presentation(() => undefined)
+  @presentation.hidden
   id = Math.random();
 
   @validate(defined(), month())

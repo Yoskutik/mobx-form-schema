@@ -8,6 +8,8 @@ import watchSet from './watch.set.example';
 import watchSchema from './watch.schema.example';
 import watchSchemasArray from './watch.shemasArray.example';
 import watchConfigure from './watch.configure.example';
+import save from './save.example';
+import save2 from './save2.example';
 
 export const ObservationDescription = () => (
   <PageBlock
@@ -61,17 +63,20 @@ export const ObservationDescription = () => (
     </PageBlock>
 
     <PageBlock
-      title="Observing non-primitive values"
+      title="Non-primitive values"
       description={(
         <Typography component="p">
           The <Code>watch</Code> decorator works well with primitive values, such as numbers,
-          strings, booleans, nulls, undefined, symbols or BigInt. But sometimes it may be
-          useful observing some non-primitive values. To do that, you can use watch's modifiers.
+          strings, booleans, nulls, undefined, symbols or BigInt, because it uses reference
+          comparison to understand that value was changed. But sometimes we have to observe
+          objects, and objects reference comparison is not the best type of comparison for
+          them. So, in order to observe objects and other non-primitives structures in your
+          schema, you have to use watch's modifiers.
         </Typography>
       )}
     >
       <PageBlock
-        title="Observing array of primitives"
+        title="Arrays of primitives"
         description={(
           <Typography component="p">
             If you want to observe an array of primitive values you can
@@ -85,7 +90,7 @@ export const ObservationDescription = () => (
       </PageBlock>
 
       <PageBlock
-        title="Observing set of primitives"
+        title="Sets of primitives"
         description={(
           <Typography component="p">
             If you want to observe a set of primitive values you can
@@ -99,7 +104,7 @@ export const ObservationDescription = () => (
       </PageBlock>
 
       <PageBlock
-        title="Observing nested schema"
+        title="Nested schemas"
         description={(
           <Typography component="p">
             And you can also have an array of schemas in your schema. In this case you
@@ -113,7 +118,7 @@ export const ObservationDescription = () => (
       </PageBlock>
 
       <PageBlock
-        title="Observing nested schemas array"
+        title="Arrays of nested schemas"
         description={(
           <Typography component="p">
             You can use one form schema as a property of another one. And when the nested
@@ -128,7 +133,7 @@ export const ObservationDescription = () => (
       </PageBlock>
 
       <PageBlock
-        title="More advanced observation"
+        title="Configurable observation"
         description={(
           <>
             <Typography component="p">
@@ -153,6 +158,34 @@ export const ObservationDescription = () => (
       >
         <Highlighter code={watchConfigure} />
       </PageBlock>
+    </PageBlock>
+
+    <PageBlock
+      title="Resetting and syncronazing forms"
+      description={(
+        <>
+          <Typography component="p">
+            In order to understand that form was changed, the schema must contain the information
+            about the initial state. And due to that fact, there's an opportunity to reset your
+            form into the initial state. To do that you can use <Code>reset</Code> method.
+          </Typography>
+
+          <Typography component="p">
+            Also you can save the current state of the schema as the initial one. To do that, you
+            can use <Code>sync</Code> method.
+          </Typography>
+        </>
+      )}
+    >
+      <Highlighter code={save} />
+
+      <Typography component="p">
+        No matter how complex your schema is, there is an opportunity to reset it. In the example above
+        the schema contains a primitive value, an array and a nested schema. And resetting the parent
+        schema will reset the nested one. As well as all the over properties in the schema.
+      </Typography>
+
+      <Highlighter code={save2} />
     </PageBlock>
   </PageBlock>
 );

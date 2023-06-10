@@ -32,7 +32,7 @@ jobs:
 #        run: yarn build
         run: |
           yarn --cwd packages/mobx-form-schema build
-          cat packages/mobx-form-schema/index.d.ts
+          cat packages/mobx-form-schema/dist/index.d.ts
           yarn --cwd packages/docs build
 
       - name: Deploy documentation 🚀

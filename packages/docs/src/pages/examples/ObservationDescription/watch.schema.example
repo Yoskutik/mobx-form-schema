@@ -1,0 +1,24 @@
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+import { observable } from 'mobx';
+
+export class NestedSchema extends FormSchema {
+  @watch field = 0;
+}
+
+export class SuperSchema extends FormSchema {
+  @watch.schema nested = NestedSchema.create();
+}
+
+const schema = SuperSchema.create();
+
+console.log(schema.isChanged); // false
+
+schema.nested.field++;
+console.log(schema.isChanged); // true
+
+schema.nested.field--;
+console.log(schema.isChanged); // false
+
+// The schema is new, but its content the same as in initial one
+schema.nested = NestedSchema.create();
+console.log(schema.isChanged); // false

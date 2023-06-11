@@ -14,9 +14,7 @@ export class RelativeSchema extends FormSchema {
 }
 
 export class NestedSchemasSchema extends FormSchema {
-  @observable.ref
   @watch.schema contacts = ContactsSchema.create();
 
-  @observable.shallow
   @watch.schemasArray relatives: RelativeSchema[] = [];
 }

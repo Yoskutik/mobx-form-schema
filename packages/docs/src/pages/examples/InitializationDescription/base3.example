@@ -1,0 +1,22 @@
+import { FormSchema, factory } from '@yoskutik/mobx-form-schema';
+
+const createFullName = (_: unknown, schema: Schema) =>
+  `${schema.name} ${schema.surname}`;
+
+export class Schema extends FormSchema {
+  @factory(createFullName)
+  fullName: string;
+
+  name: string;
+
+  surname: string;
+}
+
+const schema = Schema.create({
+  name: 'Dmitrii',
+  surname: 'Aleksandrovich',
+});
+
+console.log(schema.name);     // 'Dmitrii'
+console.log(schema.surname);  // 'Aleksandrovich'
+console.log(schema.fullName); // 'Dmitrii Aleksandrovich'

@@ -4,8 +4,8 @@ import { FormSchema } from '@yoskutik/mobx-form-schema';
 import clsx from 'clsx';
 import { action } from 'mobx';
 
-import styles from './Fields.module.scss';
 import { VBox } from '../Boxes/Boxes';
+import styles from './Fields.module.scss';
 
 type BaseInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -63,6 +63,10 @@ const BaseField: FC<FieldWrapperProps> = ({
       {typeof label === 'string' ? (
         <label className={styles.label} htmlFor={id}>
           {label}
+
+          {props.required && (
+            <span className={styles.requiredStar}>✱</span>
+          )}
         </label>
       ) : (
         label
@@ -71,7 +75,9 @@ const BaseField: FC<FieldWrapperProps> = ({
         type="text"
         id={id}
         {...props}
+        aria-errormessage={typeof errorFromProps === 'string' ? errorFromProps : undefined}
         className={clsx(props.className, styles.input, error && styles.inputWithError)}
+        aria-invalid={errorFromProps ? 'true' : undefined}
         onChange={handleChange}
         onBlur={handleBlur}
         ref={inputRef}

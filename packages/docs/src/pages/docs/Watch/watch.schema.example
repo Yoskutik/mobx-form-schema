@@ -1,0 +1,12 @@
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+import { observable } from 'mobx';
+
+class NestedSchema extends FormSchema {
+  @watch email = '';
+
+  @watch github = '';
+}
+
+class Schema extends FormSchema {
+  @watch.schema contacts = NestedSchema.create();
+}

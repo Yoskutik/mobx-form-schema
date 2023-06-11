@@ -29,11 +29,7 @@ jobs:
           yarn install
 
       - name: Build 🔧
-#        run: yarn build
-        run: |
-          yarn --cwd packages/mobx-form-schema build
-          cat packages/mobx-form-schema/dist/index.d.ts
-          yarn --cwd packages/docs build
+        run: yarn build
 
       - name: Deploy documentation 🚀
         uses: JamesIves/github-pages-deploy-action@v4

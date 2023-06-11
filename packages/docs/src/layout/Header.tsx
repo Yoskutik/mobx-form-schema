@@ -73,6 +73,7 @@ const StyledAppBar = styled(AppBar)`
 const pages = [
   { href: '/getting-started', title: 'Getting started' },
   { href: '/docs', title: 'Docs' },
+  { href: '/examples', title: 'Examples' },
 ];
 
 export const Header: FC = () => {

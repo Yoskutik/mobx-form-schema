@@ -23,7 +23,7 @@ export const PageBlock: FC<Props> = ({ title, description, children, forcedLevel
   };
 
   return (
-    <Grid container gap={({ 1: 4, 2: 3, 3: 2 })[level]} direction="column">
+    <Grid container gap={({ 1: 5, 2: 3.5, 3: 2 })[level]} direction="column">
       <Title variant={`h${level + 2}` as any} ref={ref}>
         {title}
       </Title>

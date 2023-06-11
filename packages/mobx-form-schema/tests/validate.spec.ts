@@ -117,4 +117,41 @@ describe('validate decorator', () => {
     expect(schema.errors.field2).toEqual(true);
     expect(schema.isValid).toEqual(false);
   });
+
+  it('Manual validation', () => {
+    class Schema extends FormSchema {
+      protected static config = {
+        manual: true,
+      }
+
+      @validate(v => v > 1 ? 'Field1 is not valid' : false)
+      @observable field1 = 1;
+
+      @validate(v => v < 1)
+      @observable field2 = 2;
+    }
+
+    const schema = Schema.create();
+    expect(schema.errors.field1).toBeUndefined();
+    expect(schema.errors.field2).toBeUndefined();
+    expect(schema.isValid).toEqual(true);
+
+    runInAction(() => {
+      schema.field1 = 2;
+      schema.field2 = 0;
+    });
+    expect(schema.errors.field1).toBeUndefined();
+    expect(schema.errors.field2).toBeUndefined();
+    expect(schema.isValid).toEqual(true);
+
+    schema.validate('field1');
+    expect(schema.errors.field1).toEqual('Field1 is not valid');
+    expect(schema.errors.field2).toBeUndefined();
+    expect(schema.isValid).toEqual(false);
+
+    schema.validate();
+    expect(schema.errors.field1).toEqual('Field1 is not valid');
+    expect(schema.errors.field2).toEqual(true);
+    expect(schema.isValid).toEqual(false);
+  });
 });

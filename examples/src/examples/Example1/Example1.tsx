@@ -25,13 +25,13 @@ export const Example1 = observer(() => {
       <p className={styles.mb8}>
         In the example each field in the form is required to fill. The validation is
         applied every time the value of field is changed. But the error messages
-        shows only after <b>blur</b> or <b>submit</b> evetns.
+        shows only after <b>blur</b> or <b>submit</b> events.
       </p>
 
       <div className={styles.exampleContent}>
         <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
-          <TextField schema={schema} field="name" label="Name" />
-          <TextField schema={schema} field="surname" label="Surname" />
+          <TextField schema={schema} field="name" label="Name" required />
+          <TextField schema={schema} field="surname" label="Surname" required />
           <ButtonFooter schema={schema} submit />
         </form>
         <SchemaInformer schema={schema} />

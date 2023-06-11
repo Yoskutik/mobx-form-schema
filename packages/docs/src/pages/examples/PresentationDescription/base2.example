@@ -1,0 +1,25 @@
+import { presentation, FormSchema } from '@yoskutik/mobx-form-schema';
+import { format } from 'date-fns';
+
+export class Schema extends FormSchema {
+  @presentation(value => `@${value}`)
+  username = 'yoskutik';
+
+  @presentation(value => format(value, 'yyyy-MM'))
+  month = new Date();
+
+  name = 'Name';
+}
+
+const schema = Schema.create();
+console.log(schema.presentation);
+// {
+//   username: '@yoskutik',
+//   month: '2023-05',
+//   name: 'Name',
+// }
+
+// But the real values remain the same
+console.log(schema.username);     // 'yoskutik'
+console.log(schema.month);        // Fri May 26 2023 00:00:00 GMT+0000 (Eastern European Summer Time)
+console.log(schema.name);         // 'Name'

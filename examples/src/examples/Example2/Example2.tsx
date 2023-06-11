@@ -37,11 +37,11 @@ export const Example2 = observer(() => {
 
       <div className={styles.exampleContent}>
         <form onSubmit={handleSubmit} className={styles.form} autoComplete="off">
-          <TextField schema={schema} field="name" label="Name" />
-          <TextField schema={schema} field="surname" label="Surname" />
-          <TextField schema={schema} field="email" label="Email"/>
-          <TextField schema={schema} field="password" label="Password" type="password" />
-          <TextField schema={schema} field="repeatedPassword" label="Repeat password" type="password" />
+          <TextField schema={schema} field="name" label="Name" required />
+          <TextField schema={schema} field="surname" label="Surname" required />
+          <TextField schema={schema} field="email" label="E-mail" />
+          <TextField schema={schema} field="password" label="Password" type="password" required />
+          <TextField schema={schema} field="repeatedPassword" label="Repeat password" type="password" required />
           <ButtonFooter schema={schema} submit />
         </form>
         <SchemaInformer schema={schema} />

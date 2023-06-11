@@ -97,6 +97,35 @@ describe('watch decorator', () => {
     expect(schema.getInitial('get1')).toEqual(1);
   });
 
+  it('Manual check for changes', () => {
+    class Schema extends FormSchema {
+      protected static config = {
+        manual: true,
+      };
+
+      @watch field1 = 1;
+
+      @watch field2 = 2;
+    }
+
+    const schema = Schema.create();
+    expect(schema.isChanged).toEqual(false);
+
+    runInAction(() => schema.field1++);
+    expect(schema.isChanged).toEqual(false);
+
+    schema.checkChanges('field1');
+    expect(schema.isChanged).toEqual(true);
+
+    runInAction(() => schema.field1--);
+    schema.checkChanges();
+    expect(schema.isChanged).toEqual(false);
+
+    runInAction(() => schema.field2++);
+    schema.checkChanges('field2');
+    expect(schema.isChanged).toEqual(true);
+  });
+
   describe('methods', () => {
     it('sync', () => {
       class Schema extends FormSchema {

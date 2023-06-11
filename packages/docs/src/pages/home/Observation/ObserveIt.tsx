@@ -29,10 +29,15 @@ const BasicDescription = () => (
     </Typography>
 
     <Typography component="p" sx={{ mt: 2 }}>
-      By the way, if you use <Code>@watch</Code>, the <Code>@observable</Code> will
+      If you use <Code>@watch</Code>, the <Code>@observable</Code> will
       be applied automatically, so you don't need to use them both. But if you
       want to use any other observable modifier you must apply it explicitly, like
       so: <Code>@watch @observable.ref</Code>.
+    </Typography>
+
+    <Typography component="p" sx={{ mt: 2 }}>
+      Also, applying <Code>@watch.schema</Code> will apply <Code>@observable.ref</Code> and
+      applying <Code>@watch.schemasArray</Code> will apply <Code>@observable.shallow</Code>.
     </Typography>
   </>
 );

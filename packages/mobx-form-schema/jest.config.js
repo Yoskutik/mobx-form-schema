@@ -2,7 +2,7 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
     moduleNameMapper: {
-        '@yoskutik/mobx-react-mvvm': process.env.JEST_WITH_COVERAGE ? '<rootDir>/src' : '<rootDir>',
+        '@yoskutik/mobx-react-mvvm': process.env.JEST_WITH_COVERAGE ? '<rootDir>/src' : '<rootDir>/src',
     },
     transform: {
         '\\.[tj]s$': ['@swc/jest', {

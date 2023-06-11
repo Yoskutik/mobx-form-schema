@@ -1,7 +1,0 @@
-import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
-
-export class UserSchema extends FormSchema {
-  @watch name = '';
-
-  @watch surname = '';
-}

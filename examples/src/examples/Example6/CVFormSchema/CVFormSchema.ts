@@ -33,14 +33,12 @@ export class CVFormSchema extends FormSchema {
 
   @validate(schema => !schema.isValid)
   @presentation(contactsPresentation)
-  @watch.schema
-  @observable.ref contacts = ContactsSectionSchema.create();
+  @watch.schema contacts = ContactsSectionSchema.create();
 
   @validate(skillsValidation())
   @watch.set skills = new Set<string>();
 
   @validate(schemas => schemas.some(schema => !schema.isValid))
   @presentation(schemas => schemas.map(schema => schema.presentation))
-  @watch.schemasArray
-  @observable.shallow experience: ExperienceItemSchema[] = [ExperienceItemSchema.create()];
+  @watch.schemasArray experience: ExperienceItemSchema[] = [ExperienceItemSchema.create()];
 }

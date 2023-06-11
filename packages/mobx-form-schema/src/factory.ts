@@ -1,7 +1,7 @@
 import { defineMetadata, getNewMetadata } from './utils';
 import { FactorySymbol } from './symbols';
 
-export type TFactory = (obj: any) => any;
+export type TFactory = (value: any, obj: any) => any;
 
 type Factory = (factory: TFactory) => PropertyDecorator;
 

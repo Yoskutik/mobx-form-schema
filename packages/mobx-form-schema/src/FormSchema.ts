@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
   action,
   autorun,
@@ -12,7 +13,7 @@ import {
   IReactionDisposer,
 } from 'mobx';
 import { TValidationConfig } from './validate';
-import { TWatchConfig } from './watch';
+import { checkSchemasArrayEquality, checkSingleSchemaEquality, TWatchConfig } from './watch';
 import { TFactory } from './factory';
 import { TPresentationConfig } from './presentation';
 import {
@@ -30,10 +31,58 @@ type Constructable<T> = new (...args: any[]) => T;
 type ChildProps<T, R = string> = Partial<Record<keyof Omit<T, keyof FormSchema>, R>>;
 export type ExcludeFormSchema<T> = Omit<T, keyof FormSchema>;
 
+const validateSingleField = (schema: FormSchema, validateConfig: Record<string, TValidationConfig>, field: string) => {
+  const { validators, condition } = validateConfig[field];
+
+  if (condition && !condition(schema[field], schema)) {
+    runInAction(() => delete schema[ErrorsSymbol][field]);
+    return false;
+  }
+
+  const value = schema[field];
+  let message: string | boolean = false;
+  for (const validator of validators) {
+    message = validator(value, schema);
+    if (message) break;
+  }
+
+  runInAction(() => {
+    if (typeof message === 'string' || message === true) {
+      schema[ErrorsSymbol][field] = message;
+    } else {
+      delete schema[ErrorsSymbol][field];
+    }
+  });
+
+  return message;
+};
+
+const checkForChangesSimpleField = (schema: FormSchema, watchConfig: Record<string, TWatchConfig>, field: string) => {
+  const comparator = watchConfig[field].comparator;
+
+  const newValue = schema[field];
+  const initialValue = schema[InitialValuesSymbol][field];
+  const isEqual = comparator ? (comparator(newValue, initialValue)) : (initialValue === newValue);
+
+  runInAction(() => schema[ChangedKeysSymbol][isEqual ? 'delete' : 'add'](field));
+
+  return isEqual;
+};
+
 /**
  * Base class for creation schema form.
  */
 export class FormSchema {
+  /** The basic configuration of the schema */
+  protected static config = {
+    /**
+     * If `false`, the validation and observation will be called using
+     * `autorun`. In case, you want to handle the validation and check for
+     * changes manually, you have to set it to `true`.
+     */
+    manual: false,
+  };
+
   /**
    * Static method that creates an instance of a form schema. This method will
    * handle all the decorators of this package. Also, `create` method will
@@ -57,21 +106,31 @@ export class FormSchema {
       makeObservable(record);
     }
 
-    const validateMetadata: Record<string, TValidationConfig> = getMetadata(ValidateSymbol, record);
-    const factoryMetadata: Record<string, TFactory> = getMetadata(FactorySymbol, record);
-    const watchMetadata: Record<string, TWatchConfig> = getMetadata(WatchSymbol, record);
+    const validateMetadata = getMetadata<TValidationConfig>(ValidateSymbol, record);
+    const factoryMetadata = getMetadata<TFactory>(FactorySymbol, record);
+    const watchMetadata = getMetadata<TWatchConfig>(WatchSymbol, record);
 
     for (const key of new Set(OBJECT.keys(factoryMetadata).concat(OBJECT.keys(data)))) {
       const currentFactory = factoryMetadata[key];
-      record[key] = currentFactory ? currentFactory(data) : data[key];
+      record[key] = currentFactory ? currentFactory(data[key], data) : data[key];
     }
 
     const extendingObservableValues: Record<string, any> = {};
     const extendingObservableOptions: Record<string, typeof observable> = {};
     for (const key in watchMetadata) {
       if (!isObservableProp(record, key)) {
+        const { comparator } = watchMetadata[key];
+        let decorator: any = observable;
+
+        // @watch.schema will apply @observable.ref
+        if (comparator === checkSingleSchemaEquality) {
+          decorator = observable.ref;
+          // @watch.schemasArray will apply @observable.shallow
+        } else if (comparator === checkSchemasArrayEquality) {
+          decorator = observable.shallow;
+        }
         extendingObservableValues[key] = record[key];
-        extendingObservableOptions[key] = observable;
+        extendingObservableOptions[key] = decorator;
       }
     }
     if (Object.keys(extendingObservableOptions).length) {
@@ -83,50 +142,19 @@ export class FormSchema {
       record[InitialValuesSymbol][key] = watchConfig.saveFn ? watchConfig.saveFn(record[key], record) : record[key];
     }
 
+    if ((this as unknown as typeof FormSchema).config.manual) return record;
+
     for (const key in watchMetadata) {
-      const watchConfig = watchMetadata[key];
-
-      const comparator = watchConfig.comparator;
-
       let autorunCompareDisposer: undefined | IReactionDisposer;
+
       observe(record, key as keyof T, () => {
         autorunCompareDisposer && autorunCompareDisposer();
-
-        autorunCompareDisposer = autorun(() => {
-          const newValue = record[key];
-          const initialValue = record[InitialValuesSymbol][key];
-          const isEqual = comparator ? (comparator(newValue, initialValue)) : (initialValue === newValue);
-          runInAction(() => record[ChangedKeysSymbol][isEqual ? 'delete' : 'add'](key));
-        });
+        autorunCompareDisposer = autorun(() => checkForChangesSimpleField(record, watchMetadata, key));
       }, true);
     }
 
     for (const key in validateMetadata) {
-      const validateConfig = validateMetadata[key];
-
-      const { validators, condition } = validateConfig;
-
-      autorun(() => {
-        if (condition && !condition(record[key], record)) {
-          runInAction(() => delete record[ErrorsSymbol][key]);
-          return;
-        }
-
-        const value = record[key];
-        let message: string | boolean;
-        for (const validator of validators) {
-          message = validator(value, record);
-          if (message) break;
-        }
-
-        runInAction(() => {
-          if (typeof message === 'string' || message === true) {
-            record[ErrorsSymbol][key as any] = message;
-          } else {
-            delete record[ErrorsSymbol][key];
-          }
-        });
-      });
+      autorun(() => validateSingleField(record, validateMetadata, key));
     }
 
     return record;
@@ -136,7 +164,7 @@ export class FormSchema {
 
   private readonly [ChangedKeysSymbol] = new Set<string | symbol>();
 
-  private [InitialValuesSymbol]: ChildProps<this, any> = {};
+  private [InitialValuesSymbol]: Partial<Omit<this, keyof FormSchema>> = {};
 
   /**
    * By using this getter you can get the data from the schema without any
@@ -146,9 +174,10 @@ export class FormSchema {
    * decorator, a function from the decorator will be applied to the property's
    * value.
    */
-  get presentation(): ChildProps<this, any> {
-    const presentationMetadata: Record<string, TPresentationConfig> = getMetadata(PresentationSymbol, this);
+  get presentation(): Partial<ChildProps<this, any>> {
+    const presentationMetadata = getMetadata<TPresentationConfig>(PresentationSymbol, this);
     const state: Record<string, any> = {};
+
     for (const key in this) {
       const config = presentationMetadata[key];
 
@@ -158,7 +187,7 @@ export class FormSchema {
         ? config.presentation(this[key], this)
         : this[key];
     }
-    return state as ChildProps<this, any>;
+    return state as Partial<ChildProps<this, any>>;
   }
 
   /**
@@ -181,7 +210,7 @@ export class FormSchema {
    * This getter only track those properties that are observable and decorated
    * with `validate` function.
    *
-   * @see {@link watch}
+   * @see {@link validate}
    */
   get isValid(): boolean {
     return OBJECT.values(this[ErrorsSymbol]).every(it => !it);
@@ -203,10 +232,10 @@ export class FormSchema {
   /**
    * Returns the value, that was saved as initial value for a given property.
    *
-   * @param key - the name of needed property
+   * @param field - the name of needed property
    */
-  getInitial<T>(key: keyof ChildProps<this>): T {
-    return this[InitialValuesSymbol][key];
+  getInitial(field: keyof ChildProps<this>): this[typeof field] {
+    return this[InitialValuesSymbol][field];
   }
 
   /**
@@ -215,12 +244,14 @@ export class FormSchema {
    * after calling `reset` method, all the properties will be restored into
    * new saved initial state.
    *
-   * @see {@link reset}
+   * @see {@link FormSchema.reset}
+   * @see {@link FormSchema.isChanged}
+   * @see {@link watch}
    */
   sync(): void {
     const initialValues = {};
 
-    const watchMetadata: Record<string, TWatchConfig> = getMetadata(WatchSymbol, this);
+    const watchMetadata = getMetadata<TWatchConfig>(WatchSymbol, this);
     for (const key in watchMetadata) {
       const watchConfig = watchMetadata[key];
       initialValues[key] = watchConfig.saveFn ? watchConfig.saveFn(this[key], this) : this[key];
@@ -230,19 +261,83 @@ export class FormSchema {
   }
 
   /**
-   * A function, which restores all the properties in the schema into
+   * A function that resets all the properties in the schema into
    * initial state - the state that was created in the `create` static method,
    * or that was updated by `sync` method.
+   *
+   * @see {@link FormSchema.sync}
+   * @see {@link FormSchema.isChanged}
+   * @see {@link watch}
    */
   reset(): void {
-    const watchMetadata: Record<string | symbol, TWatchConfig> = getMetadata(WatchSymbol, this);
+    const watchMetadata = getMetadata<TWatchConfig>(WatchSymbol, this);
     for (const key of this[ChangedKeysSymbol]) {
       const initialValue = this[InitialValuesSymbol][key];
-      const watchConfig = watchMetadata[key];
+      const watchConfig = watchMetadata[key as any];
       this[key] = (watchConfig && watchConfig.restoreFn)
         ? watchConfig.restoreFn(initialValue)
         : initialValue;
     }
+  }
+
+  /**
+   * A function that validates a single property or the entire schema.
+   * Should be used to update `errors` object
+   *
+   * @param [field] - a name of the property. If not given, the form
+   * will be validated entirely.
+   *
+   * @returns If property name is passed, will return property's
+   * validation. If not, will return is form valid or not.
+   *
+   * @see {@link FormSchema.errors}
+   * @see {@link validate}
+   */
+  validate(field?: keyof ChildProps<this>): string | boolean {
+    const validateMetadata = getMetadata<TValidationConfig>(ValidateSymbol, this);
+
+    if (field) {
+      return validateSingleField(this, validateMetadata, field as any);
+    }
+
+    let error = false;
+
+    for (const key in validateMetadata) {
+      const currentError = validateSingleField(this, validateMetadata, key);
+      error ||= !!currentError;
+    }
+
+    return error;
+  }
+
+  /**
+   * A function that checks if a single property is differs from the initial state
+   * or if there's any changes in the entire schema.
+   *
+   * @param [field] - a name of the property. If not given, the check will be
+   * applied to the entire schema.
+   *
+   * @returns If property name is passed, will return is property changed.
+   * If not, will return is entire form is changed.
+   *
+   * @see {@link FormSchema.isChanged}
+   * @see {@link watch}
+   */
+  checkChanges(field?: keyof ChildProps<this>): boolean {
+    const watchMetadata = getMetadata<TWatchConfig>(WatchSymbol, this);
+
+    if (field) {
+      return checkForChangesSimpleField(this, watchMetadata, field as any);
+    }
+
+    let isChangedGlobally = false;
+
+    for (const key in watchMetadata) {
+      const isChanged = checkForChangesSimpleField(this, watchMetadata, key);
+      isChangedGlobally ||= !!isChanged;
+    }
+
+    return isChangedGlobally;
   }
 }
 
@@ -293,3 +388,5 @@ decorateAsComputed('errors');
 
 decorateAsAction('sync');
 decorateAsAction('reset');
+decorateAsAction('validate');
+decorateAsAction('checkChanges');

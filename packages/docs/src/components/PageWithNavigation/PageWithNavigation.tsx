@@ -25,7 +25,7 @@ export const PageWithNavigation = view(PageWithNavigationViewModel)<Props>(({ ch
           width: '100%',
         }}
       >
-        <Grid container direction="column" gap={8} style={{ maxWidth: '100%', width: '1200px', margin: '0 auto' }}>
+        <Grid container direction="column" gap={10} style={{ maxWidth: '100%', width: '1200px', margin: '0 auto' }}>
           {children}
         </Grid>
         <div style={{ height: '2rem' }} />

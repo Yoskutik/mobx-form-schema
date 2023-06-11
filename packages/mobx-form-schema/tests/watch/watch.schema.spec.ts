@@ -9,7 +9,7 @@ describe('watch.schema decorator', () => {
   }
 
   class Schema2 extends FormSchema {
-    @watch.schema @observable.ref schema1 = Schema1.create();
+    @watch.schema schema1 = Schema1.create();
   }
 
   const schema2 = Schema2.create();
@@ -59,7 +59,7 @@ describe('watch.schema decorator', () => {
 
   describe('second level nested schemas', () => {
     class Schema3 extends FormSchema {
-      @watch.schema @observable.ref schema2 = Schema2.create();
+      @watch.schema schema2 = Schema2.create();
     }
 
     const schema3 = Schema3.create();

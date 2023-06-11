@@ -8,7 +8,7 @@ describe('watch.schemasArray decorator', () => {
   }
 
   class Schema2 extends FormSchema {
-    @watch.schemasArray @observable.shallow schemas = [Schema1.create()];
+    @watch.schemasArray schemas = [Schema1.create()];
   }
 
   const schema2 = Schema2.create();

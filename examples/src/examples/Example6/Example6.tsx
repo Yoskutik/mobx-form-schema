@@ -52,7 +52,7 @@ const BackgroundBlock: FC<{ schema: CVFormSchema }> = observer(({ schema }) => {
 
   return (
     <Block title="Background">
-      <ChoiceField schema={schema} field="skills" label="Skills" style={{ marginBottom: 0 }} />
+      <ChoiceField schema={schema} field="skills" label="Skills" style={{ marginBottom: 0 }} required />
 
       <Block title="Experience" variant="h2">
         {schema.experience.map((it, i) => {
@@ -66,18 +66,18 @@ const BackgroundBlock: FC<{ schema: CVFormSchema }> = observer(({ schema }) => {
                 variant="h3"
                 key={it.id}
               >
-                <TextField schema={it} field="companyName" label="Company Name" />
-                <TextField schema={it} field="position" label="Position" />
+                <TextField schema={it} field="companyName" label="Company Name" required />
+                <TextField schema={it} field="position" label="Position" required />
                 <div className={styles.experienceBlock}>
-                  <NumberField schema={it} field="fromMonth" label="From month" />
-                  <NumberField schema={it} field="fromYear" label="From year" />
+                  <NumberField schema={it} field="fromMonth" label="From month" required />
+                  <NumberField schema={it} field="fromYear" label="From year" required />
                 </div>
                 <CheckboxField schema={it} field="stillWorking" label="Still working there" />
                 <div className={styles.experienceBlock}>
                   <NumberField schema={it} field="toMonth" label="To month" disabled={it.stillWorking} />
                   <NumberField schema={it} field="toYear" label="To year" disabled={it.stillWorking} />
                 </div>
-                <TextField schema={it} field="responsibilities" label="Responsibilities" />
+                <TextField schema={it} field="responsibilities" label="Responsibilities" required />
                 <ButtonFooter
                   className={styles.nestedButtons}
                   label={title}
@@ -160,8 +160,8 @@ export const Example6 = observer(() => {
       <div className={appStyles.exampleContent}>
         <form className={appStyles.form} autoComplete="off" onSubmit={handleSubmit}>
           <Block title="General information">
-            <TextField schema={schema} field="name" label="Name" />
-            <TextField schema={schema} field="surname" label="Surname" />
+            <TextField schema={schema} field="name" label="Name" required />
+            <TextField schema={schema} field="surname" label="Surname" required />
           </Block>
 
           <Block title="Contacts">

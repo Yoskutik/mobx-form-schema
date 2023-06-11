@@ -1,0 +1,17 @@
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
+import { observable } from 'mobx';
+
+export class UserContactsSchema extends FormSchema {
+  @watch email = '';
+
+  @watch github = '';
+}
+
+export class UserSchema extends FormSchema {
+  @watch name = '';
+
+  @observable.shallow
+  @watch.array skills: string[] = [];
+
+  @watch.schema contacts = UserContactsSchema.create();
+}

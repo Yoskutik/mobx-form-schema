@@ -61,13 +61,13 @@ const restoreSchemaFromInitialValue = (value?: FormSchema) => {
   return value;
 };
 
-const checkSchemasEquality = (newSchema?: FormSchema, oldSchema?: FormSchema) => {
+export const checkSingleSchemaEquality = (newSchema?: FormSchema, oldSchema?: FormSchema) => {
   if (newSchema && newSchema.isChanged) return false;
 
   if (newSchema === oldSchema) return true;
 
   if (newSchema && oldSchema && newSchema.constructor === oldSchema.constructor) {
-    const watchConfig: Record<string, TWatchConfig> = getMetadata(WatchSymbol, newSchema);
+    const watchConfig = getMetadata<TWatchConfig>(WatchSymbol, newSchema);
 
     for (const key in watchConfig) {
       const config = watchConfig[key];
@@ -87,6 +87,14 @@ const checkSchemasEquality = (newSchema?: FormSchema, oldSchema?: FormSchema) =>
 
   return false;
 };
+
+export const checkSchemasArrayEquality = (schemas: FormSchema[], oldValue: FormSchema[]) => (
+  oldValue.length === schemas.length && (
+    schemas.every((schema, i) => (
+      checkSingleSchemaEquality(schema, oldValue[i])
+    ))
+  )
+);
 
 /**
  * Decorator, which allows to automatically observe data changes in a schema.
@@ -113,18 +121,12 @@ const configure: TWatch['configure'] = (comparator: TComparator, saveFn?: TObjec
 watch.configure = configure;
 
 watch.schema = configure(
-  checkSchemasEquality,
+  checkSingleSchemaEquality,
   saveSchemaInitialValue,
   restoreSchemaFromInitialValue,
 );
 watch.schemasArray = configure(
-  (schemas: FormSchema[], oldValue: FormSchema[]) => (
-    oldValue.length === schemas.length && (
-      schemas.every((schema, i) => (
-        checkSchemasEquality(schema, oldValue[i])
-      ))
-    )
-  ),
+  checkSchemasArrayEquality,
   (schemas: FormSchema[]) => schemas.map(saveSchemaInitialValue),
   (data: FormSchema[]) => data.map(restoreSchemaFromInitialValue),
 );

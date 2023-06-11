@@ -1,16 +1,20 @@
 import { memo } from 'react';
-import { PageWithNavigation } from '@components';
-import { ValidationDescription } from './ValidationDescription';
-import { ObservationDescription } from './ObservationDescription';
-import { InitializationDescription } from './InitializationDescription';
-import { PresentationDescription } from './PresentationDescription';
+import { PageBlock, PageWithNavigation } from '@components';
+import { FormSchemaDescription } from './FormSchema';
+import { WatchDescription } from './Watch';
+import { ValidateDescription } from './Validate';
+import { FactoryDescription } from './Factory';
+import { PresentationDescription } from './Presentation';
 
 const Docs = memo(() => (
   <PageWithNavigation>
-    <ValidationDescription />
-    <ObservationDescription />
-    <InitializationDescription />
-    <PresentationDescription />
+    <FormSchemaDescription />
+    <PageBlock title="Decorators">
+      <ValidateDescription />
+      <WatchDescription />
+      <FactoryDescription />
+      <PresentationDescription />
+    </PageBlock>
   </PageWithNavigation>
 ));
 

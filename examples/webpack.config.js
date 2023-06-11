@@ -17,7 +17,6 @@ module.exports = (env, argv) => {
       chunkFilename: `./chunks/${isProd ? '[contenthash]' : '[id]'}.chunk.js`,
       clean: true,
     },
-    target: isProd ? 'browserslist' : 'web',
     module: {
       rules: [{
         test: /\.tsx?$/,

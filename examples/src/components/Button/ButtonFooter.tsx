@@ -6,8 +6,8 @@ import { HBox } from '../Boxes/Boxes';
 import { Button } from './Button';
 import styles from './ButtonFooter.module.scss';
 
-type Props = {
-  schema: FormSchema;
+type Props<T> = {
+  schema: T;
   save?: boolean;
   cancel?: boolean;
   submit?: boolean;
@@ -16,7 +16,7 @@ type Props = {
   label?: string;
 }
 
-export const ButtonFooter: FC<Props> = observer(({ schema, save, cancel, submit, className, size, label }) => (
+export const ButtonFooter = observer(<T extends FormSchema>({ schema, save, cancel, submit, className, size, label }: Props<T>) => (
   <HBox alignItems="center" className={clsx(styles.buttons, className, styles[`size--${size}`])}>
     {label && (
       <span className={styles.label}>

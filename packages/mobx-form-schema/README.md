@@ -27,10 +27,10 @@ You can find the _MobX Form Schema_ documentation
 Just look at the short example of schema description
 
 ```typescript
-import { FormSchema, watch, validate } from '@yoskutik/mobx-form-schema';
+import { ManualFormSchema, watch, validate } from '@yoskutik/mobx-form-schema';
 import { required, minLength } from 'path/to/validators';
 
-class FeedbackSchema extends FormSchema {
+class FeedbackSchema extends ManualFormSchema {
   @watch name = '';
 
   @validate(required(), email())

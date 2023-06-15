@@ -27,10 +27,10 @@ export const FormSchemaDescription = () => {
 
   return (
     <PageBlock
-      title="FormSchema"
+      title="ManualFormSchema"
       description={(
         <Typography component="p">
-          <Code>FormSchema</Code> is base class. In order to create your schema
+          <Code>ManualFormSchema</Code> is base class. In order to create your schema
           you have to create a new class extended from this base class.
         </Typography>
       )}
@@ -57,7 +57,7 @@ export const FormSchemaDescription = () => {
 
         <GridItem item="static create([initialData])">
           <Typography component="p">
-            An method that creates an instance of <Code>FormSchema</Code>. In order
+            An method that creates an instance of <Code>ManualFormSchema</Code>. In order
             to create one, you must use it.
           </Typography>
 

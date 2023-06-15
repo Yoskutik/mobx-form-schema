@@ -18,14 +18,14 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@yoskutik/manual-form-schema": ["../manual-form-schema/src"],
-      "@yoskutik/manual-form-schema/*": ["../manual-form-schema/src/*"],
-      "@yoskutik/mobx-form-schema": ["src"]
+      "@yoskutik/form-schema": ["packages/form-schema/src"],
+      "@yoskutik/form-schema/*": ["packages/form-schema/src/*"],
+      "@yoskutik/mobx-form-schema/*": ["packages/mobx-form-schema/src/*"],
     }
   },
   "include": [
     "src",
-    "../manual-form-schema/src",
+    "../form-schema/src",
     "metadata.d.ts"
   ],
   "exclude": [

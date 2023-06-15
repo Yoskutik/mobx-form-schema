@@ -1,0 +1,7 @@
+{
+  "extends": "../packages/mobx-form-schema/tsconfig.json",
+  "include": [
+    "../src",
+    "./"
+  ]
+}

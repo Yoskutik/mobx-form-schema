@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/manual-form-schema",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "It's just @yoskutik/mobx-form-schema but without MobX",
   "keywords": [
     "forms",

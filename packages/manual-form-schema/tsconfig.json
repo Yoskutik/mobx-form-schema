@@ -18,14 +18,11 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@yoskutik/manual-form-schema": ["../manual-form-schema/src"],
-      "@yoskutik/manual-form-schema/*": ["../manual-form-schema/src/*"],
-      "@yoskutik/mobx-form-schema": ["src"]
+      "@yoskutik/mobx-react-mvvm": ["src"]
     }
   },
   "include": [
     "src",
-    "../manual-form-schema/src",
     "metadata.d.ts"
   ],
   "exclude": [

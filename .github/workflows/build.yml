@@ -41,10 +41,10 @@ jobs:
         run: yarn lint
 
       - name: Tests on built version
-        run: yarn --cwd packages/mobx-form-schema test
+        run: yarn test
 
       - name: Collecting coverage
-        run: yarn --cwd packages/mobx-form-schema test:coverage
+        run: yarn test:coverage
 
       - name: Setting upsteam
         run: git push --set-upstream origin master
@@ -53,7 +53,7 @@ jobs:
       - name: Generating coverage badges
         uses: jpb06/jest-badges-action@latest
         with:
-          coverage-summary-path: packages/mobx-form-schema/coverage/coverage-summary.json
+          coverage-summary-path: coverage/coverage-summary.json
           branches: master,preprod,staging
         if: github.event_name != 'pull_request'
 

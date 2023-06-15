@@ -1,8 +1,6 @@
 import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
-import { observable } from 'mobx';
 
 export class CVSchema extends FormSchema {
-  @observable.shallow
   @watch.set skills = new Set<string>();
 }
 

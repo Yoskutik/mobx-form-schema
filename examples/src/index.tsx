@@ -11,16 +11,16 @@ import { Example6 } from './examples/Example6/Example6';
 
 const App = () => (
   <>
-    <Example1 />
-    <hr style={{ margin: '16px 0' }} />
-    <Example2 />
-    <hr style={{ margin: '16px 0' }} />
-    <Example3 />
-    <hr style={{ margin: '16px 0' }} />
-    <Example4 />
-    <hr style={{ margin: '16px 0' }} />
-    <Example5 />
-    <hr style={{ margin: '16px 0' }} />
+    {/*<Example1 />*/}
+    {/*<hr style={{ margin: '16px 0' }} />*/}
+    {/*<Example2 />*/}
+    {/*<hr style={{ margin: '16px 0' }} />*/}
+    {/*<Example3 />*/}
+    {/*<hr style={{ margin: '16px 0' }} />*/}
+    {/*<Example4 />*/}
+    {/*<hr style={{ margin: '16px 0' }} />*/}
+    {/*<Example5 />*/}
+    {/*<hr style={{ margin: '16px 0' }} />*/}
     <Example6 />
   </>
 );

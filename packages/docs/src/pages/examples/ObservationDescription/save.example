@@ -10,7 +10,6 @@ export class UserContactsSchema extends FormSchema {
 export class UserSchema extends FormSchema {
   @watch name = '';
 
-  @observable.shallow
   @watch.array skills: string[] = [];
 
   @watch.schema contacts = UserContactsSchema.create();

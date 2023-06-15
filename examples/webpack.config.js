@@ -50,6 +50,8 @@ module.exports = (env, argv) => {
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
         '@utils': path.resolve(__dirname, 'src/utils'),
+        '@yoskutik/mobx-form-schema': path.resolve(__dirname, '../packages/mobx-form-schema/src'),
+        'mobx': path.resolve(__dirname, 'node_modules/mobx'),
       },
       extensions: ['.js', '.ts', '.tsx'],
     },

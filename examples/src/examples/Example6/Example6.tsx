@@ -59,35 +59,35 @@ const BackgroundBlock: FC<{ schema: CVFormSchema }> = observer(({ schema }) => {
           const title = `Experience ${it.companyName ? `at "${it.companyName}"` : 'block'}`;
 
           return (
-            (
-              <Block
-                actions={<Button variant="cancel" onClick={() => deleteItem(i)} size="s">Delete</Button>}
-                title={title}
-                variant="h3"
-                key={it.id}
-              >
-                <TextField schema={it} field="companyName" label="Company Name" required />
-                <TextField schema={it} field="position" label="Position" required />
+            <Block
+              actions={<Button variant="cancel" onClick={() => deleteItem(i)} size="s">Delete</Button>}
+              title={title}
+              variant="h3"
+              key={it.id}
+            >
+              <TextField schema={it} field="companyName" label="Company Name" required />
+              <TextField schema={it} field="position" label="Position" required />
+              <div className={styles.experienceBlock}>
+                <NumberField schema={it} field="fromMonth" label="From month" required />
+                <NumberField schema={it} field="fromYear" label="From year" required />
+              </div>
+              {!it.stillWorking && (
                 <div className={styles.experienceBlock}>
-                  <NumberField schema={it} field="fromMonth" label="From month" required />
-                  <NumberField schema={it} field="fromYear" label="From year" required />
+                  <NumberField schema={it} field="toMonth" label="To month" required />
+                  <NumberField schema={it} field="toYear" label="To year" required />
                 </div>
-                <CheckboxField schema={it} field="stillWorking" label="Still working there" />
-                <div className={styles.experienceBlock}>
-                  <NumberField schema={it} field="toMonth" label="To month" disabled={it.stillWorking} />
-                  <NumberField schema={it} field="toYear" label="To year" disabled={it.stillWorking} />
-                </div>
-                <TextField schema={it} field="responsibilities" label="Responsibilities" required />
-                <ButtonFooter
-                  className={styles.nestedButtons}
-                  label={title}
-                  schema={it}
-                  size="s"
-                  cancel
-                  save
-                />
-              </Block>
-            )
+              )}
+              <CheckboxField schema={it} field="stillWorking" label="Still working there" />
+              <TextField schema={it} field="responsibilities" label="Responsibilities" required />
+              <ButtonFooter
+                className={styles.nestedButtons}
+                label={title}
+                schema={it}
+                size="s"
+                cancel
+                save
+              />
+            </Block>
           );
         })}
 
@@ -100,7 +100,13 @@ const BackgroundBlock: FC<{ schema: CVFormSchema }> = observer(({ schema }) => {
 });
 
 export const Example6 = observer(() => {
-  const schema = useFormSchema(CVFormSchema);
+  const schema = useFormSchema(CVFormSchema, {
+    name: 'Previously pasted name',
+    surname: 'Previously pasted surname',
+    contacts: {
+      email: 'your@email.com',
+    }
+  });
 
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();

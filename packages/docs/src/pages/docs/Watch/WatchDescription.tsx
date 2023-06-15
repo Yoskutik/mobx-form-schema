@@ -68,9 +68,9 @@ export const WatchDescription = () => (
       </Typography>
 
       <Typography component="p">
-        Using <Code>@watch.array</Code> decorator applies <Code>@observable</Code> decorator
-        on the property. But you might also want to combine it with
-        using <Code>@observable.shallow</Code> decorator, and you free to do that.
+        Using <Code>@watch.array</Code> decorator applies <Code>@observable.shallow</Code> decorator
+        on the property. This decorator is supposed to be used on sets of primitive values,
+        which means there's no need to use any other types of observation.
       </Typography>
     </Block>
 
@@ -81,9 +81,9 @@ export const WatchDescription = () => (
       </Typography>
 
       <Typography component="p">
-        Using <Code>@watch.set</Code> decorator applies <Code>@observable</Code> decorator
-        on the property. But you might also want to combine it with
-        using <Code>@observable.shallow</Code> decorator, and you free to do that.
+        Using <Code>@watch.set</Code> decorator applies <Code>@observable.shallow</Code> decorator
+        on the property. This decorator is supposed to be used on sets of primitive values,
+        which means there's no need to use any other types of observation.
       </Typography>
     </Block>
 

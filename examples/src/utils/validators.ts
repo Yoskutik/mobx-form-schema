@@ -1,24 +1,19 @@
-export const required = (text = 'This field is required') => (value: string) => {
-  if (!value?.trim()) return text;
-  return false;
+export const required = () => (value: string) => {
+  if (value?.trim()) return false;
+  return 'This field is required';
 };
 
-export const minLength = (length: number, text = 'The value is too short') => (value: string) => {
-  if (value.length < length) return text;
-  return false;
+export const minLength = (min: number) => (value: string) => {
+  if (value.length >= min) return false;
+  return `The value is too short. The minimum length is ${min} characters`;
 };
 
-export const maxLength = (length: number, text = 'The value is too long') => (value: string) => {
-  if (value.length > length) return text;
-  return false;
+export const defined = () => (value: any) => {
+  if (value) return false;
+  return 'This field is required';
 };
 
-export const defined = (text = 'This field is required') => (value: any) => {
-  if (!value) return text;
-  return false;
-};
-
-export const email = (text = 'Invalid email format') => (value: string) => {
-  if (!/\S+@\S+\.\S+/.test(value)) return text;
-  return false;
+export const email = () => (value: string) => {
+  if (/\S+@\S+\.\S+/.test(value)) return false;
+  return 'Invalid email format';
 };

@@ -1,9 +1,5 @@
 import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
-import { observable } from 'mobx';
 
 class Schema extends FormSchema {
-  @observable.shallow
   @watch.array shallowObservableArray: string[] = [];
-
-  @watch.array deepObservableArray: string[] = [];
 }

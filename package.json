@@ -30,6 +30,7 @@
   "license": "MIT",
   "workspaces": [
     "packages/docs",
+    "packages/form-schema",
     "packages/mobx-form-schema"
   ]
 }

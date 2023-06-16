@@ -37,9 +37,6 @@ jobs:
           folder: packages/docs/build
         if: github.event_name != 'pull_request'
 
-      - name: Linting
-        run: yarn lint
-
       - name: Tests on built version
         run: yarn test
 

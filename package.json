@@ -13,8 +13,8 @@
   "scripts": {
     "pub": "yarn build && yarn test && yarn test:coverage && yarn --cwd packages/manual-form-schema pub --no-git-tag-version && yarn --cwd packages/mobx-form-schema pub && cp packages/mobx-form-schema/README.md README.md",
     "build": "yarn --cwd packages/manual-form-schema build && yarn --cwd packages/mobx-form-schema build && yarn --cwd packages/docs build",
-    "test": "jest && tsc --noEmit -p tests/tsconfig.json",
-    "test:coverage": "cross-env JEST_WITH_COVERAGE=1 jest --coverage",
+    "test": "yarn --cwd tests test",
+    "test:coverage": "yarn --cwd tests test:coverage",
     "start": "yarn --cwd packages/docs start"
   },
   "bugs": {
@@ -30,17 +30,7 @@
   "workspaces": [
     "packages/docs",
     "packages/manual-form-schema",
-    "packages/mobx-form-schema"
-  ],
-  "devDependencies": {
-    "@swc/core": "1.3.56",
-    "@swc/jest": "^0.2.26",
-    "@testing-library/jest-dom": "^5.16.1",
-    "jest": "^27.4.7",
-    "ts-jest": "^27.1.3",
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "cross-env": "^7.0.3"
-  }
+    "packages/mobx-form-schema",
+    "tests"
+  ]
 }

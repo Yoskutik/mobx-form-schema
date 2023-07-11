@@ -1,5 +1,5 @@
 {
-  "name": "@yoskutik/mobx-form-schema-monorepo",
+  "name": "@yoskutik/form-schema-monorepo",
   "version": "0.1.0",
   "private": true,
   "description": "The simple way to organize you forms!",
@@ -9,28 +9,25 @@
     "mobx",
     "decorator"
   ],
-  "homepage": "https://yoskutik.github.io/mobx-form-schema",
+  "homepage": "https://yoskutik.github.io/form-schema",
   "scripts": {
-    "pub": "yarn build && yarn test && yarn test:coverage && yarn --cwd packages/manual-form-schema pub --no-git-tag-version && yarn --cwd packages/mobx-form-schema pub && cp packages/mobx-form-schema/README.md README.md",
-    "build": "yarn --cwd packages/manual-form-schema build && yarn --cwd packages/mobx-form-schema build && yarn --cwd packages/docs build",
-    "test": "yarn --cwd tests test",
-    "test:coverage": "yarn --cwd tests test:coverage",
+    "pub": "yarn build && yarn test && yarn --cwd packages/form-schema pub && cp packages/form-schema/README.md README.md",
+    "build": "yarn --cwd packages/form-schema build && yarn --cwd packages/docs build",
+    "test": "node scripts/tests.js",
     "start": "yarn --cwd packages/docs start"
   },
   "bugs": {
-    "url": "https://github.com/Yoskutik/mobx-form-schema/issues",
+    "url": "https://github.com/Yoskutik/form-schema/issues",
     "email": "yoskutik@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Yoskutik/mobx-form-schema.git"
+    "url": "https://github.com/Yoskutik/form-schema.git"
   },
   "author": "Yoskutik <yoskutik@gmail.com>",
   "license": "MIT",
   "workspaces": [
     "packages/docs",
-    "packages/manual-form-schema",
-    "packages/mobx-form-schema",
-    "tests"
+    "packages/form-schema"
   ]
 }

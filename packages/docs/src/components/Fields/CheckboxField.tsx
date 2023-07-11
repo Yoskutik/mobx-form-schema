@@ -1,10 +1,19 @@
 // Shared file
 
-import { FormSchema } from '@yoskutik/mobx-form-schema';
+declare module '@yoskutik/mobx-form-schema/dist/decorator-types' {
+  interface Decorator {
+    // @ts-ignore
+    single: number;
+  }
+}
+
+import { FormSchema, validate } from '@yoskutik/mobx-form-schema';
 import React, { ComponentProps } from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { FieldBase } from './FieldBase';
+
+const a = validate();
 
 type Props<T> = Omit<ComponentProps<typeof FieldBase>, 'value'> & {
   schema: T;

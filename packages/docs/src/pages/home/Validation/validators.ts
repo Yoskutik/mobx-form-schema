@@ -15,3 +15,8 @@ export const lengthBetween = (min: number, max: number) => (value: string) => {
   if (value.length < min) return `Should be longer than ${min} characters`;
   return `Should be shorter than ${max} characters`;
 };
+
+export const minLength = (min: number) => (value: string) => {
+  if (value.length < min) return `Should be longer than ${min} characters`;
+  return false;
+};

@@ -1,0 +1,68 @@
+.root {
+  transition-duration: .3s;
+  align-items: center;
+  position: sticky;
+  padding: 0 12px;
+  display: flex;
+  height: 64px;
+  top: 0;
+
+  &_withShadow {
+    box-shadow: 0 16px 32px -16px rgba(#000, .1), 0 0 0 1px rgba(#000, .1);
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 18px;
+  }
+}
+
+.menuButton {
+  margin-right: 8px;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.title {
+  margin-right: 16px;
+  line-height: 28px;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.titleLink {
+  line-height: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+
+  &:hover, &:active {
+    background: none;
+  }
+}
+
+.search {
+  flex: 1;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+}
+
+.link {
+  display: none;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  &.forceVisible {
+    display: inline-flex;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: inline-flex;
+  }
+}

@@ -1,9 +1,7 @@
-import { FormSchema, watch } from '@yoskutik/form-schema';
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 import { runInAction } from 'mobx';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
 
 describe('watch.set decorator', () => {
-  @automate
   class Schema extends FormSchema {
     @watch.set set = new Set([12]);
   }
@@ -39,7 +37,7 @@ describe('watch.set decorator', () => {
 
   it('By default applies observable.shallow', () => {
     const obj = { a: 1 };
-    @automate
+
     class Schema extends FormSchema {
       @watch.set arr = new Set([obj]);
     }

@@ -1,14 +1,11 @@
-import { FormSchema, watch } from '@yoskutik/form-schema';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 import { runInAction } from 'mobx';
 
 describe('watch.schemasArray decorator', () => {
-  @automate
   class Schema1 extends FormSchema {
     @watch field1 = 1;
   }
 
-  @automate
   class Schema2 extends FormSchema {
     @watch.schemasArray schemas = [Schema1.create()];
   }

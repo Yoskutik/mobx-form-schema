@@ -1,4 +1,4 @@
-import { FormSchema, factory } from '@yoskutik/form-schema';
+import { FormSchema, factory } from '@yoskutik/mobx-form-schema';
 
 describe('factory decorator', () => {
   it('Data shouldn\'t be changed without factory', () => {

@@ -1,9 +1,7 @@
-import { FormSchema, watch } from '@yoskutik/form-schema';
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 import { observable, runInAction, toJS } from 'mobx';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
 
 describe('watch.array decorator', () => {
-  @automate
   class Schema extends FormSchema {
     @watch.array arr = [12];
   }
@@ -39,7 +37,6 @@ describe('watch.array decorator', () => {
   });
 
   it('By default applies observable.shallow', () => {
-    @automate
     class Schema extends FormSchema {
       @watch.array arr = [{ a: 1 }];
     }

@@ -9,9 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
     "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
     "allowJs": true,
     "removeComments": false,
     "declaration": true,
@@ -19,9 +17,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "@yoskutik/form-schema/dist/enable-es-decorators-types": ["./src/enable-es-decorators-types"],
-      "@yoskutik/form-schema/*": ["./src/*"],
-      "@yoskutik/form-schema": ["./src"]
+      "@yoskutik/mobx-form-schema/dist/enable-legacy-experimental-decorators-types": ["./src/enable-legacy-experimental-decorators-types"],
+      "@yoskutik/mobx-form-schema/*": ["./src/*"],
+      "@yoskutik/mobx-form-schema": ["./src"]
     }
   },
   "include": [
@@ -29,6 +27,6 @@
     "metadata.d.ts"
   ],
   "exclude": [
-    "src/enable-es-decorators-types.ts"
+    "src/enable-legacy-experimental-decorators-types.ts"
   ]
 }

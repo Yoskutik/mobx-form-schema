@@ -55,8 +55,8 @@ const Form = () => {
 
   return (
     <form>
-      <TextField schema={schema} field="name" label="Name" />
-      <TextField schema={schema} field="email" label="E-mail" />
+      <TextFieldAuto schema={schema} field="name" label="Name" />
+      <TextFieldAuto schema={schema} field="email" label="E-mail" />
       <TextareaField
         label="Feedback body"
         schema={schema}

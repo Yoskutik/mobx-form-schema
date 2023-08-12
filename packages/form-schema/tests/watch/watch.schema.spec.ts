@@ -1,14 +1,11 @@
-import { FormSchema, watch } from '@yoskutik/form-schema';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 import { runInAction, toJS } from 'mobx';
 
 describe('watch.schema decorator', () => {
-  @automate
   class Schema1 extends FormSchema {
     @watch field1 = 1;
   }
 
-  @automate
   class Schema2 extends FormSchema {
     @watch.schema schema1 = Schema1.create();
   }
@@ -59,7 +56,6 @@ describe('watch.schema decorator', () => {
   });
 
   describe('second level nested schemas', () => {
-    @automate
     class Schema3 extends FormSchema {
       @watch.schema schema2 = Schema2.create();
     }

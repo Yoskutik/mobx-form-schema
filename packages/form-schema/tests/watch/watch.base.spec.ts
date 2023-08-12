@@ -1,11 +1,8 @@
-import { watch, FormSchema } from '@yoskutik/form-schema';
+import { watch, FormSchema } from '@yoskutik/mobx-form-schema';
 import { computed, makeObservable, observable, observe, reaction, runInAction } from 'mobx';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
-import { __ExecSymbol } from '@yoskutik/form-schema/symbols';
 
 describe('watch decorator', () => {
   it('getInitial', () => {
-    @automate
     class Schema extends FormSchema {
       @watch field1 = 1;
     }
@@ -22,7 +19,6 @@ describe('watch decorator', () => {
   });
 
   it('watch properties are observable', () => {
-    @automate
     class Schema extends FormSchema {
       @watch field1 = 1;
     }
@@ -41,7 +37,6 @@ describe('watch decorator', () => {
   });
 
   it('watch properties can be overridden by any observable modifiers', () => {
-    @automate
     class Schema extends FormSchema {
       @watch field1: Record<string, number> = {};
 
@@ -89,7 +84,6 @@ describe('watch decorator', () => {
   });
 
   it('watch computed getters', () => {
-    @automate
     class Schema extends FormSchema {
       field1 = 1;
 
@@ -125,7 +119,7 @@ describe('watch decorator', () => {
       @watch field2 = 2;
     }
 
-    const schema = Schema.create();
+    const schema = Schema.create({}, true);
     expect(schema.isChanged).toEqual(false);
 
     runInAction(() => schema.field1++);
@@ -145,7 +139,6 @@ describe('watch decorator', () => {
 
   describe('methods', () => {
     it('sync', () => {
-      @automate
       class Schema extends FormSchema {
         @watch field = 1;
       }
@@ -164,7 +157,6 @@ describe('watch decorator', () => {
     });
 
     it('reset', () => {
-      @automate
       class Schema extends FormSchema {
         @watch field = 1;
       }
@@ -185,7 +177,7 @@ describe('watch decorator', () => {
         @watch field = 1;
       }
 
-      const schema = Schema.create();
+      const schema = Schema.create({}, true);
       expect(schema.isChanged).toEqual(false);
 
       schema.field++;
@@ -213,17 +205,14 @@ describe('watch decorator', () => {
   it('Custom decorators', () => {
     const custom = watch.configure(
       (newValue: unknown[], oldValue: unknown[], schema: any) => {
-        schema[__ExecSymbol](() => {});
         return newValue[1] === oldValue[1];
       },
       (newValue, schema: any) => {
-        schema[__ExecSymbol](() => {});
         return newValue.slice();
       },
       (newValue) => newValue.slice(),
     );
 
-    @automate
     class Schema extends FormSchema {
       @custom nested: [string, number] = ['field', 0];
     }
@@ -244,7 +233,6 @@ describe('watch decorator', () => {
   });
 
   it('With MobX experimental decorators', () => {
-    @automate
     class Schema extends FormSchema {
       @watch field1 = 1;
 

@@ -1,91 +1,99 @@
-import { FC, memo, ReactNode } from 'react';
-import { Box, Card, Grid, SxProps, Typography } from '@mui/material';
-import { Block } from './components';
+import React, { FC, memo, ReactNode } from 'react';
 
-import { ValidateIt } from './Validation/ValidateIt';
-import { ObserveIt } from './Observation/ObserveIt';
-import { InitializeIt } from './Initialization/InitializeIt';
-import { PresentIt } from './Presentation/PresentIt';
+import styles from './Home.module.scss';
+import { Code, Link, TextFieldSource, FieldBaseSource } from '@components';
+import { EntireExample } from '@pages/home/EntrireExample';
+import { ValidationExample } from '@pages/home/ValidationExample/ValidationExample';
+import { SingUpExample } from '@pages/home/SingUpExample/SingUpExample';
+import { ObservationExample } from '@pages/home/ObservationExample/ObservationExample';
 
-const Badges: FC = () => (
-  <Box sx={{ backgroundColor: 'rgba(0,0,0,0.03)' }}>
-    <Grid justifyContent="center" gap={1} container sx={{ width: '1200px', m: '0 auto', p: 2, maxWidth: '100%' }}>
-      <img src="https://img.shields.io/npm/v/@yoskutik/mobx-form-schema" alt="NPM version" />
-      <img src="https://img.shields.io/badge/EcmaScript-v.6-blue" alt="EcmaScript 6" />
-      <img src="https://raw.githubusercontent.com/Yoskutik/mobx-form-schema/master/badges/weight.svg" alt="Weight" />
-      <img src="https://img.shields.io/npm/l/@yoskutik/mobx-form-schema" alt="License" />
-      <img
-        src="https://img.shields.io/snyk/vulnerabilities/npm/@yoskutik/mobx-form-schema?label=Vulnerabilities"
-        alt="Vulnerabilities"
-      />
-      <img
-        src="https://raw.githubusercontent.com/Yoskutik/mobx-form-schema/master/badges/coverage-jest%20coverage.svg"
-        alt="Coverage"
-      />
-      <img src="https://github.com/Yoskutik/mobx-form-schema/actions/workflows/build.yml/badge.svg" alt="Build" />
-    </Grid>
-  </Box>
-);
+import SingUpSchemaSource from 'source-loader!./SingUpExample/SingUpSchema';
+import SingUpExampleSource from 'source-loader!./SingUpExample/SingUpExample';
 
-const Description: FC<{ children: ReactNode, sx?: SxProps }> = ({ children, sx }) => (
-  <Typography component="p" sx={{ fontSize: '1.3rem', ...sx }}>
-    {children}
-  </Typography>
-);
+import ValidationSchemaSource from 'source-loader!./ValidationExample/ValidationSchema';
+import ValidationExampleSource from 'source-loader!./ValidationExample/ValidationExample';
+
+import ObservationSchemaSource from 'source-loader!./ObservationExample/ObservationSchema';
+import ObservationExampleSource from 'source-loader!./ObservationExample/ObservationExample';
 
 const Home: FC = memo(() => (
-  <Box>
-    <Badges />
-    <Box>
-      <Block style={{ height: 220, alignItems: 'center', padding: '1rem' }}>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h2" component="h1">
-            MobX Form Schema
-          </Typography>
-          <Typography variant="h5" component="h2" sx={{ mt: 2 }}>
-            The simple way to organize you forms!
-          </Typography>
-        </Box>
-      </Block>
+  <>
+    <section className={styles.main}>
+      <h2 className={styles.mainTitle}>
+        Form Schema
+      </h2>
+      <p className={styles.description}>
+        The simple way to organize you forms!
+      </p>
+      <div className={styles.mainLinks}>
+        <Link to="/learn" linkStyle="primary" className={styles.mainLink}>
+          Learn
+        </Link>
+        <Link to="/reference" linkStyle="secondary" className={styles.mainLink}>
+          Reference
+        </Link>
+      </div>
+    </section>
 
-      <Block>
-        <Card sx={{ width: '800px', p: 4, maxWidth: '95vw' }}>
-          <Description>
-            Mobx Form Schema is a small library that can simplify forms developing process by providing
-            a <b>Form Schema</b> concept.
-          </Description>
-          <Description sx={{ mt: 2 }}>
-            MobX Form Schema gives you a convenient way to describe your form - its <b>validation</b>, {' '}
-            <b>presentation</b>, <b>initialization</b> and <b>observation</b>.
-          </Description>
-          <hr style={{ width: '60%', margin: '24px auto' }} />
-          <Description>
-            The developing process of forms may be quite repetitive - fields from different forms can
-            have same validation rules; in order to understand whether the form is changed you have
-            to manually check all the properties; etc. And <i>MobX Form Schema</i> <b>can help you with
-            it!</b>
-          </Description>
-          <Box sx={{ fontSize: '1.3rem', mt: 2 }}>
-            With <i>MobX Form Schema</i> you can:
-            <ul style={{ marginTop: 8 }}>
-              <li>simplify your validation;</li>
-              <li>automate changes observation;</li>
-              <li>configure form's presentation;</li>
-              <li>create rules for its initialization.</li>
-            </ul>
-          </Box>
-        </Card>
-      </Block>
+    <section className={styles.block}>
+      <h3 className={styles.h3}>
+        Describe the form logic
+      </h3>
+      <p className={styles.description}>
+        Form Schema allows to describe all the form logic besides user events handling.
+        Simply, create a class that will be extends from <Code>FormSchema</Code> to
+        create your form description.
+      </p>
+      <EntireExample items={[SingUpSchemaSource, SingUpExampleSource, TextFieldSource, FieldBaseSource]}>
+        <SingUpExample />
+      </EntireExample>
+      <p className={styles.description}>
+        In the short example above, you can see how can you describe a sign up form and
+        use such description in react application. However, Form Schema does not depend
+        on React, so you can use it with any other libraries or in Vanilla JavaScript.
+      </p>
+    </section>
 
-      <ValidateIt />
+    <section className={styles.block}>
+      <h3 className={styles.h3}>
+        Describe form validation
+      </h3>
+      <p className={styles.description}>
+        Your form may include optional fields with their validation rules. Also, your
+        form may include fields, which validation depends on other fields. And with
+        Form Schema you can easily describe such validation! Just use the <Code>@validate</Code> decorator.
+      </p>
+      <EntireExample items={[ValidationSchemaSource, ValidationExampleSource, TextFieldSource, FieldBaseSource]}>
+        <ValidationExample />
+      </EntireExample>
+    </section>
 
-      <ObserveIt />
+    <section className={styles.block}>
+      <h3 className={styles.h3}>
+        Observe form changes
+      </h3>
+      <p className={styles.description}>
+        It may be useful to understand whether your form is changed or not. Usually,
+        the more fields the form contains the harder it is to understand that. But not
+        with Form Schema.
+      </p>
+      <p className={styles.description}>
+        With Form Schema you can always understand if the form became changed. Even
+        if it has complex structures in it.
+      </p>
+      <EntireExample items={[ObservationSchemaSource, ObservationExampleSource, TextFieldSource, FieldBaseSource]}>
+        <ObservationExample />
+      </EntireExample>
+    </section>
 
-      <InitializeIt />
+    {/*<ValidateIt />*/}
 
-      <PresentIt />
-    </Box>
-  </Box>
+    {/*<ObserveIt />*/}
+
+    {/*<InitializeIt />*/}
+
+    {/*<PresentIt />*/}
+  </>
 ));
 
 export default Home;

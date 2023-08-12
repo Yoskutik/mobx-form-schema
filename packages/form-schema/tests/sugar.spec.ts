@@ -1,16 +1,13 @@
-import { FormSchema, nestedSchema, nestedSchemasArray, validate, watch } from '@yoskutik/form-schema';
+import { FormSchema, nestedSchema, nestedSchemasArray, validate, watch } from '@yoskutik/mobx-form-schema';
 import { runInAction } from 'mobx';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
 
 describe('Sugar validators', () => {
   describe('Nested schema', () => {
-    @automate
     class NestedSchema extends FormSchema {
       @validate(field => field < 5)
       @watch field = 0;
     }
 
-    @automate
     class Schema extends FormSchema {
       @nestedSchema(NestedSchema)
       schema = NestedSchema.create();
@@ -50,13 +47,11 @@ describe('Sugar validators', () => {
   });
 
   describe('Nested schemas array', () => {
-    @automate
     class NestedSchema extends FormSchema {
       @validate(field => field < 5)
       @watch field = 0;
     }
 
-    @automate
     class Schema extends FormSchema {
       @nestedSchemasArray(NestedSchema)
       schema = [NestedSchema.create()];

@@ -1,21 +1,39 @@
-import { TValidationConfig } from './validate';
-import { TWatchConfig } from './watch';
-import { TFactory, __FactorySymbol } from './factory';
-import { TPresentationConfig, __PresentationSymbol } from './presentation';
+import type { TValidationConfig } from './validate';
 import {
-  __ChangedKeysSymbol,
-  __ErrorsSymbol,
-  __ExecSymbol,
-  __InitialValuesSymbol,
-  __ValidateSymbol,
-  __WatchSymbol,
+  checkArraysEquality,
+  checkSchemasArrayEquality,
+  checkSetsEquality,
+  checkSingleSchemaEquality, createSetCopy,
+  type TWatchConfig,
+  watch
+} from './watch';
+import type { TFactory } from './factory';
+import type { TPresentationConfig } from './presentation';
+import {
+  FactorySymbol,
+  ChangedKeysSymbol,
+  ErrorsSymbol,
+  InitialValuesSymbol,
+  ValidateSymbol,
+  WatchSymbol,
+  PresentationSymbol,
 } from './symbols';
-import { getMetadata } from './utils';
+import { COMPARATOR, getMetadata, isTypeOf, OBJECT, OBJECT_KEYS, PRESENTATION, SCHEMA, SCHEMAS_ARRAY } from './utils';
 import { ChildProps, Constructable } from './types';
+import {
+  action,
+  autorun,
+  computed,
+  IReactionDisposer,
+  isObservableProp,
+  makeObservable,
+  observable,
+  observe,
+  runInAction
+} from 'mobx';
 
-const OBJECT_KEYS = Object.keys;
 const forUniqueKeysInObjects = (obj1: unknown, obj2: unknown, fn: (key: string) => void) => (
-  new Set(OBJECT_KEYS(obj1).concat(OBJECT_KEYS(obj2))).forEach(k => fn(k))
+  createSetCopy(OBJECT_KEYS(obj1).concat(OBJECT_KEYS(obj2))).forEach(k => fn(k))
 );
 const defaultExecutor = (fn: () => void) => fn();
 
@@ -25,13 +43,14 @@ const validateSingleField = (
   field: string,
   message?: string | boolean,
 ) => {
+  if (!validateConfig[field]) return false;
   validateConfig[field].condition && !validateConfig[field].condition(schema[field], schema) || !validateConfig[field].validators.find(it => message = it(schema[field], schema));
 
-  schema[__ExecSymbol](() => {
-    if (typeof message === 'string' || message === true) {
-      return schema[__ErrorsSymbol][field] = message;
+  runInAction(() => {
+    if (isTypeOf(message) || message === true) {
+      return schema[ErrorsSymbol][field] = message;
     }
-    return delete schema[__ErrorsSymbol][field];
+    return delete schema[ErrorsSymbol][field];
   });
 
   return message;
@@ -43,9 +62,9 @@ const checkForChangesSimpleField = (
   field: string,
   isEqual?: boolean,
 ) => {
-  isEqual = watchConfig[field].comparator(schema[field], schema[__InitialValuesSymbol][field], schema);
-  schema[__ExecSymbol](() => schema[__ChangedKeysSymbol][isEqual ? 'delete' : 'add'](field));
-  return isEqual;
+  isEqual = !watchConfig[field] || watchConfig[field][COMPARATOR](schema[field], schema[InitialValuesSymbol][field], schema);
+  runInAction(() => schema[ChangedKeysSymbol][isEqual ? 'delete' : 'add'](field));
+  return !isEqual;
 };
 
 const checkOrValidateAll = <T extends (...args: any[]) => any>(
@@ -66,9 +85,11 @@ const syncOrReset = (
   fn: (record: FormSchema, key: string, fn: (...args: any[]) => any) => void,
   watchMetadata?: any,
 ) => {
-  watchMetadata = getMetadata<TWatchConfig<unknown, unknown>>(__WatchSymbol, record);
+  watchMetadata = getMetadata<TWatchConfig<unknown, unknown>>(WatchSymbol, record);
   return OBJECT_KEYS(watchMetadata).forEach((key) => fn(record, key, watchMetadata[key][name]));
 };
+
+const forKeysInObject = <T>(obj: T, fn: (key: string) => void) => OBJECT_KEYS(obj).forEach(k => fn(k));
 
 /**
  * Base class for creation schema form.
@@ -84,14 +105,36 @@ export class FormSchema {
    * Attention! To avoid any problems use only `create` method instead of
    * using `new` keyword.
    *
-   * @param {Record<string | symbol, any>} [data] - An object that you can pass
+   * @param {Record<string | symbol, any>=} [data] - An object that you can pass
    * to change the initial state of the form. See how {@link factory} works for
    * better understanding.
+   * @param {boolean=} [isManual] - TODO
    */
-  static create<T extends FormSchema>(this: Constructable<T>, data: ChildProps<T, any> = {}): T {
+  static create<T extends FormSchema>(this: Constructable<T>, data: ChildProps<T, any> = {}, isManual?: boolean): T {
     const record = new this(data);
 
-    const factoryMetadata = getMetadata<TFactory<unknown, unknown>>(__FactorySymbol, record);
+    const factoryMetadata = getMetadata<TFactory<unknown, unknown>>(FactorySymbol, record);
+
+    const validateMetadata = getMetadata<TValidationConfig<T, unknown>>(ValidateSymbol, record);
+    const watchMetadata = getMetadata<TWatchConfig<T, unknown>>(WatchSymbol, record);
+
+    const extendingObservableOptions: Record<string, any> = {
+      [InitialValuesSymbol]: observable.ref,
+      [ChangedKeysSymbol]: observable,
+      [ErrorsSymbol]: observable,
+
+      [PRESENTATION]: computed,
+      isChanged: computed,
+      isValid: computed,
+      errors: computed,
+
+      checkAnyChanges: action,
+      checkChangesOf: action,
+      validateOnly: action,
+      validateAll: action,
+      reset: action,
+      sync: action,
+    };
 
     forUniqueKeysInObjects(factoryMetadata, data, key => {
       if (factoryMetadata[key]) {
@@ -102,20 +145,57 @@ export class FormSchema {
     });
 
     record.sync();
-    (record as any)[__ExecSymbol] = defaultExecutor;
+
+    forKeysInObject(watchMetadata, (key, decorator?: any, comparator?: any) => {
+      if (!isObservableProp(record, key)) {
+        decorator = observable;
+        comparator = watchMetadata[key][COMPARATOR];
+
+        // @watch.schema will apply @observable.ref
+        if (comparator === checkSingleSchemaEquality) {
+          decorator = observable.ref;
+          // @watch.schemasArray, @watch.set and @watch.array will apply @observable.shallow
+        } else if (
+          comparator === checkArraysEquality
+          || comparator === checkSetsEquality
+          || comparator === checkSchemasArrayEquality
+        ) {
+          decorator = observable.shallow;
+        }
+        extendingObservableOptions[key] = decorator;
+      }
+    });
+
+    try {
+      makeObservable(record, extendingObservableOptions);
+    } catch {
+      forKeysInObject(extendingObservableOptions, key => (
+        !isObservableProp(record, key) && extendingObservableOptions[key](record, key)
+      ));
+      makeObservable(record);
+    }
+
+    record.sync();
+
+    if (isManual) return record;
+
+    forKeysInObject(watchMetadata, (key, autorunCompareDisposer?: IReactionDisposer) => {
+      return observe(record, key as keyof T, () => {
+        autorunCompareDisposer && autorunCompareDisposer();
+        return autorunCompareDisposer = autorun(() => checkForChangesSimpleField(record, watchMetadata, key));
+      }, true);
+    });
+
+    forKeysInObject(validateMetadata, key => autorun(() => validateSingleField(record, validateMetadata, key)));
 
     return record;
   }
 
-  private static readonly isAutomated = false;
+  private readonly [ErrorsSymbol]: ChildProps<this, string | true> = {};
 
-  private readonly [__ErrorsSymbol]: ChildProps<this, string | true> = {};
+  private readonly [ChangedKeysSymbol] = createSetCopy<string | symbol>();
 
-  private readonly [__ChangedKeysSymbol] = new Set<string | symbol>();
-
-  private readonly [__ExecSymbol] = (fn: () => void) => fn();
-
-  private [__InitialValuesSymbol]: Partial<Omit<this, keyof FormSchema>> = {};
+  private [InitialValuesSymbol]: Partial<Omit<this, keyof FormSchema>> = {};
 
   /**
    * By using this getter you can get the data from the schema without any
@@ -127,12 +207,13 @@ export class FormSchema {
    */
   get presentation(): Partial<ChildProps<this, any>> {
     const state: Record<string, any> = {};
-    const presentationMetadata = getMetadata<TPresentationConfig<unknown, unknown>>(__PresentationSymbol, this);
+    const self = this;
+    const presentationMetadata = getMetadata<TPresentationConfig<unknown, unknown>>(PresentationSymbol, self);
 
-    forUniqueKeysInObjects(presentationMetadata, this, (key, config?: TPresentationConfig<any, any>) => {
+    forUniqueKeysInObjects(presentationMetadata, self, (key, config?: TPresentationConfig<any, any>) => {
       config = presentationMetadata[key];
       if (!config || !config.hidden) {
-        state[key] = config && config.presentation ? config.presentation(this[key], this) : this[key];
+        state[key] = config && config[PRESENTATION] ? config[PRESENTATION](self[key], self) : self[key];
       }
     });
 
@@ -149,7 +230,7 @@ export class FormSchema {
    * @see {@link watch}
    */
   get isChanged(): boolean {
-    return this[__ChangedKeysSymbol].size > 0;
+    return this[ChangedKeysSymbol].size > 0;
   }
 
   /**
@@ -162,7 +243,7 @@ export class FormSchema {
    * @see {@link validate}
    */
   get isValid(): boolean {
-    return Object.values(this[__ErrorsSymbol]).every(it => !it);
+    return OBJECT.values(this[ErrorsSymbol]).every(it => !it);
   }
 
   /**
@@ -175,7 +256,7 @@ export class FormSchema {
    * @see {@link validate} for better understanding
    */
   get errors() {
-    return this[__ErrorsSymbol];
+    return this[ErrorsSymbol];
   }
 
   /**
@@ -184,7 +265,7 @@ export class FormSchema {
    * @param field - the name of needed property
    */
   getInitial(field: keyof ChildProps<this>): this[typeof field] {
-    return this[__InitialValuesSymbol][field];
+    return this[InitialValuesSymbol][field];
   }
 
   /**
@@ -204,8 +285,7 @@ export class FormSchema {
       initialValues[key] = saveFn(record[key], record)
     ));
 
-    this[__InitialValuesSymbol] = initialValues;
-    this[__ExecSymbol] === defaultExecutor && this.checkAnyChanges();
+    this[InitialValuesSymbol] = initialValues;
   }
 
   /**
@@ -219,9 +299,8 @@ export class FormSchema {
    */
   reset(): void {
     syncOrReset(this, 'restoreFn', (record, key, restoreFn) => {
-      return record[key] = restoreFn(record[__InitialValuesSymbol][key])
+      return record[key] = restoreFn(record[InitialValuesSymbol][key])
     });
-    this[__ExecSymbol] === defaultExecutor && this.checkAnyChanges();
   }
 
   /**
@@ -233,7 +312,7 @@ export class FormSchema {
    * @see {@link validate}
    */
   validateOnly(field: keyof ChildProps<this>): string | boolean {
-    return validateSingleField(this, getMetadata(__ValidateSymbol, this), field as any);
+    return validateSingleField(this, getMetadata(ValidateSymbol, this), field as any);
   }
 
   /**
@@ -244,7 +323,7 @@ export class FormSchema {
    * @see {@link validate}
    */
   validateAll(): string | boolean {
-    return checkOrValidateAll(this, __ValidateSymbol, validateSingleField);
+    return checkOrValidateAll(this, ValidateSymbol, validateSingleField);
   }
 
   /**
@@ -256,7 +335,7 @@ export class FormSchema {
    * @see {@link watch}
    */
   checkChangesOf(field: keyof ChildProps<this>): boolean {
-    return checkForChangesSimpleField(this, getMetadata(__WatchSymbol, this), field as any);
+    return checkForChangesSimpleField(this, getMetadata(WatchSymbol, this), field as any);
   }
 
   /**
@@ -267,6 +346,6 @@ export class FormSchema {
    * @see {@link watch}
    */
   checkAnyChanges(): boolean {
-    return checkOrValidateAll(this, __WatchSymbol, checkForChangesSimpleField);
+    return checkOrValidateAll(this, WatchSymbol, checkForChangesSimpleField);
   }
 }

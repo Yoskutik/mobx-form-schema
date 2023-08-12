@@ -1,0 +1,19 @@
+.root {
+  box-sizing: border-box;
+  color: inherit;
+  border: 0;
+
+  &.mobileFullscreen {
+    @media screen and (max-width: 768px) {
+      max-height: unset;
+      max-width: unset;
+      height: unset;
+      width: unset;
+      inset: 0;
+    }
+  }
+
+  &::backdrop {
+    background: rgba(#000, 0.6);
+  }
+}

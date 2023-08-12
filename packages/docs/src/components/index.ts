@@ -1,10 +1,7 @@
-export * from './PageWithNavigation';
-
-export * from './Button';
-export * from './Code';
-export * from './FlexBoxes';
-export * from './Highlighter';
-export * from './ReturnButton';
-export * from './TextLink';
+export * from './Button/Button';
+export * from './Code/Code';
 export * from './Fields';
-export * from './SchemaInformer';
+export * from './Highlighter/Highlighter';
+export * from './Link/Link';
+export * from './Loader/Loader';
+export * from './Modal/Modal';

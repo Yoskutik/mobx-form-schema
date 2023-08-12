@@ -12,12 +12,12 @@ import {
 import type { TValidationConfig } from './validate';
 import { watch, type TWatchConfig } from './watch';
 import {
-  __ChangedKeysSymbol,
-  __ErrorsSymbol,
+  ChangedKeysSymbol,
+  ErrorsSymbol,
   __ExecSymbol,
-  __InitialValuesSymbol,
-  __ValidateSymbol,
-  __WatchSymbol,
+  InitialValuesSymbol,
+  ValidateSymbol,
+  WatchSymbol,
 } from './symbols';
 import { getMetadata } from './utils';
 import type { Constructable, CreateDecoratorType } from './types';
@@ -43,13 +43,13 @@ export const automate: Automate = (
       const record = create.call(this, data) as T;
       (record as any)[__ExecSymbol] = runInAction;
 
-      const validateMetadata = getMetadata<TValidationConfig<T, unknown>>(__ValidateSymbol, record);
-      const watchMetadata = getMetadata<TWatchConfig<T, unknown>>(__WatchSymbol, record);
+      const validateMetadata = getMetadata<TValidationConfig<T, unknown>>(ValidateSymbol, record);
+      const watchMetadata = getMetadata<TWatchConfig<T, unknown>>(WatchSymbol, record);
 
       const extendingObservableOptions: Record<string, any> = {
-        [__InitialValuesSymbol]: observable.ref,
-        [__ChangedKeysSymbol]: observable,
-        [__ErrorsSymbol]: observable,
+        [InitialValuesSymbol]: observable.ref,
+        [ChangedKeysSymbol]: observable,
+        [ErrorsSymbol]: observable,
 
         presentation: computed,
         isChanged: computed,

@@ -1,10 +1,8 @@
-import { FormSchema, validate, watch } from '@yoskutik/form-schema';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
+import { FormSchema, validate, watch } from '@yoskutik/mobx-form-schema';
 import { computed, makeObservable, observable, runInAction } from 'mobx';
 
 describe('Inheritance availability', () => {
   it('With decorators', () => {
-    @automate
     class BaseSchema extends FormSchema {
       @validate((field0: number) => field0 > 0)
       @watch field0 = 0;
@@ -22,7 +20,6 @@ describe('Inheritance availability', () => {
       }
     }
 
-    @automate
     class SuperSchema extends BaseSchema {
       @validate((field0: number) => field0 > 5)
       field0 = 1;
@@ -47,7 +44,6 @@ describe('Inheritance availability', () => {
       field0 = 0;
     }
 
-    @automate
     class SuperSchema extends BaseSchema {
       @validate((field0: number) => field0 > 5)
       field0 = 1;
@@ -75,7 +71,6 @@ describe('Inheritance availability', () => {
   });
 
   it('Deep inheritance', () => {
-    @automate
     class SchemaLevel0 extends FormSchema {
       @validate(v => v > 0)
       @watch field0 = 0;
@@ -85,13 +80,11 @@ describe('Inheritance availability', () => {
       field1 = 0;
     }
 
-    @automate
     class SchemaLevel2 extends SchemaLevel1 {
       @validate(v => v > 5)
       @watch field1 = 0;
     }
 
-    @automate
     class SchemaLevel3 extends SchemaLevel2 {
       @validate(v => v > 2)
       field0 = 0;

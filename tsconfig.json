@@ -16,11 +16,6 @@
     "removeComments": false,
     "declaration": true,
     "outDir": "dist",
-    "esModuleInterop": true,
-    "baseUrl": "./",
-    "paths": {
-      "@yoskutik/form-schema/*": ["./packages/form-schema/src/*"],
-      "@yoskutik/form-schema": ["./packages/form-schema/src"]
-    }
+    "esModuleInterop": true
   }
 }

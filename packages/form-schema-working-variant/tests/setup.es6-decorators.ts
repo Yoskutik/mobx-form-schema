@@ -1,0 +1,1 @@
+import '@yoskutik/form-schema/enable-es-decorators-types';

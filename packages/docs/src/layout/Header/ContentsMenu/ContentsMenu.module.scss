@@ -1,0 +1,80 @@
+.block:not(:last-of-type) {
+  border-bottom: 1px solid black;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.header {
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  padding: 8px 14px;
+  line-height: 20px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav {
+  flex-direction: column;
+  display: flex;
+}
+
+.link {
+  padding: 10px 14px;
+
+  &:not(:last-child) {
+    margin-bottom: 2px;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+
+@keyframes show-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  box-shadow: 16px 0 32px -16px rgba(0, 0, 0, 0.1);
+  transform: translateX(-300px);
+  transition: transform 0.3s;
+  padding: 12px 16px;
+  max-height: unset;
+  display: block;
+  height: unset;
+  width: 300px;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+
+  &::backdrop {
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+
+  &[open] {
+    transform: translateX(0);
+
+    &::backdrop {
+      opacity: 1;
+      animation: show-backdrop 0.3s ease normal;
+    }
+  }
+
+  &.hidden {
+    transform: translateX(-300px);
+
+    &::backdrop {
+      opacity: 0;
+    }
+  }
+}

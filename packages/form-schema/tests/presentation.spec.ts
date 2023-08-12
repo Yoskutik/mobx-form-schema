@@ -1,4 +1,4 @@
-import { FormSchema, presentation } from '@yoskutik/form-schema';
+import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
 
 describe('presentation decorator', () => {
   it('Presentation without decorator', () => {

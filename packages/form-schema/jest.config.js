@@ -2,10 +2,10 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '@yoskutik/form-schema/enable-es-decorators-types': process.env.JEST_WITH_COVERAGE
-      ? '<rootDir>/src/enable-es-decorators-types'
-      : '<rootDir>/dist/enable-es-decorators-types',
-    '@yoskutik/form-schema(.*)': process.env.JEST_WITH_COVERAGE
+    '@yoskutik/mobx-form-schema/dist/enable-es-decorators-types': process.env.JEST_WITH_COVERAGE
+      ? '<rootDir>/src/enable-legacy-experimental-decorators-types'
+      : '<rootDir>/dist/enable-legacy-experimental-decorators-types',
+    '@yoskutik/mobx-form-schema(.*)': process.env.JEST_WITH_COVERAGE
       ? '<rootDir>/src$1'
       : '<rootDir>/dist$1',
   },

@@ -1,10 +1,8 @@
-import { FormSchema, validate } from '@yoskutik/form-schema';
+import { FormSchema, validate } from '@yoskutik/mobx-form-schema';
 import { makeObservable, observable, runInAction } from 'mobx';
-import { automate } from '@yoskutik/form-schema/mobx-automate';
 
 describe('validate decorator', () => {
   it('Simple validation', () => {
-    @automate
     class Schema extends FormSchema {
       @validate(v => v > 1)
       field1 = 1;
@@ -38,7 +36,6 @@ describe('validate decorator', () => {
   });
 
   it('Validation based on other fields', () => {
-    @automate
     class Schema extends FormSchema {
       @validate((value: number, schema: Schema) => value > 1 || schema.field2 == 1)
       field1 = 1;
@@ -73,7 +70,6 @@ describe('validate decorator', () => {
 
   describe('Conditional validation', () => {
     it('Simple conditional validation', () => {
-      @automate
       class Schema extends FormSchema {
         @validate.if(Boolean, [(v: string) => !/\S+@\S+\.\S+/.test(v)])
         email = 'mail@gmail.com';
@@ -100,7 +96,6 @@ describe('validate decorator', () => {
     });
 
     it('Conditional validation based on other fields', () => {
-      @automate
       class Schema extends FormSchema {
         @validate.if((_, schema) => schema.shouldCheckEmail, [v => !/\S+@\S+\.\S+/.test(v)])
         email = 'mailgmail.com';
@@ -136,7 +131,6 @@ describe('validate decorator', () => {
   }
 
   it('Human readable errors', () => {
-    @automate
     class Schema extends FormSchema {
       @validate(v => v > 1 ? 'Field1 is not valid' : false)
       field1 = 1;

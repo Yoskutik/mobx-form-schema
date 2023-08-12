@@ -1,5 +1,6 @@
 const typescript = require('@rollup/plugin-typescript');
 const swc = require('@swc/core');
+const dts = require('dts-bundle-generator');
 const fs = require('fs');
 const tsconfig = require('./tsconfig.json');
 
@@ -32,6 +33,44 @@ const minify = () => ({
   },
 });
 
+const bundleTypes = () => ({
+  generateBundle(_, bundle) {
+    const typeFiles = Object.keys(bundle)
+      .filter(it => (
+        it.endsWith('.d.ts')
+        && !it.includes('enable-legacy-experimental-decorators-types')
+        && !it.includes('TypesConfiguration')
+      ));
+
+    if (!fs.existsSync('dist')) {
+      fs.mkdirSync('dist');
+    }
+
+    typeFiles.forEach(file => {
+      fs.writeFileSync(`./dist/${file}`, bundle[file].source);
+    });
+
+    const types = dts.generateDtsBundle([
+      {
+        filePath: './dist/index.d.ts',
+        output: { noBanner: true },
+      }
+    ]).join('');
+
+    typeFiles.forEach(it => {
+      fs.unlinkSync(`./dist/${it}`);
+      delete bundle[it];
+    });
+
+    this.emitFile({
+      type: 'asset',
+      source: `import TypesConfiguration from './TypesConfiguration';\n\n${types}`,
+      // fileName: 'mobx-form-schema.d.ts',
+      fileName: 'index.d.ts',
+    });
+  },
+});
+
 const copyTSasDTS = (files) => ({
   generateBundle() {
     files.forEach(file => {
@@ -52,25 +91,30 @@ const copyTSasDTS = (files) => ({
   },
 });
 
-module.exports = {
-  input: ['src/index.ts', 'src/mobx-automate.ts'],
-  output: {
-    dir: 'dist',
-    preserveModules: true,
-    format: 'esm',
+module.exports = [
+  {
+    input: 'src/index.ts',
+    output: {
+      // file: 'dist/mobx-form-schema.js',
+      file: 'dist/index.js',
+      format: 'esm',
+    },
+    plugins: [
+      typescript({
+        tsconfig: `./tsconfig.json`,
+        declarationDir: 'dist',
+        declaration: true,
+      }),
+      minify(),
+      copyTSasDTS([
+        'src/enable-legacy-experimental-decorators-types.ts',
+        'src/TypesConfiguration.ts',
+      ]),
+      bundleTypes(),
+    ],
+    external: [
+      'mobx',
+      './TypesConfiguration',
+    ],
   },
-  plugins: [
-    typescript({
-      tsconfig: `./tsconfig.json`,
-      declarationDir: 'dist',
-      declaration: true,
-    }),
-    minify(),
-    copyTSasDTS([
-      'src/enable-es-decorators-types.ts',
-    ]),
-  ],
-  external: [
-    'mobx',
-  ],
-};
+];

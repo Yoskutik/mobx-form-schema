@@ -1,0 +1,13 @@
+.container {
+  flex-direction: column;
+  display: flex;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.container_checkbox {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}

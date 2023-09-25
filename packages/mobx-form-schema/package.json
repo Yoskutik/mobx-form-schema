@@ -1,0 +1,57 @@
+{
+  "name": "@yoskutik/mobx-form-schema",
+  "version": "1.2.1",
+  "description": "The simple way to organize you forms!",
+  "keywords": [
+    "forms",
+    "validation",
+    "mobx",
+    "decorators"
+  ],
+  "homepage": "https://yoskutik.github.io/form-schema",
+  "bugs": {
+    "url": "https://github.com/Yoskutik/form-schema/issues",
+    "email": "yoskutik@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoskutik/form-schema.git"
+  },
+  "author": "Yoskutik <yoskutik@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "dist/mobx-form-schema.d.ts",
+  "scripts": {
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "pub": "yarn build && yarn publish --access public",
+    "lint": "eslint src --ext .ts"
+  },
+  "peerDependencies": {
+    "mobx": "^6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "11.1.3",
+    "@swc/core": "1.3.56",
+    "@yoskutik/eslint-config": "0.2.7",
+    "dts-bundle-generator": "8.0.1",
+    "eslint": "8.49.0",
+    "mobx": "6.10.2",
+    "reflect-metadata": "0.1.13",
+    "rollup": "3.29.2",
+    "rollup-plugin-define": "1.0.1",
+    "typescript": "5.2.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@yoskutik/eslint-config"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "prefer-object-spread": "off",
+      "no-param-reassign": "off",
+      "import/no-cycle": "off"
+    }
+  }
+}

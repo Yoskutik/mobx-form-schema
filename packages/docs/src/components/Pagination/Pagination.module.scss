@@ -1,0 +1,49 @@
+.root {
+  justify-content: space-between;
+  margin-top: 24px;
+  display: flex;
+  width: 100%;
+}
+
+.link {
+  width: min(50%, 300px);
+  align-items: center;
+  padding: 12px;
+  display: flex;
+
+  &:hover {
+    background-color: var(--secondary-bg-color);
+
+    .linkContent {
+      text-decoration: underline;
+    }
+  }
+
+  &_right {
+    justify-content: flex-end;
+
+    .icon {
+      margin: 0 0 0 16px;
+    }
+  }
+}
+
+.wrapper {
+  flex-direction: column;
+  display: flex;
+}
+
+.linkTitle {
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.icon {
+  color: var(--base-text-color);
+  margin: 0 16px 0 0;
+  font-size: 32px;
+
+  &_left {
+    transform: rotate(180deg);
+  }
+}

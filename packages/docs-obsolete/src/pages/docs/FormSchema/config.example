@@ -1,5 +1,0 @@
-class Schema extends FormSchema {
-  protected static config = {
-    manual: true,
-  };
-}

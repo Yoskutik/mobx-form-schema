@@ -1,6 +1,11 @@
 import React from 'react';
+import clsx from 'clsx';
 import styles from './Loader.module.scss';
 
-export const Loader = () => (
-  <span className={styles.root} />
-)
+type Props = {
+  className?: string;
+};
+
+export const Loader = ({ className }: Props) => (
+  <span className={clsx(styles.root, className)} />
+);

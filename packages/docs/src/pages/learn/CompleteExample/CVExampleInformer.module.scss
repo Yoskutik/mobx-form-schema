@@ -1,0 +1,34 @@
+.root {
+  align-items: flex-start;
+  margin-top: 32px;
+  display: flex;
+  gap: 24px;
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.item {
+  flex: 1;
+
+  &_errors {
+    flex-direction: column;
+    display: flex;
+    gap: 16px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    flex: unset;
+  }
+}
+
+.title {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.pre {
+  white-space: pre-wrap;
+}

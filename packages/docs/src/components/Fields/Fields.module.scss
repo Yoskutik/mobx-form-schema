@@ -3,11 +3,72 @@
   display: flex;
 
   &:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  label {
+    margin-bottom: 2px;
+  }
+
+  &_checkbox {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    label {
+      margin-bottom: 0;
+      margin-left: 4px;
+    }
   }
 }
 
-.container_checkbox {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
+.error {
+  margin-top: 2px;
+  color: red;
+}
+
+.input {
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 2px 4px;
+
+  &_error {
+    border-color: red;
+  }
+}
+
+.requiredAsterisk {
+  font-size: 10px;
+  vertical-align: top;
+}
+
+.choiceChipsContainer {
+  margin-bottom: 2px;
+}
+
+.choiceChip {
+  background-color: var(--secondary-bg-color);
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  line-height: 15px;
+  font-size: 12px;
+  padding: 2px 4px;
+
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+}
+
+.choiceChipClose {
+  background-color: transparent;
+  line-height: initial;
+  font-size: inherit;
+  margin-left: 2px;
+  color: inherit;
+  height: 14px;
+  width: 14px;
+
+  &:hover {
+    background-color: var(--border-color);
+  }
 }

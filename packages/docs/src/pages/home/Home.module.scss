@@ -1,5 +1,9 @@
+.root {
+  width: 100%;
+}
+
 .main {
-  padding: 120px 20px 80px;
+  padding: 100px 20px 80px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -13,20 +17,37 @@
   font-size: 32px;
 }
 
-.description {
+.mainSubtitle {
   text-align: center;
-  text-wrap: balance;
-  line-height: 28px;
+  line-height: 30px;
+  font-weight: 500;
   margin-top: 8px;
   font-size: 20px;
 }
 
+.description {
+  text-align: center;
+  text-wrap: balance;
+  line-height: 27px;
+  font-weight: 400;
+  margin-top: 8px;
+  font-size: 18px;
+
+  b {
+    font-weight: 500;
+  }
+}
+
+.mainDescription {
+  max-width: min(650px, 90vw);
+  margin-top: 32px;
+}
+
 .mainLinks {
-  margin-top: 20px;
+  margin-top: 32px;
 }
 
 .mainLink {
-  line-height: 24px;
   font-size: 18px;
 
   &:not(:last-child) {
@@ -36,7 +57,7 @@
 
 .block {
   background-image: conic-gradient(from 90deg at -10% 100%, #bcc1cd 0deg, #bcc1cd 90deg, #fff 1turn);
-  border-top: 1px solid rgba(35,39,47,.1);
+  border-top: 1px solid rgba(#23272F, .1);
   padding: 60px 20px 40px;
   justify-content: center;
   flex-direction: column;
@@ -48,13 +69,25 @@
   }
 
   .description {
-    max-width: 650px;
+    max-width: min(650px, 90vw);
+  }
+
+  html:global(.dark) & {
+    background-image: conic-gradient(from 90deg at -10% 100%, #2b303b 0deg, #2b303b 90deg, #16181d 1turn);
+
+    &:nth-of-type(odd) {
+      background-image: conic-gradient(from -90deg at 110% 100%, #2b303b 0deg, #16181d 90deg, #16181d 1turn)
+    }
   }
 }
 
-.h3 {
+.h4 {
   margin-bottom: 8px;
-  line-height: 32px;
+  line-height: 29px;
   font-weight: 400;
   font-size: 24px;
+}
+
+.codeExample {
+  margin-top: 32px;
 }

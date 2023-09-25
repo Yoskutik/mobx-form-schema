@@ -12,11 +12,16 @@
   background: rgb(40, 42, 54);
   transition: opacity 0.2s;
   position: absolute;
+  color: #e0e0e0;
   opacity: 0;
   right: 7px;
   top: 7px;
 
   &:hover {
     background: lighten(rgb(40, 42, 54), 5%);
+  }
+
+  &:focus-visible {
+    opacity: 1;
   }
 }

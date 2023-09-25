@@ -1,16 +1,18 @@
 .root {
-  backdrop-filter: blur(16px) saturate(2);
-  background: rgba(255, 255, 255, 0.9);
-  transition-duration: .3s;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--base-bg-color);
+  transition: box-shadow 0.3s;
   align-items: center;
   position: sticky;
   padding: 0 12px;
+  flex-shrink: 0;
   display: flex;
   height: 64px;
+  z-index: 1;
   top: 0;
 
   &_withShadow {
-    box-shadow: 0 16px 32px -16px rgba(#000, .1), 0 0 0 1px rgba(#000, .1);
+    box-shadow: 0 16px 24px -8px rgba(#000, .1);
   }
 
   @media screen and (min-width: 768px) {
@@ -21,7 +23,7 @@
 .menuButton {
   margin-right: 8px;
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 }
@@ -30,18 +32,14 @@
   margin-right: 16px;
   line-height: 28px;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .titleLink {
+  background: none !important;
   line-height: inherit;
   font-size: inherit;
-  background: none;
   padding: 0;
-
-  &:hover, &:active, &:global(.active) {
-    background: none;
-  }
 }
 
 .search {
@@ -62,6 +60,10 @@
 
   &.forceVisible {
     display: inline-flex;
+  }
+
+  &_theme {
+    color: inherit;
   }
 
   @media screen and (min-width: 768px) {

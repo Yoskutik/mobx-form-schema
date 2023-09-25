@@ -1,7 +1,0 @@
-import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
-
-class LoginInSchema extends FormSchema {
-  @watch username = '';
-
-  @watch password = '';
-}

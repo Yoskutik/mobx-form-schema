@@ -1,37 +1,16 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
-import { Modal, Link, Button } from '@components';
-import styles from './ContentsMenu.module.scss'
-import { GitHub, Close } from '@mui/icons-material';
-
-type BlockProps = {
-  title: string;
-  links: Array<{
-    to: string;
-    name: string | ReactElement;
-    icon?: ReactElement;
-  }>;
-  onClick: () => void;
-}
-
-const Block = ({ title, links, onClick }: BlockProps) => (
-  <section className={styles.block}>
-    <h3 className={styles.header}>
-      {title}
-    </h3>
-    <nav className={styles.nav}>
-      {links.map(({ to, name, icon }) => (
-        <Link to={to} className={styles.link} key={to} onClick={onClick} icon={icon}>
-          {name}
-        </Link>
-      ))}
-    </nav>
-  </section>
-);
+import React, { useEffect, useRef } from 'react';
+import { Modal, Button, TableOfContentsContent, Title, TableOfContentsLink } from '@components';
+import { LEARN_TABLE_OF_CONTENTS_LINKS } from '@pages/learn/tableOfContententsLinks';
+import { REFERENCE_TABLE_OF_CONTENTS_LINKS } from '@pages/reference/tableOfContententsLinks';
+import styles from './ContentsMenu.module.scss';
+import { GitHub } from '../GitHub';
+import { NPM } from './NPM';
+import { Close } from './Close';
 
 type Props = {
   isOpened: boolean;
   onClose: () => void;
-}
+};
 
 export const ContentsMenu = ({ isOpened, onClose }: Props) => {
   const ref = useRef<HTMLDialogElement>();
@@ -41,73 +20,72 @@ export const ContentsMenu = ({ isOpened, onClose }: Props) => {
 
     const dialog = ref.current;
 
+    dialog.addEventListener('transitionend', ({ propertyName }) => {
+      if (propertyName === 'transform' && dialog.classList.contains(styles.hidden)) {
+        onClose();
+      }
+    });
+
     const handleCancel = (evt: Event) => {
       evt.preventDefault();
-
-      dialog.addEventListener('transitionend', ({ propertyName }) => {
-        if (propertyName === 'transform') dialog.close();
-      });
-
       dialog.classList.add(styles.hidden);
     };
 
+    const handlePopState = () => {
+      ref.current?.classList.add(styles.hidden);
+    };
+
     dialog.addEventListener('cancel', handleCancel);
-    window.addEventListener('popstate', onClose);
+    window.addEventListener('hashchange', handlePopState);
 
     return () => {
-      window.removeEventListener('popstate', onClose);
+      window.removeEventListener('hashchange', handlePopState);
       dialog.removeEventListener('cancel', handleCancel);
-    }
-  }, [isOpened]);
+    };
+  }, [isOpened, onClose]);
+
+  const handleCloseClick = () => {
+    ref.current?.classList.add(styles.hidden);
+  };
 
   return (
     <Modal opened={isOpened} onClose={onClose} mobileFullscreen className={styles.modal} ref={ref}>
-      <Block
-        title="Learn Form Schema"
-        onClick={onClose}
-        links={[
-          { to: '/learn/install', name: 'Installation' },
-          { to: '/learn/start', name: 'Quick start' },
-          { to: '/learn/validation', name: 'Form validation' },
-          { to: '/learn/observation', name: 'Form observation' },
-          { to: '/learn/factory', name: 'Form data preprocessing' },
-          { to: '/learn/presentation', name: 'Form data presentation' },
-          { to: '/learn/automation', name: 'Automation' },
-        ]}
-      />
+      <Title variant="h3">Table of Contents</Title>
 
-      <Block
-        title="API Reference"
-        onClick={onClose}
-        links={[
-          { to: '/reference/form-schema', name: 'FormSchema' },
-          { to: '/reference/validate', name: '@validate' },
-          { to: '/reference/automate', name: '@automate' },
-          { to: '/reference/watch', name: '@watch' },
-          { to: '/reference/factory', name: '@factory' },
-          { to: '/reference/presentation', name: '@presentation' },
-        ]}
-      />
+      <nav className={styles.nav}>
+        <TableOfContentsLink to="/" className={styles.link} title="Main page" />
+        <TableOfContentsLink to="/learn" className={styles.link} title="Learn MobX Form Schema" />
+        <div className={styles.nestedBlock}>
+          <TableOfContentsContent links={LEARN_TABLE_OF_CONTENTS_LINKS} />
+        </div>
+        <TableOfContentsLink
+          to={REFERENCE_TABLE_OF_CONTENTS_LINKS[0][1][0].to}
+          className={styles.link}
+          title="Reference"
+        />
+        <div className={styles.nestedBlock}>
+          <TableOfContentsContent links={REFERENCE_TABLE_OF_CONTENTS_LINKS} />
+        </div>
+      </nav>
 
-      <Block
-        title="More"
-        onClick={onClose}
-        links={[
-          {
-            to: 'https://github.com/Yoskutik/form-schema',
-            name: 'GitHub Repository',
-            icon: <GitHub />
-          },
-          {
-            to: 'https://www.npmjs.com/package/@yoskutik/form-schema',
-            name: 'NPM Package',
-            icon: <GitHub />,
-          },
-          // TODO Article?
-        ]}
-      />
+      <Title variant="h4" className={styles.moreTitle}>More</Title>
 
-      <Button className={styles.closeButton} icon={<Close />} onClick={onClose} />
+      <nav className={styles.nav}>
+        <TableOfContentsLink
+          to="https://github.com/Yoskutik/mox-form-schema"
+          title="GitHub Repository"
+          className={styles.link}
+          icon={<GitHub />}
+        />
+        <TableOfContentsLink
+          to="https://www.npmjs.com/package/@yoskutik/mobx-form-schema"
+          className={styles.link}
+          title="NPM Package"
+          icon={<NPM />}
+        />
+      </nav>
+
+      <Button className={styles.closeButton} icon={<Close />} onClick={handleCloseClick} />
     </Modal>
   );
 };

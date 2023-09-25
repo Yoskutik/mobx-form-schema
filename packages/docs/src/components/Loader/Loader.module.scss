@@ -18,3 +18,17 @@
     transform: rotate(360deg);
   }
 }
+
+.mask {
+  color: var(--base-text-color);
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  display: flex;
+  inset: 0;
+}
+
+.loader {
+  border-color: var(--primary-text-color);
+  border-bottom-color: transparent;
+}

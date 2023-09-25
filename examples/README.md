@@ -1,2 +1,0 @@
-# MobX Form Schema examples
-

@@ -34,11 +34,11 @@ jobs:
       - name: Tests
         run: yarn test
 
-#      - name: Deploy documentation 🚀
-#        uses: JamesIves/github-pages-deploy-action@v4
-#        with:
-#          folder: packages/docs/build
-#        if: github.event_name != 'pull_request'
+      - name: Deploy documentation 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: packages/docs/build
+        if: github.event_name != 'pull_request'
 
       - name: Setting upsteam
         run: git push --set-upstream origin master
@@ -47,7 +47,7 @@ jobs:
       - name: Generating coverage badges
         uses: jpb06/jest-badges-action@latest
         with:
-          coverage-summary-path: packages/form-schema/coverage/coverage-summary.json
+          coverage-summary-path: packages/coverage/coverage-summary.json
           branches: master,preprod,staging
         if: github.event_name != 'pull_request'
 

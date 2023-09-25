@@ -1,7 +1,5 @@
-.loadingMask {
-  justify-content: center;
-  align-items: center;
-  position: fixed;
+.main {
+  position: relative;
   display: flex;
-  inset: 0;
+  flex: 1;
 }

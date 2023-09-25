@@ -1,46 +1,44 @@
 {
-  "name": "@yoskutik/form-schema-docs",
+  "name": "@yoskutik/mobx-form-schema-docs",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "webpack serve",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "build:analyze": "webpack --mode=production --env analyzeBundle"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.7",
-    "@types/react": "18.0.21",
-    "@types/react-dom": "18.0.6",
-    "@types/react-syntax-highlighter": "^15.5.5",
-    "@yoskutik/eslint-config": "0.1.3",
-    "@yoskutik/react-vvm": "^1.2.0",
-    "@yoskutik/form-schema": "file:../form-schema",
-    "clsx": "^1.2.1",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.8.1",
-    "eslint": "8.39.0",
-    "html-webpack-plugin": "^5.5.0",
-    "mobx": "6.9.0",
-    "mobx-react": "7.6.0",
-    "raw-loader": "^4.0.2",
+    "@types/react": "18.2.22",
+    "@types/react-dom": "18.2.7",
+    "@types/react-syntax-highlighter": "15.5.7",
+    "@yoskutik/eslint-config": "0.2.7",
+    "@yoskutik/mobx-form-schema": "1.2.1",
+    "@yoskutik/react-vvm": "1.3.1",
+    "clsx": "1.2.1",
+    "copy-webpack-plugin": "11.0.0",
+    "css-loader": "6.8.1",
+    "eslint": "8.49.0",
+    "html-webpack-plugin": "5.5.3",
+    "mobx": "^6",
+    "mobx-react": "9.0.1",
+    "null-loader": "^4.0.1",
+    "preact": "^10.17.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.4.1",
-    "react-syntax-highlighter": "^15.5.0",
+    "react-router-dom": "6.16.0",
+    "react-syntax-highlighter": "15.5.0",
     "reflect-metadata": "0.1.13",
-    "sass": "^1.63.6",
-    "sass-loader": "^13.3.2",
-    "style-loader": "^3.3.3",
-    "svg-url-loader": "^8.0.0",
-    "terser-webpack-plugin": "^5.3.6",
-    "ts-loader": "^9.4.1",
-    "tsyringe": "4.7.0",
-    "typescript": "5.1.6",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.11.1"
+    "sass": "1.68.0",
+    "sass-loader": "13.3.2",
+    "static-site-generator-webpack-plugin": "^3.4.2",
+    "style-loader": "3.3.3",
+    "svg-url-loader": "8.0.0",
+    "terser-webpack-plugin": "5.3.9",
+    "ts-loader": "9.4.4",
+    "typescript": "5.2.2",
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "4.15.1"
   },
   "browserslist": {
     "production": [
@@ -53,5 +51,23 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "@yoskutik/eslint-config"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "react/jsx-one-expression-per-line": "off",
+      "import/no-webpack-loader-syntax": "off",
+      "import/no-default-export": "off",
+      "no-alert": "off"
+    }
+  },
+  "devDependencies": {
+    "mini-css-extract-plugin": "^2.7.6",
+    "webpack-bundle-analyzer": "^4.9.1"
   }
 }

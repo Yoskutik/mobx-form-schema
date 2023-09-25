@@ -1,0 +1,33 @@
+.root {
+  flex-direction: column;
+  max-height: 100%;
+  display: flex;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: row;
+    width: 100%;
+
+    form {
+      width: min(50%, 300px);
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+
+    form {
+      width: 100%;
+    }
+  }
+}
+
+.presentation {
+  @media screen and (max-width: 1024px) {
+    margin: 0 0 0 20px;
+  }
+
+  @media screen and (max-width: 640px) {
+    margin: 20px 0 0 0;
+    width: 100%;
+  }
+}

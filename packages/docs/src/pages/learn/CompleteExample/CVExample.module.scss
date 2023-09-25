@@ -1,0 +1,50 @@
+.root {
+  flex-direction: column;
+  display: flex;
+
+  b {
+    font-weight: 500;
+  }
+}
+
+.form {
+  display: flex;
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.left {
+  width: min(350px, 40%);
+  margin-right: 32px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: 0 0 32px 0;
+  }
+}
+
+.title {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.contacts {
+  margin-top: 16px;
+}
+
+.experience {
+  flex: 1;
+}
+
+.addBtn {
+  margin-top: 8px;
+}
+
+.buttons {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}

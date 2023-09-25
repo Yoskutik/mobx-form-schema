@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A documentation of MobX Form Schema package" />
+    <title>MobX Form Schema</title>
+    <script>
+      if (
+        localStorage.getItem('theme')
+          ? localStorage.getItem('theme') === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        document.head.parentNode.className = 'dark';
+      }
+    </script>
+    <style>
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #loader {
+        background: #fff;
+        position: fixed;
+        display: flex;
+        opacity: 1;
+        inset: 0;
+      }
+
+      html.dark #loader {
+        background: #1e1e28;
+      }
+
+      #loader span {
+        border: 5px solid #0873a4;
+        border-bottom-color: transparent;
+        box-sizing: border-box;
+        display: inline-block;
+        border-radius: 50%;
+        margin: auto;
+        height: 48px;
+        width: 48px;
+      }
+
+      html.dark #loader span {
+        border-color: #66b3ff;
+        border-bottom-color: transparent;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        #loader {
+          transition: opacity 0.4s;
+        }
+
+        #loader.hidden {
+          opacity: 0;
+        }
+
+        #loader span {
+          animation: rotation 1s linear infinite;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <div id="loader"><span></span></div>
+  </body>
+</html>

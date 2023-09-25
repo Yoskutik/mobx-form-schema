@@ -1,8 +1,0 @@
-import { FormSchema } from '@yoskutik/mobx-form-schema';
-
-export class Schema extends FormSchema {
-  field = 0;
-}
-
-const schema = Schema.create();
-console.log(schema.presentation);   // { field: 0 }

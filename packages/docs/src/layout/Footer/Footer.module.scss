@@ -1,0 +1,15 @@
+.root {
+  background-color: #1c1e21;
+  justify-content: center;
+  display: flex;
+  color: #aaa;
+}
+
+.wrapper {
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  max-width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  width: 1200px;
+}

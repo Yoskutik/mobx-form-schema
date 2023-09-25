@@ -1,0 +1,97 @@
+.tab {
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 4px;
+  padding: 4px 8px;
+  border-radius: 0;
+  cursor: pointer;
+  color: #fff;
+
+  &:hover {
+    border-color: rgba(#fff, 0.5);
+    background: rgba(#fff, 0.05);
+  }
+
+  &.active {
+    background: rgba(#fff, 0.2);
+    border-color: white;
+  }
+}
+
+.tabContainer {
+  border-bottom: 1px solid rgba(#fff, 0.1);
+  padding: 16px 16px 0 16px;
+  display: flex;
+}
+
+.tabContainerScrollable {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+}
+
+.block {
+  box-shadow: rgba(#000, 0.1) 0 1px 4px 0;
+  border: 1px solid var(--border-color);
+  max-width: min(90vw, 100%);
+  border-radius: 8px;
+  margin-top: 16px;
+  overflow: hidden;
+  width: 1000px;
+  display: flex;
+
+  .right-side {
+    background: var(--base-bg-color);
+    border-radius: 0 8px 8px 0;
+    line-height: 20px;
+    max-height: 495px;
+    font-size: 16px;
+    overflow: auto;
+    flex-shrink: 0;
+    padding: 12px;
+    width: 300px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+
+    .right-side {
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      width: 100%;
+
+      & > * {
+        overflow: hidden;
+      }
+    }
+  }
+
+  @media screen and (max-width: 464px) {
+    flex-direction: column;
+
+    .right-side {
+      flex-direction: column;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.vbox {
+  background: #282A36;
+  flex-direction: column;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+}
+
+.normalizer {
+  flex-shrink: 0;
+  width: 16px;
+}

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+    "lib": ["dom", "es2022"],
+    "jsx": "react",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "removeComments": false,
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@yoskutik/mobx-form-schema/dist/enable-legacy-experimental-decorators-types": ["./src/enable-legacy-experimental-decorators-types"],
+      "@yoskutik/mobx-form-schema/*": ["./src/*"],
+      "@yoskutik/mobx-form-schema": ["./src"]
+    }
+  },
+  "include": [
+    "src",
+    "global.d.ts"
+  ]
+}

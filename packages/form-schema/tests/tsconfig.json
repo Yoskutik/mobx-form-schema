@@ -1,9 +1,0 @@
-{
-  "extends": ["../tsconfig.json"],
-  "include": [
-    "."
-  ],
-  "exclude": [
-    "setup.es6-decorators.ts"
-  ]
-}

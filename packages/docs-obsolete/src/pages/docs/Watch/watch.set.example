@@ -1,5 +1,0 @@
-import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
-
-class Schema extends FormSchema {
-  @watch.set shallowObservableSet = new Set<string>();
-}

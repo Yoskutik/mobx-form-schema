@@ -1,0 +1,50 @@
+.root {
+  margin-top: 20px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.grid {
+  grid-template-columns: max-content max-content max-content;
+  margin-bottom: 8px;
+  display: grid;
+  gap: 4px 8px;
+}
+
+.presentation {
+  font-size: 14px;
+  margin: 0;
+}
+
+.label {
+  border-radius: 50%;
+  align-self: center;
+  height: 12px;
+  width: 12px;
+
+  &_green {
+    background-color: green;
+  }
+
+  &_red {
+    background-color: red;
+  }
+
+  &_gray {
+    background-color: #d0d0d0;
+  }
+}
+
+.text {
+  &_green {
+    color: green;
+  }
+
+  &_red {
+    color: red;
+  }
+
+  &_gray {
+    color: #666;
+  }
+}

@@ -1,16 +1,9 @@
-import { factory, FormSchema, watch } from '@yoskutik/form-schema';
-
-class NestedSchema extends FormSchema {
-  @watch field = '';
-}
+import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 
 export class ObservationSchema extends FormSchema {
-  @watch field = '';
+  @watch basicString = '';
 
   @watch.array array: string[] = [];
 
   @watch.set set = new Set<string>();
-
-  @factory.schema(NestedSchema)
-  @watch.schema nestedSchema = NestedSchema.create();
 }

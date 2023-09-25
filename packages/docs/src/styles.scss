@@ -1,48 +1,55 @@
 html, body {
+  min-height: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
 }
 
+html {
+  --base-text-color: #101010;
+  --base-bg-color: #fff;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --primary-text-color: #0873a4;
+  --primary-active-bg-color: #e6f7ff;
+  --secondary-bg-color: rgba(37, 37, 37, 0.06);
+
+  &.dark {
+    --base-text-color: #fafafa;
+    --base-bg-color: #1e1e28;
+    --primary-text-color: #66b3ff;
+    --primary-active-bg-color: #222931;
+    --border-color: rgba(255, 255, 255, 0.4);
+    --secondary-bg-color: #363636;
+  }
+}
+
 body {
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--base-bg-color);
+  text-rendering: optimizeSpeed;
+  color: var(--base-text-color);
   letter-spacing: 0.2px;
-  color: #404756;
+}
+
+#root {
+  flex-direction: column;
+  min-height: 100%;
+  display: flex;
 }
 
 a {
   display: inline-flex;
   align-items: center;
-  padding: 8px 14px;
   color: inherit;
 }
 
 button {
   justify-content: center;
   display: inline-flex;
+  font-family: inherit;
   align-items: center;
   background: inherit;
-  padding: 8px;
   border: none;
-}
-
-a, button {
-  text-decoration: none;
-  border-radius: 8px;
-  line-height: 20px;
-  font-size: 16px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(35,39,47,.05);
-  }
-
-  &.active {
-    background-color: #e6f7ff;
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -51,4 +58,37 @@ h1, h2, h3, h4, h5, h6, p {
 
 * {
   box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+pre {
+  font-size: inherit;
+  margin: 12px 0 0;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Inter;
+  font-style: oblique 0deg 20deg;
+  font-weight: 300 700;
+  src: url(../public/Inter.woff2) format("woff2 supports variations"),
+       url(../public/Inter.woff2) format("woff2-variations");
+}
+
+svg {
+  width: 1em;
+  height: 1em;
 }

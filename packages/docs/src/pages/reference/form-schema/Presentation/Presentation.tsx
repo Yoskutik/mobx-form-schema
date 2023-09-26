@@ -1,6 +1,5 @@
-import { Code, EntireExample, Highlighter, Section, Text, Title } from '@components';
+import { Code, EntireExample, Highlighter, Section, Text } from '@components';
 import ExampleSource from 'source-loader!./Example';
-import { ExcludedFormSchemaKeyToValue } from '@yoskutik/mobx-form-schema';
 import styles from '../../Reference.module.scss';
 
 const Presentation = () => (

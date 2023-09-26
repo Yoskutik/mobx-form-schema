@@ -1,24 +1,26 @@
 const path = require('path');
+const tsJest = require.resolve('ts-jest').replace('/dist/index.js', '');
 
-// const preset = path.resolve(__dirname, 'node_modules/ts-jest');
+const isWithCoverage = !!process.env.JEST_WITH_COVERAGE;
+const isLegacyDecorators = !!process.env.LEGACY_DECORATORS;
 
 module.exports = {
-  preset: 'ts-jest',
+  preset: tsJest,
 
   globals: {
-    __DEV__: !!process.env.JEST_WITH_COVERAGE,
+    __DEV__: isWithCoverage,
     'process.env.NODE_ENV': 'production',
   },
 
   rootDir: '..',
 
-  moduleNameMapper: process.env.JEST_WITH_COVERAGE
+  moduleNameMapper: isWithCoverage
     ? { '@yoskutik/mobx-form-schema(.*)': '<rootDir>/mobx-form-schema/src$1' }
     : undefined,
 
   transform: {
-    '^.+\\.[tj]s?$': ['ts-jest', {
-      tsconfig: process.env.LEGACY_DECORATORS ? './tsconfig.legacy-decorators.json' : './tsconfig.json',
+    '^.+\\.[tj]s?$': [tsJest, {
+      tsconfig: isLegacyDecorators ? './tsconfig.legacy-decorators.json' : './tsconfig.json',
       babelConfig: {
         presets: ['@babel/preset-env']
       },
@@ -27,9 +29,7 @@ module.exports = {
 
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 
-  setupFiles: [
-    process.env.LEGACY_DECORATORS && './tests/setup.legacy-decorators.ts',
-  ].filter(Boolean),
+  setupFiles: [isLegacyDecorators && './tests/setup.legacy-decorators.ts'].filter(Boolean),
 
   coverageReporters: ['json-summary', 'text', 'lcov'],
 

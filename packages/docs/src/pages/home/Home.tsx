@@ -34,7 +34,7 @@ const Home = memo(() => (
         <Link to="/learn" variant="primary" className={styles.mainLink} size="l">
           Learn
         </Link>
-        <Link to="/reference" variant="secondary" className={styles.mainLink} size="l">
+        <Link to="/reference/form-schema/create" variant="secondary" className={styles.mainLink} size="l">
           Reference
         </Link>
       </div>
@@ -145,7 +145,7 @@ const Home = memo(() => (
         <Link to="/learn" variant="primary" className={styles.mainLink} size="l">
           Learn
         </Link>
-        <Link to="/reference" variant="secondary" className={styles.mainLink} size="l">
+        <Link to="/reference/form-schema/create" variant="secondary" className={styles.mainLink} size="l">
           Reference
         </Link>
       </div>

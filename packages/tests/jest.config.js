@@ -12,7 +12,7 @@ module.exports = {
     'process.env.NODE_ENV': 'production',
   },
 
-  rootDir: '..',
+  rootDir: isWithCoverage ? '..' : '.',
 
   moduleNameMapper: isWithCoverage
     ? { '@yoskutik/mobx-form-schema(.*)': '<rootDir>/mobx-form-schema/src$1' }
@@ -22,14 +22,17 @@ module.exports = {
     '^.+\\.[tj]s?$': [tsJest, {
       tsconfig: isLegacyDecorators ? './tsconfig.legacy-decorators.json' : './tsconfig.json',
       babelConfig: {
-        presets: ['@babel/preset-env']
+        presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-transform-modules-commonjs'],
       },
     }],
   },
 
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
+  transformIgnorePatterns: [
+    'node_modules/(?!@yoskutik/mobx-form-schema)'
+  ],
 
-  setupFiles: [isLegacyDecorators && './tests/setup.legacy-decorators.ts'].filter(Boolean),
+  setupFiles: [isLegacyDecorators && './setup.legacy-decorators.ts'].filter(Boolean),
 
   coverageReporters: ['json-summary', 'text', 'lcov'],
 

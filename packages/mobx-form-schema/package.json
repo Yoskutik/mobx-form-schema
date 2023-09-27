@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/mobx-form-schema",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "The simple way to organize you forms!",
   "keywords": [
     "forms",
@@ -27,7 +27,7 @@
     "lint": "eslint src --ext .ts"
   },
   "peerDependencies": {
-    "mobx": "^6"
+    "mobx": "^6.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "11.1.3",

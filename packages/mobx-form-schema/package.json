@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/mobx-form-schema",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "The simple way to organize you forms!",
   "keywords": [
     "forms",
@@ -8,14 +8,14 @@
     "mobx",
     "decorators"
   ],
-  "homepage": "https://yoskutik.github.io/form-schema",
+  "homepage": "https://yoskutik.github.io/mobx-form-schema",
   "bugs": {
-    "url": "https://github.com/Yoskutik/form-schema/issues",
+    "url": "https://github.com/Yoskutik/mobx-form-schema/issues",
     "email": "yoskutik@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Yoskutik/form-schema.git"
+    "url": "https://github.com/Yoskutik/mobx-form-schema.git"
   },
   "author": "Yoskutik <yoskutik@gmail.com>",
   "license": "MIT",

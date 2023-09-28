@@ -9,8 +9,8 @@ export const ConditionalExample = observer(() => {
   return (
     <div>
       <TextField schema={schema} field="email" type="email" label="E-mail" />
-      <CheckboxField schema={schema} field="havePet" label="I have a pet" />
-      {schema.havePet && (
+      <CheckboxField schema={schema} field="doesHavePet" label="I have a pet" />
+      {schema.doesHavePet && (
         <TextField schema={schema} label="Pet's name" field="petName" required />
       )}
       <span>Is form valid: {schema.isValid.toString()}</span>

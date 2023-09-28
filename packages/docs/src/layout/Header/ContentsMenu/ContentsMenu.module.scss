@@ -9,6 +9,7 @@
 
 .modal {
   box-shadow: 16px 0 32px -16px rgba(#000, 0.1);
+  background: var(--base-bg-color);
   transform: translateX(-100%);
   transition: transform 0.3s;
   padding: 16px 24px;
@@ -62,6 +63,7 @@
 
 .closeButton {
   position: absolute;
+  color: inherit;
   right: 10px;
   top: 10px;
 }

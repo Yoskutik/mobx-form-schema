@@ -62,20 +62,24 @@ export const Header = () => {
           </Link>
         </h1>
 
-        <search className={styles.search} />
+        <div className={styles.search} />
 
         <nav className={styles.nav}>
           <Link to="/learn" className={styles.link} isActive={pathname.startsWith('/learn')}>
             Learn
           </Link>
-          <Link to="/reference/form-schema/create" className={styles.link}>
+          <Link
+            isActive={pathname.startsWith('/reference')}
+            to="/reference/form-schema/create"
+            className={styles.link}
+          >
             Reference
           </Link>
           <ModeButton />
           <Link
-            className={clsx(styles.link, styles.forceVisible)}
             to="https://github.com/Yoskutik/mobx-form-schema"
             aria-label="GitHub Repository"
+            className={styles.link}
             icon={<GitHub />}
           />
         </nav>

@@ -61,6 +61,13 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
     },
     {
       Component: lazyWithPreload(
+        () => /* webpackPrefetch: true */ import('./observation/Restoration/Restoration'),
+      ),
+      to: '/learn/observation/restore',
+      title: 'State restoration',
+    },
+    {
+      Component: lazyWithPreload(
         () => /* webpackPrefetch: true */ import('./observation/ManualObservation/ManualObservation'),
       ),
       to: '/learn/observation/manual',

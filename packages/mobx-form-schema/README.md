@@ -1,4 +1,4 @@
-# [Form Schema](https://yoskutik.github.io/form-schema/)
+# [Form Schema](https://yoskutik.github.io/mobx-form-schema/)
 
 [![version](https://img.shields.io/npm/v/@yoskutik/mobx-form-schema)](https://www.npmjs.com/package/@yoskutik/mobx-form-schema)
 [![ES6](https://img.shields.io/badge/EcmaScript-v.6-blue)](https://github.com/yoskutik/mobx-form-schema)

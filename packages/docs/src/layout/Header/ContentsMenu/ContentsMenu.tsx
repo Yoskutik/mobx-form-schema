@@ -53,14 +53,15 @@ export const ContentsMenu = ({ isOpened, onClose }: Props) => {
       <Title variant="h3">Table of Contents</Title>
 
       <nav className={styles.nav}>
-        <TableOfContentsLink to="/" className={styles.link} title="Main page" />
-        <TableOfContentsLink to="/learn" className={styles.link} title="Learn MobX Form Schema" />
+        <TableOfContentsLink to="/" className={styles.link} title="Main page" onClick={onClose} />
+        <TableOfContentsLink to="/learn" className={styles.link} title="Learn MobX Form Schema" onClick={onClose} />
         <div className={styles.nestedBlock}>
           <TableOfContentsContent links={LEARN_TABLE_OF_CONTENTS_LINKS} />
         </div>
         <TableOfContentsLink
           to={REFERENCE_TABLE_OF_CONTENTS_LINKS[0][1][0].to}
           className={styles.link}
+          onClick={onClose}
           title="Reference"
         />
         <div className={styles.nestedBlock}>

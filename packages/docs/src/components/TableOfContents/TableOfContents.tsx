@@ -17,13 +17,15 @@ type TableOfContentsLinkProps = {
   icon?: ReactNode;
   isActive?: boolean;
   className?: string;
+  onClick?: () => void;
 };
 
-export const TableOfContentsLink = ({ title, to, isActive, className, icon }: TableOfContentsLinkProps) => (
+export const TableOfContentsLink = ({ title, to, isActive, className, icon, onClick }: TableOfContentsLinkProps) => (
   <Link
     aria-current={isActive ? 'page' : undefined}
     className={clsx(styles.link, className)}
     isActive={isActive}
+    onClick={onClick}
     icon={icon}
     to={to}
   >
@@ -34,9 +36,10 @@ export const TableOfContentsLink = ({ title, to, isActive, className, icon }: Ta
 type BlockProps = {
   data: Props['links'][number];
   isForceExpanded?: boolean;
+  onLinkClick?: () => void;
 };
 
-const Block = ({ data, isForceExpanded }: BlockProps) => {
+const Block = ({ data, isForceExpanded, onLinkClick }: BlockProps) => {
   const [height, setHeight] = useState<undefined | number>(undefined);
   const [isExpanded, setIsExpanded] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
@@ -65,6 +68,7 @@ const Block = ({ data, isForceExpanded }: BlockProps) => {
           isActive={pathname === blockLinks[0].to}
           title={blockLinks[0].title}
           key={blockLinks[0].to}
+          onClick={onLinkClick}
           className={buttonCls}
           to={blockLinks[0].to}
         />
@@ -83,7 +87,12 @@ const Block = ({ data, isForceExpanded }: BlockProps) => {
           <ul className={styles.linksList} aria-describedby={id} ref={listRef} style={{ maxHeight }}>
             {blockLinks.map(link => (
               <li key={link.to}>
-                <TableOfContentsLink isActive={pathname === link.to} to={link.to} title={link.title} />
+                <TableOfContentsLink
+                  isActive={pathname === link.to}
+                  onClick={onLinkClick}
+                  title={link.title}
+                  to={link.to}
+                />
               </li>
             ))}
           </ul>
@@ -96,24 +105,30 @@ const Block = ({ data, isForceExpanded }: BlockProps) => {
 type Props = {
   links: [string, TLink[]][],
   isForceExpanded?: boolean;
+  onLinkClick?: () => void;
 };
 
-export const TableOfContentsContent = ({ links, isForceExpanded }: Props) => {
+export const TableOfContentsContent = ({ links, isForceExpanded, onLinkClick }: Props) => {
   const { pathname } = useLocation();
 
   return (
     <>
       {links.map(data => (
-        <Block data={data} key={data[0]} isForceExpanded={isForceExpanded || pathname === '/learn'} />
+        <Block
+          isForceExpanded={isForceExpanded || pathname === '/learn'}
+          onLinkClick={onLinkClick}
+          key={data[0]}
+          data={data}
+        />
       ))}
     </>
   );
 };
 
-export const TableOfContents = ({ links, isForceExpanded }: Props) => (
+export const TableOfContents = ({ links, isForceExpanded, onLinkClick }: Props) => (
   <aside className={styles.root}>
     <nav>
-      <TableOfContentsContent links={links} isForceExpanded={isForceExpanded} />
+      <TableOfContentsContent links={links} isForceExpanded={isForceExpanded} onLinkClick={onLinkClick} />
     </nav>
   </aside>
 );

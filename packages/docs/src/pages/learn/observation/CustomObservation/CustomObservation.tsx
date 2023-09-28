@@ -49,8 +49,8 @@ const CustomObservation = () => (
 
     <Section title="Next" forcedLevel={3}>
       <Text>
-        Just like with validation, there is a manual mode for checking form changes. Read about it
-        in the next article.
+        You already saw, that you can temporary save your forms and restore them into the last saved
+        or initial state. Read more about this functionality further.
       </Text>
     </Section>
   </>

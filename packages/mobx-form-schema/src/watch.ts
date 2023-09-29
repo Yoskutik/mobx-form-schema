@@ -33,7 +33,7 @@ export interface Watch extends FieldOrGetDecorator<any> {
    * @param restoreFn - A function that will restore current value usung the
    * initial one. Called in `reset` method.
    */
-  configure: <This, Value>(
+  create: <This, Value>(
     comparator: TComparator<This, Value>,
     saveFn: TObjectSaveFn<This, Value>,
     restoreFn: TRestoreFn<This, Value>,
@@ -171,7 +171,7 @@ export const checkArraysEquality = createArrayComparator(primitivesComparator);
 const createArrayCopy = (arr: unknown[]) => arr.slice();
 export const createSetCopy = <T>(set?: Set<T> | T[]) => new Set<T>(set);
 
-const configure: Watch['configure'] = <This, Value>(comparator, saveFn, restoreFn) => {
+const create: Watch['create'] = <This, Value>(comparator, saveFn, restoreFn) => {
   const decorator = (target, propertyKey) => (
     updateMetadata<TWatchConfig<This, Value>>(
       WatchSymbol,
@@ -186,26 +186,26 @@ const configure: Watch['configure'] = <This, Value>(comparator, saveFn, restoreF
   return decorator;
 };
 
-export const watch: Watch = configure(primitivesComparator, returnValue, returnValue) as any;
+export const watch: Watch = create(primitivesComparator, returnValue, returnValue) as any;
 
-watch.configure = configure;
+watch.create = create;
 
-watch[SCHEMA] = configure(
+watch[SCHEMA] = create(
   checkSingleSchemaEquality,
   saveSchemaInitialValue,
   restoreSchemaFromInitialValue,
 );
-watch[SCHEMAS_ARRAY] = configure(
+watch[SCHEMAS_ARRAY] = create(
   checkSchemasArrayEquality,
   (schemas: FormSchema[]) => (schemas ? schemas.map(saveSchemaInitialValue) : schemas),
   (data: FormSchema[]) => (data ? data.map(restoreSchemaFromInitialValue) : data),
 );
-watch.array = configure(
+watch.array = create(
   checkArraysEquality,
   createArrayCopy,
   createArrayCopy,
 );
-watch.set = configure(
+watch.set = create(
   checkSetsEquality,
   createSetCopy,
   createSetCopy,

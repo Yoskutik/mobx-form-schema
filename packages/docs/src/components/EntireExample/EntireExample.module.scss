@@ -7,9 +7,11 @@
   cursor: pointer;
   color: #fff;
 
-  &:hover {
-    border-color: rgba(#fff, 0.5);
-    background: rgba(#fff, 0.05);
+  @media (pointer: fine) {
+    &:hover {
+      border-color: rgba(#fff, 0.5);
+      background: rgba(#fff, 0.05);
+    }
   }
 
   &.active {
@@ -46,6 +48,8 @@
 
   .right-side {
     background: var(--base-bg-color);
+    // border with code block background color
+    border-left: 2px solid #262632;
     border-radius: 0 8px 8px 0;
     line-height: 20px;
     max-height: 495px;

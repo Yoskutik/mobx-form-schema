@@ -1,6 +1,6 @@
 {
   "name": "@yoskutik/mobx-form-schema",
-  "version": "1.2.4",
+  "version": "1.3.0",
   "description": "The simple way to organize you forms!",
   "keywords": [
     "forms",

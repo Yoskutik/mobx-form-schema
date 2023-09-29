@@ -126,6 +126,35 @@ describe('validate decorator', () => {
     });
   });
 
+  it('Validators do not call if they shoul not', () => {
+    const email = jest.fn(() => true);
+
+    class Schema extends FormSchema {
+      @validate.if((_, schema: Schema) => schema.prop > 0, [email])
+      email = 'mailgmail.com';
+
+      prop = 1;
+
+      constructor() {
+        super();
+
+        makeObservable(this, {
+          email: observable,
+          prop: observable,
+        });
+      }
+    }
+
+    const schema = Schema.create();
+    expect(email).toBeCalledTimes(1);
+
+    runInAction(() => schema.prop++);
+    expect(email).toBeCalledTimes(1);
+
+    runInAction(() => schema.email = '123');
+    expect(email).toBeCalledTimes(2);
+  });
+
   it('Human readable errors', () => {
     class Schema extends FormSchema {
       @validate((v: number) => (v > 1 ? 'Field1 is not valid' : false))

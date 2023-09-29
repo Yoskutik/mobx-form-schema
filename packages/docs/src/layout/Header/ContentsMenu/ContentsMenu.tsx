@@ -56,7 +56,7 @@ export const ContentsMenu = ({ isOpened, onClose }: Props) => {
         <TableOfContentsLink to="/" className={styles.link} title="Main page" onClick={onClose} />
         <TableOfContentsLink to="/learn" className={styles.link} title="Learn MobX Form Schema" onClick={onClose} />
         <div className={styles.nestedBlock}>
-          <TableOfContentsContent links={LEARN_TABLE_OF_CONTENTS_LINKS} />
+          <TableOfContentsContent links={LEARN_TABLE_OF_CONTENTS_LINKS} onLinkClick={onClose} />
         </div>
         <TableOfContentsLink
           to={REFERENCE_TABLE_OF_CONTENTS_LINKS[0][1][0].to}
@@ -65,7 +65,7 @@ export const ContentsMenu = ({ isOpened, onClose }: Props) => {
           title="Reference"
         />
         <div className={styles.nestedBlock}>
-          <TableOfContentsContent links={REFERENCE_TABLE_OF_CONTENTS_LINKS} />
+          <TableOfContentsContent links={REFERENCE_TABLE_OF_CONTENTS_LINKS} onLinkClick={onClose} />
         </div>
       </nav>
 
@@ -76,12 +76,14 @@ export const ContentsMenu = ({ isOpened, onClose }: Props) => {
           to="https://github.com/Yoskutik/mox-form-schema"
           title="GitHub Repository"
           className={styles.link}
+          onClick={onClose}
           icon={<GitHub />}
         />
         <TableOfContentsLink
           to="https://www.npmjs.com/package/@yoskutik/mobx-form-schema"
           className={styles.link}
           title="NPM Package"
+          onClick={onClose}
           icon={<NPM />}
         />
       </nav>

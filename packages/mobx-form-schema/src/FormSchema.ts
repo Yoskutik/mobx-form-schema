@@ -7,7 +7,7 @@ import {
   makeObservable,
   observable,
   observe,
-  runInAction,
+  runInAction, toJS,
 } from 'mobx';
 import type { TValidationConfig } from './validate';
 import {
@@ -46,17 +46,28 @@ const forUniqueKeysInObjects = (obj1: unknown, obj2: unknown, fn: (key: string) 
   createSetCopy(OBJECT_KEYS(obj1).concat(OBJECT_KEYS(obj2))).forEach(k => fn(k))
 );
 
+const getIsFieldMustBeValidated = (
+  schema: FormSchema,
+  validateConfig: Record<string, TValidationConfig<unknown, unknown>>,
+  field: string,
+) => !!(
+  validateConfig[field] && (
+    !validateConfig[field].condition
+    || validateConfig[field].condition(schema[field], schema)
+  )
+);
+
 const validateSingleField = (
   schema: FormSchema,
   validateConfig: Record<string, TValidationConfig<unknown, unknown>>,
   field: string,
-  message?: string | boolean,
+  mustBeValidated: boolean = getIsFieldMustBeValidated(schema, validateConfig, field),
+  /* istanbul ignore next */
+  message?: string | boolean
 ) => {
   if (!validateConfig[field]) return false;
 
-  (validateConfig[field].condition && !validateConfig[field].condition(schema[field], schema)) || (
-    !validateConfig[field].validators.find(it => message = it(schema[field], schema))
-  );
+  mustBeValidated && validateConfig[field].validators.find(it => message = it(schema[field], schema));
 
   runInAction(() => {
     if (isTypeOf(message) || message === true) {
@@ -219,7 +230,11 @@ export class FormSchema {
         }, true)
       ));
 
-      forKeysInObject(validateMetadata, key => autorun(() => validateSingleField(record, validateMetadata, key)));
+      forKeysInObject(validateMetadata, (key, mustBeValidated?: any) => {
+        mustBeValidated = observable.box(false);
+        autorun(() => mustBeValidated.set(getIsFieldMustBeValidated(record, validateMetadata, key)));
+        autorun(() => validateSingleField(record, validateMetadata, key, mustBeValidated.get()));
+      });
     }
 
     record.onInit && record.onInit();
@@ -371,7 +386,7 @@ export class FormSchema {
    * @see {@link validate}
    */
   updateIsPropertyValid(propertyName: keyof ExcludeFormSchema<this>): string | boolean {
-    return validateSingleField(this, getMetadata(ValidateSymbol, this), propertyName as any);
+    return validateSingleField(this, getMetadata(ValidateSymbol, this), propertyName as any)
   }
 
   /**

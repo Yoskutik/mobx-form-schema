@@ -1,4 +1,14 @@
-import { Text, Section, Code, EntireExample, Link } from '@components';
+import {
+  Text,
+  Section,
+  Code,
+  EntireExample,
+  Link,
+  TextFieldSource,
+  ChoiceFieldSource,
+  FieldBaseSource,
+  CheckboxFieldSource,
+} from '@components';
 import NestedSchemaIntroduceSchemaSource from 'source-loader!./NestedSchemaIntroduceSchema';
 import NestedSchemasArrayIntroduceSchemaSource from 'source-loader!./NestedSchemasArrayIntroduceSchema';
 import CVSchemaSource from 'source-loader!./CVSchema';
@@ -56,6 +66,10 @@ const CompleteExample = () => (
           CVExampleSource,
           CVExampleInformerSource,
           ExperienceBlockSource,
+          TextFieldSource,
+          ChoiceFieldSource,
+          CheckboxFieldSource,
+          FieldBaseSource,
         ]}
         height={600}
       />

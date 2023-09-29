@@ -68,7 +68,9 @@
   height: 14px;
   width: 14px;
 
-  &:hover {
-    background-color: var(--border-color);
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--border-color);
+    }
   }
 }

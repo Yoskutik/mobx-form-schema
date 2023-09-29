@@ -134,9 +134,9 @@ const Watch = () => (
       </Section>
     </Section>
 
-    <Section title={<>The <Code>watch.configure</Code> method</>}>
+    <Section title={<>The <Code>watch.create</Code> method</>}>
       <Text>
-        The <Code>watch.configure</Code> allows you to create your own modification
+        The <Code>watch.create</Code> allows you to create your own modification
         of <Code>watch</Code> decorator. You only have to pass 3 functions:
       </Text>
 
@@ -152,11 +152,11 @@ const Watch = () => (
       />
 
       <Text>
-        The <Code>watch.configure</Code> method creates a separate decorator.
+        The <Code>watch.create</Code> method creates a separate decorator.
       </Text>
 
       <Text>
-        If you use the decorator created by the <Code>watch.configure</Code> on a property, MobX Form Schema
+        If you use the decorator created by the <Code>watch.create</Code> on a property, MobX Form Schema
         will mark this property with <Code>observable</Code> decorator, but you can freely overwrite it.
       </Text>
 

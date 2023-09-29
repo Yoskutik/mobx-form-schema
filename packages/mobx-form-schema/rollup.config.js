@@ -105,8 +105,10 @@ module.exports = [true, false].map((isDev) => ({
   plugins: [
     typescript({
       tsconfig: `./tsconfig.json`,
-      declarationDir: 'dist',
-      declaration: !isDev,
+      ...(isDev && {
+        declarationDir: 'dist',
+        declaration: true,
+      }),
     }),
 
     ...(!isDev ? [

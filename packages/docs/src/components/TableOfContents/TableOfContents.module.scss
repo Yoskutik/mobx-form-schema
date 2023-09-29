@@ -36,8 +36,10 @@ $header-height: 64px;
   display: flex;
   width: 100%;
 
-  &:hover {
-    background-color: var(--secondary-bg-color);
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--secondary-bg-color);
+    }
   }
 
   &.active {

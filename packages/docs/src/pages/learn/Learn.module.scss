@@ -17,8 +17,10 @@
   font-size: inherit;
   padding: 0;
 
-  &:hover {
-    text-decoration: none;
-    background: none;
+  @media (pointer: fine) {
+    &:hover {
+      text-decoration: none;
+      background: none;
+    }
   }
 }

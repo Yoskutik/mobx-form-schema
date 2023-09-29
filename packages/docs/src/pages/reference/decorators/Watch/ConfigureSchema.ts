@@ -7,7 +7,7 @@ const compareData = (newValue: TData, oldValue: TData) => newValue[0] === oldVal
 const saveDataToInitialState = (data: TData) => [...data];
 const getDataFromInitialState = (data: TData) => [...data];
 
-const customDecorator = watch.configure(
+const customDecorator = watch.create(
   compareData,
   saveDataToInitialState,
   getDataFromInitialState,

@@ -11,11 +11,13 @@
   padding: 12px;
   display: flex;
 
-  &:hover {
-    background-color: var(--secondary-bg-color);
+  @media (pointer: fine) {
+    &:hover {
+      background-color: var(--secondary-bg-color);
 
-    .linkContent {
-      text-decoration: underline;
+      .linkContent {
+        text-decoration: underline;
+      }
     }
   }
 

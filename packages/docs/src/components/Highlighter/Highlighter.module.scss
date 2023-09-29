@@ -2,8 +2,10 @@
   position: relative;
   max-width: 100%;
 
-  &:hover .copy {
-    opacity: 1;
+  @media (pointer: fine) {
+    &:hover .copy {
+      opacity: 1;
+    }
   }
 }
 
@@ -17,8 +19,10 @@
   right: 7px;
   top: 7px;
 
-  &:hover {
-    background: lighten(rgb(40, 42, 54), 5%);
+  @media (pointer: fine) {
+    &:hover {
+      background: lighten(rgb(40, 42, 54), 5%);
+    }
   }
 
   &:focus-visible {

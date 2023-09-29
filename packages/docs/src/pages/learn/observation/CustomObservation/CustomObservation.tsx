@@ -10,11 +10,11 @@ const CustomObservation = () => (
         The out-of-box <Code>@watch</Code>cover most possible needs, but they are limited. You can only
         compare primitives, arrays of primitives, sets of primitives, form schemas and arrays of form
         schemas. And in order to provide you with an opportunity to create your own comparison function,
-        MobX Form Schema created the <Code>watch.configure</Code> method.
+        MobX Form Schema created the <Code>watch.create</Code> method.
       </Text>
 
       <Text>
-        The <Code>watch.configure</Code> takes 3 arguments:
+        The <Code>watch.create</Code> takes 3 arguments:
       </Text>
 
       <List variant="ol">
@@ -31,7 +31,7 @@ const CustomObservation = () => (
       </List>
 
       <Text>
-        The <Code>watch.configure</Code> returns a function, that can be used as a decorator.
+        The <Code>watch.create</Code> returns a function, that can be used as a decorator.
       </Text>
 
       <Section title="Example of custom observation">

@@ -2,9 +2,9 @@
 import { FormSchema, watch } from '@yoskutik/mobx-form-schema';
 import { runInAction } from 'mobx';
 
-describe('watch.configure', () => {
+describe('watch.create', () => {
   it('Create custom decorator', () => {
-    const custom = watch.configure(
+    const custom = watch.create(
       (newValue: unknown[], oldValue: unknown[]) => newValue[1] === oldValue[1],
       newValue => newValue.slice(),
       newValue => newValue.slice(),
@@ -50,7 +50,7 @@ describe('watch.configure', () => {
       return oldValue;
     };
 
-    const dec = watch.configure(compareFn, saveFn, restoreFn);
+    const dec = watch.create(compareFn, saveFn, restoreFn);
 
     class Schema extends FormSchema {
       @dec prop = 1;

@@ -1,4 +1,4 @@
-# [Form Schema](https://yoskutik.github.io/mobx-form-schema/)
+# [MobX Form Schema](https://yoskutik.github.io/mobx-form-schema/)
 
 [![version](https://img.shields.io/npm/v/@yoskutik/mobx-form-schema)](https://www.npmjs.com/package/@yoskutik/mobx-form-schema)
 [![ES6](https://img.shields.io/badge/EcmaScript-v.6-blue)](https://github.com/yoskutik/mobx-form-schema)
@@ -119,3 +119,17 @@ methods. This object can be used as final presentation of your form, which
 can be sent to the server. And you can add a transformation function for
 each property to transform the presentation. For example, you trim your
 strings or convert Date instances into formatted strings.
+
+---
+
+## Will it work with or without React?
+
+MobX Form Schema does not depend on React in any way. The only one thing
+you need in order to use it is the _MobX_ package.
+
+Although, MobX Form Schema can be easily integrated into any React
+application. You can see examples of using this package in React
+application:
+* [In the Web Documentation](https://yoskutik.github.io/mobx-form-schema/#/learn/complete-example);
+* [On CodeSandbox.io](https://codesandbox.io/s/silent-morning-68myz9?file=/src/index.tsx);
+* [On StackBlitz.com](https://stackblitz.com/edit/stackblitz-starters-g7hrxn?file=src%2Findex.tsx).

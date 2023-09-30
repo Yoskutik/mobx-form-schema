@@ -1,4 +1,4 @@
-import { FormSchema, presentation, validate, watch } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present, validate, watch } from '@yoskutik/mobx-form-schema';
 import { defined, maxValue, minValue, required } from './validators';
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -30,7 +30,7 @@ const presentEndDate = (value: number, schema: ExperienceSchema) => (
 );
 
 export class ExperienceSchema extends FormSchema {
-  @presentation.hidden
+  @present.hidden
   id = Math.random();
 
   @validate(required())
@@ -51,11 +51,11 @@ export class ExperienceSchema extends FormSchema {
   )
   @watch startYear: number | undefined = undefined;
 
-  @presentation(presentEndDate)
+  @present(presentEndDate)
   @validate.if(shouldValidateEnd, [defined(), minValue(1), maxValue(12)])
   @watch endMonth: number | undefined = undefined;
 
-  @presentation(presentEndDate)
+  @present(presentEndDate)
   @validate.if(shouldValidateEnd, [
     defined(),
     minValue(1950),

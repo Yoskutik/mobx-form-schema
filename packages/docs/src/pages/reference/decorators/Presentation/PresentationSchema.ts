@@ -1,4 +1,4 @@
-import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present } from '@yoskutik/mobx-form-schema';
 
 const presentProp1 = (prop1Value: number) => prop1Value + 10;
 
@@ -7,10 +7,10 @@ const presentProp2 = (prop2Value: number, schema: PresentationSchema) => (
 );
 
 export class PresentationSchema extends FormSchema {
-  @presentation(presentProp1)
+  @present(presentProp1)
   prop1 = 1;
 
-  @presentation(presentProp2)
+  @present(presentProp2)
   prop2 = 2;
 
   prop3 = 3;

@@ -1,7 +1,7 @@
-import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present } from '@yoskutik/mobx-form-schema';
 
 export class PresentationSchema extends FormSchema {
-  @presentation.hidden
+  @present.hidden
   prop1 = 1;
 
   prop2 = 2;

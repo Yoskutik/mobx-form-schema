@@ -17,7 +17,7 @@ const Presentation = () => (
 
       <Text>
         If you want to change the presentation of a specific property, you have to use
-        the <Code>@presentation</Code> decorator. Then, you have to use
+        the <Code>@present</Code> decorator. Then, you have to use
         the <Code>presentation</Code> getter from the form schema in order to get post-processed
         data.
       </Text>
@@ -43,7 +43,7 @@ const Presentation = () => (
         </Text>
 
         <Text>
-          To do it, you can use the <Code>@presentation.hidden</Code> decorator.
+          To do it, you can use the <Code>@present.hidden</Code> decorator.
         </Text>
 
         <EntireExample items={[HiddenSchemaSource, HiddenExampleSource]}>

@@ -9,11 +9,11 @@
 
 ---
 
-_MobX Form Schema_ is a small library that can simplify forms developing
-process by providing a **_Form Schema_** concept. A form schema allows you
-to describe all the form logic besides user event handling. You can easily
-**validate** your form, **observe** its changes and **simplify** your
-communication with the backend!
+_MobX Form Schema_ is a small library that can simplify web forms
+development process by providing a **_Form Schema_** concept. A form schema
+allows you to describe all the form logic besides user event handling. You
+can easily **validate** your form, **observe** its changes and **simplify**
+your communication with the backend!
 
 You can find the _MobX Form Schema_ documentation
 [on the website](https://yoskutik.github.io/mobx-form-schema/).
@@ -74,51 +74,69 @@ You can apply several validation functions for each property in a schema.
 And each function can generate its own error message.
 
 Inside a validation function you can use not only current value of the field,
-but also entire schema as well. It is useful for writing rules like
-comparing repeated password field value with password field value.
+but also entire schema as well. It can be useful, if the validation of a
+property depends on another property's value. For example, "confirm password"
+value must be the same as "password", and "from" date must happen before
+the "to" date.
 
-All the validation is applied automatically. If the observable value or
-any property from schema that is used in validation are changed, the
-validation will be applied again.
+The validation can be applied conditionally. The fields can be optional,
+can be hidden for some reason, or there can be cases, when the validation
+of one field must be skipped, because of the value of another field.
+And you can easily achieve such validation conditions.
 
-The validation can be applied conditionally. It can be useful, if you want
-to turn off the validation for optional fields, if they have empty value.
-And you can also make the condition based on entire schema as well. And
-the condition is applied automatically too.
+The really nice part is that, by default, all the validation is applied
+automatically using `autorun` function from MobX. If a property is changed,
+it will be recalculated. If another property from schema, that is used
+in validation is changed, it will be recalculated as well. And it works
+with conditions too.
 
 
-## Simple observation!
+## Simple data changes observation!
 
 With _Form Schema_ you can understand whether the content of your
-form is changed. It can be useful, if you want to disable submit ability
-if the form is not changed.
+form is changed. It can be useful, when you want to provide to user an
+ability to understand, is the form changed, like with disabling submit
+button unless the form is not changed.
 
 It also works with predefined values. And that's extremely helpful, if
 there's an option to edit forms with predefined values in your project.
+And you can also reset your forms into the initial state!
 
-You can get the initial value of a field at any time.
+You can get the initial value of a field at any time. And you get which
+of the properties are changed at the moment.
 
 You can observe not only primitive values, but also sets, arrays, nested
-form schemas and arrays of nested form schemas. And the real cool part is
-that the properties aren't considered changed if you pass a set, array or
-schema with the exact same content.
+form schemas and arrays of nested form schemas. The real cool part is that
+the properties aren't considered changed if you pass a set, array or
+schema with the exact same content. And of course resetting works with
+these structures as well.
 
-And also you can create your own rules to observe other structures.
+And if those out-of-box structures is not enough for you, you can also
+you can create your own rules to observe other structures.
 
 
 ## Simple backend communication!
 
-You can use a single schema to create in instance of form with predefined
-values from the backend. You can also add a transformation function for
-each property to transform predefined values. This can be useful, for
-example, if you want to convert an array into a set.
+With MobX Form Schema you simplify data transformations. If your schema
+need a bit of different data from the one in server's response, or if
+there's
 
-Also, each form schema instance have its data _presentation_ - an object
-that contains only data of form's fields without any utility data or
-methods. This object can be used as final presentation of your form, which
-can be sent to the server. And you can add a transformation function for
-each property to transform the presentation. For example, you trim your
-strings or convert Date instances into formatted strings.
+
+### Data preprocessing
+
+You can use a single schema to create in instance of form with predefined
+values from the backend. And also you can also add a transformation
+function for each property to transform predefined values. For example,
+a server cannot send you an instance of `Set` or `Date`, and if you
+need it, you can easily transform the data from response.
+
+### Data postprocessing
+
+Such data handling works in both directions. If your schema has data,
+which must be processed before sending to a server, you can do it as
+well. Your schema has some utility properties or user only fields like
+"Confirm password" - you can cut them off. If you use `Date`, but the
+server receives string of `yyyy/MM/dd` format - apply the transformation.
 
 ---
 

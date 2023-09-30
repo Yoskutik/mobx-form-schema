@@ -1,4 +1,4 @@
-import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present } from '@yoskutik/mobx-form-schema';
 import { makeObservable, observable } from 'mobx';
 
 const presentUsername = (username: string) => (!username ? username : `@${username}`);
@@ -11,12 +11,12 @@ const presentTitle = (_: unknown, schema: BasicSchema) => {
 };
 
 export class BasicSchema extends FormSchema {
-  @presentation(presentUsername)
+  @present(presentUsername)
   username = '';
 
   name = '';
 
-  @presentation(presentTitle)
+  @present(presentTitle)
   title = '';
 
   constructor() {

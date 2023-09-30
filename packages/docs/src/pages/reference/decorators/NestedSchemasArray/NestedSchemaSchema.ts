@@ -9,7 +9,7 @@ export class NestedSchemaSchema extends FormSchema {
   //  @validate(schemas => schemas.some(schema => !schema.isValid))
   //  @watch.schemasArray
   //  @factory.schemasArray(NestedSchema)
-  //  @presentation(schemas => schemas.map(schema => schema.presentation))
+  //  @present(schemas => schemas.map(schema => schema.presentation))
   @nestedSchemasArray(NestedSchema)
   prop1 = [NestedSchema.create()];
 }

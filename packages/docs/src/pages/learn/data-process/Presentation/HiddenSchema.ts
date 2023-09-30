@@ -1,8 +1,8 @@
-import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present } from '@yoskutik/mobx-form-schema';
 import { makeObservable, observable } from 'mobx';
 
 export class HiddenSchema extends FormSchema {
-  @presentation.hidden
+  @present.hidden
   username = '';
 
   name = '';

@@ -1,7 +1,7 @@
 import type { Constructable, FieldDecorator, FieldOrGetDecorator } from './types';
 import { type TValidator, validate } from './validate';
 import { factory } from './factory';
-import { presentation, TPresentation } from './presentation';
+import { present, TPresentation } from './present';
 import { watch } from './watch';
 import type { FormSchema } from './FormSchema';
 import { PRESENTATION, SCHEMA, SCHEMAS_ARRAY } from './utils';
@@ -17,7 +17,7 @@ const createNestedSchemaDecorator = <This, Value>(
   validate<This, Value>(validateFn)(object, propertyKey);
   observeDecorator(object, propertyKey);
   factoryDecorator(object, propertyKey);
-  return presentation<This, Value>(presentationFn)(object, propertyKey);
+  return present<This, Value>(presentationFn)(object, propertyKey);
 };
 
 const validateSchema = schema => !schema.isValid;

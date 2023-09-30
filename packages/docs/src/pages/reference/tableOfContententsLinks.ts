@@ -58,8 +58,8 @@ export const REFERENCE_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
       Component: lazyWithPreload(
         () => /* webpackPrefetch: true */ import('./decorators/Presentation/Presentation'),
       ),
-      to: '/reference/decorators/presentation',
-      title: '@presentation',
+      to: '/reference/decorators/present',
+      title: '@present',
     },
     {
       Component: lazyWithPreload(

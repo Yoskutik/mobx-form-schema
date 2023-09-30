@@ -13,7 +13,7 @@ const Presentation = () => (
 
     <Text>
       But you can affect the content of <Code>presentation</Code> value by applying
-      the <Code>@presentation</Code> decorator to any property.
+      the <Code>@present</Code> decorator to any property.
     </Text>
 
     <Text>

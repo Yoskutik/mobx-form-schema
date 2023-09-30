@@ -1,6 +1,6 @@
-import { FormSchema, presentation } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present } from '@yoskutik/mobx-form-schema';
 
-describe('presentation decorator', () => {
+describe('present decorator', () => {
   it('Presentation without decorator', () => {
     class Schema extends FormSchema {
       field1 = 1;
@@ -16,13 +16,13 @@ describe('presentation decorator', () => {
   describe('Presentation with decorator', () => {
     it('As factories', () => {
       class Schema extends FormSchema {
-        @presentation(() => 'completely new field1')
+        @present(() => 'completely new field1')
         field1 = 1;
 
-        @presentation(value => value.toString())
+        @present(value => value.toString())
         field2 = 2;
 
-        @presentation((_value, schema: Schema) => schema.field2 + 10)
+        @present((_value, schema: Schema) => schema.field2 + 10)
         field3 = 3;
 
         field4 = 4;
@@ -38,9 +38,9 @@ describe('presentation decorator', () => {
       });
     });
 
-    it('presentation.hidden', () => {
+    it('present.hidden', () => {
       class Schema extends FormSchema {
-        @presentation.hidden
+        @present.hidden
         field1 = 1;
 
         field2 = 2;

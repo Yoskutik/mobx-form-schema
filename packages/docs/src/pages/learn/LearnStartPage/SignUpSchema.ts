@@ -1,4 +1,4 @@
-import { FormSchema, presentation, validate, watch } from '@yoskutik/mobx-form-schema';
+import { FormSchema, present, validate, watch } from '@yoskutik/mobx-form-schema';
 import { required, username, email, minLength } from './validators';
 
 const confirmPassword = () => (
@@ -18,7 +18,7 @@ export class SignUpSchema extends FormSchema {
   @validate(required(), minLength(8))
   @watch password = '';
 
-  @presentation.hidden
+  @present.hidden
   @validate(required(), confirmPassword())
   @watch confirmPassword = '';
 

@@ -1,15 +1,14 @@
 const path = require('path');
-const tsJest = require.resolve('ts-jest').replace('/dist/index.js', '');
 
 const isWithCoverage = !!process.env.JEST_WITH_COVERAGE;
 const isLegacyDecorators = !!process.env.LEGACY_DECORATORS;
+const isDevMode = process.env.NOVE_ENV === 'development';
 
 module.exports = {
-  preset: tsJest,
+  preset: 'ts-jest',
 
   globals: {
-    __DEV__: isWithCoverage,
-    'process.env.NODE_ENV': 'production',
+    __DEV__: isWithCoverage || isDevMode,
   },
 
   rootDir: isWithCoverage ? '..' : '.',
@@ -19,7 +18,7 @@ module.exports = {
     : undefined,
 
   transform: {
-    '^.+\\.[tj]s?$': [tsJest, {
+    '^.+\\.[tj]s?$': ['ts-jest', {
       tsconfig: isLegacyDecorators ? './tsconfig.legacy-decorators.json' : './tsconfig.json',
       babelConfig: {
         presets: ['@babel/preset-env'],

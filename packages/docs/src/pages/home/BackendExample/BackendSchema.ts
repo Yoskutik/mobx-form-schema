@@ -1,4 +1,4 @@
-import { factory, FormSchema, presentation, watch } from '@yoskutik/mobx-form-schema';
+import { factory, FormSchema, present, watch } from '@yoskutik/mobx-form-schema';
 
 const presentName = (value: string) => value
   .split(' ')
@@ -18,15 +18,15 @@ export class BackendSchema extends FormSchema {
   @watch.set extraFeatures = new Set<string>();
 
   // If you have to process the value before sending to backend,
-  //  you can use @presentation decorator
-  @presentation(presentName)
+  //  you can use @present decorator
+  @present(presentName)
   @watch name = '';
 
   @watch email = '';
 
-  // With @presentation decorator you can even entirely cut off the value
+  // With @present decorator you can even entirely cut off the value
   //  from the form presentation, which can be used as backend request body.
-  @presentation.hidden
+  @present.hidden
   @factory(createConfirmEmail)
   @watch confirmEmail = '';
 }

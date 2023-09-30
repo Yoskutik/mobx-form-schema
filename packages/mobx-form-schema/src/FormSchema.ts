@@ -19,7 +19,7 @@ import {
   type TWatchConfig,
 } from './watch';
 import type { TFactory } from './factory';
-import type { TPresentationConfig } from './presentation';
+import type { TPresentConfig } from './present';
 import {
   FactorySymbol,
   ChangedKeysSymbol,
@@ -232,7 +232,10 @@ export class FormSchema {
 
       forKeysInObject(validateMetadata, (key, mustBeValidated?: any) => {
         mustBeValidated = observable.box(false);
-        autorun(() => mustBeValidated.set(getIsFieldMustBeValidated(record, validateMetadata, key)));
+        autorun((newMustBeValid?: any) => {
+          newMustBeValid = getIsFieldMustBeValidated(record, validateMetadata, key);
+          return runInAction(() => mustBeValidated.set(newMustBeValid));
+        });
         autorun(() => validateSingleField(record, validateMetadata, key, mustBeValidated.get()));
       });
     }
@@ -261,17 +264,19 @@ export class FormSchema {
    * By using this getter you can get the data from the schema without any
    * methods.
    *
-   * Also, if any property in the schema is decorated with `presentation`
+   * Also, if any property in the schema is decorated with the `@present`
    * decorator, a function from the decorator will be applied to the property's
    * value.
+   *
+   * @see {@link present}
    */
   get presentation(): ExcludedFormSchemaKeyToValue<this, any> {
     const state: Record<string, any> = {};
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-    const presentationMetadata = getMetadata<TPresentationConfig<unknown, unknown>>(PresentationSymbol, self);
+    const presentationMetadata = getMetadata<TPresentConfig<unknown, unknown>>(PresentationSymbol, self);
 
-    forUniqueKeysInObjects(presentationMetadata, self, (key, config?: TPresentationConfig<any, any>) => {
+    forUniqueKeysInObjects(presentationMetadata, self, (key, config?: TPresentConfig<any, any>) => {
       config = presentationMetadata[key];
       if (!config || !config.hidden) {
         state[key] = config && config[PRESENTATION] ? config[PRESENTATION](self[key], self) : self[key];

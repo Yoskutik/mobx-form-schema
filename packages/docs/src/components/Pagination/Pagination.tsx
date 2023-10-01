@@ -47,7 +47,7 @@ export const Pagination = ({ links }: Props) => {
             <b className={styles.linkTitle}>NEXT</b>
             <span className={styles.linkContent}>{links[currentIndex + 1].title}</span>
           </div>
-          <Chevron className={styles.icon} />
+          <Chevron className={clsx(styles.icon, styles.icon_right)} />
         </Link>
       ) : (
         <div />

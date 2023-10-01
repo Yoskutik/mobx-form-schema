@@ -23,10 +23,6 @@
 
   &_right {
     justify-content: flex-end;
-
-    .icon {
-      margin: 0 0 0 16px;
-    }
   }
 }
 
@@ -42,10 +38,23 @@
 
 .icon {
   color: var(--base-text-color);
-  margin: 0 16px 0 0;
-  font-size: 32px;
+  margin: 0 8px 0 0;
+  font-size: 24px;
 
   &_left {
     transform: rotate(180deg);
+  }
+
+  &_right {
+    margin: 0 0 0 8px;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin: 0 16px 0 0;
+    font-size: 32px;
+
+    &_right {
+      margin: 0 0 0 16px;
+    }
   }
 }

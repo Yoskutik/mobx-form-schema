@@ -9,17 +9,11 @@ import { Footer } from './Footer/Footer';
 import styles from './App.module.scss';
 
 const Home = lazyWithPreload(
-  () => /* webpackPrefetch: true */ import('@pages/home/Home'),
+  () => import(/* webpackPrefetch: true */ '@pages/home/Home'),
 );
-const Learn = lazyWithPreload(
-  () => /* webpackPrefetch: true */ import('@pages/learn/Learn'),
-);
-const LearnStartPage = lazyWithPreload(
-  () => /* webpackPrefetch: true */ import('@pages/learn/LearnStartPage/LearnStartPage'),
-);
-const Reference = lazyWithPreload(
-  () => /* webpackPrefetch: true */ import('@pages/reference/Reference'),
-);
+const Learn = lazyWithPreload(() => import('@pages/learn/Learn'));
+const LearnStartPage = lazyWithPreload(() => import('@pages/learn/LearnStartPage/LearnStartPage'));
+const Reference = lazyWithPreload(() => import('@pages/reference/Reference'));
 
 const PageObserver = () => {
   const { pathname } = useLocation();

@@ -134,7 +134,10 @@ const Home = memo(() => (
         MobX Form Schema can be extremely helpful, especially if you have large forms with complex
         validation or observation logic. You can
         {' '}
-        <Link to="" isButton={false}>
+        <Link
+          to="https://dev.to/yoskutik/how-can-decorators-simplify-the-web-forms-development-1aoh-temp-slug-1502998"
+          isButton={false}
+        >
           read more
         </Link>
         {' '}
@@ -153,5 +156,4 @@ const Home = memo(() => (
   </div>
 ));
 
-// eslint-disable-next-line import/no-default-export
 export default Home;

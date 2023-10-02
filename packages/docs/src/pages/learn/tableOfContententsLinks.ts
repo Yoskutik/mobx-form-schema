@@ -9,7 +9,7 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
       title: 'Installation',
     },
     {
-      Component: lazyWithPreload(() => /* webpackPrefetch: true */ import('./getting-started/Configuration')),
+      Component: lazyWithPreload(() => import('./getting-started/Configuration')),
       to: '/learn/getting-started/configuration',
       title: 'Configuration',
     },
@@ -23,16 +23,12 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
       title: 'Basic validation',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./validation/ComplexValidation/ComplexValidation'),
-      ),
+      Component: lazyWithPreload(() => import('./validation/ComplexValidation/ComplexValidation')),
       to: '/learn/validation/complex',
       title: 'Complex validation',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./validation/ManualValidation/ManualValidation'),
-      ),
+      Component: lazyWithPreload(() => import('./validation/ManualValidation/ManualValidation')),
       to: '/learn/validation/manual',
       title: 'Manual validation',
     },
@@ -40,36 +36,28 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
   ['Observation', [
     {
       Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./observation/BasicObservation/BasicObservation'),
+        () => import(/* webpackPrefetch: true */ './observation/BasicObservation/BasicObservation'),
       ),
       to: '/learn/observation/basic',
       title: 'Basic observation',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./observation/NonPrimitiveObservation/NonPrimitiveObservation'),
-      ),
+      Component: lazyWithPreload(() => import('./observation/NonPrimitiveObservation/NonPrimitiveObservation')),
       to: '/learn/observation/modifiers',
       title: 'Non-primitives observation',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./observation/CustomObservation/CustomObservation'),
-      ),
+      Component: lazyWithPreload(() => import('./observation/CustomObservation/CustomObservation')),
       to: '/learn/observation/custom',
       title: 'Custom observation',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./observation/Restoration/Restoration'),
-      ),
+      Component: lazyWithPreload(() => import('./observation/Restoration/Restoration')),
       to: '/learn/observation/restore',
       title: 'State restoration',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./observation/ManualObservation/ManualObservation'),
-      ),
+      Component: lazyWithPreload(() => import('./observation/ManualObservation/ManualObservation')),
       to: '/learn/observation/manual',
       title: 'Manual observation',
     },
@@ -77,15 +65,13 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
   ['Data process', [
     {
       Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./data-process/Initialization/Initialization'),
+        () => import(/* webpackPrefetch: true */ './data-process/Initialization/Initialization'),
       ),
       to: '/learn/data-process/pre',
       title: 'Pre-process:\nInitialization',
     },
     {
-      Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./data-process/Presentation/Presentation'),
-      ),
+      Component: lazyWithPreload(() => import('./data-process/Presentation/Presentation')),
       to: '/learn/data-process/post',
       title: 'Post-process:\nPresentation',
     },
@@ -93,7 +79,7 @@ export const LEARN_TABLE_OF_CONTENTS_LINKS: [string, TPageLink[]][] = [
   ['Complete example', [
     {
       Component: lazyWithPreload(
-        () => /* webpackPrefetch: true */ import('./CompleteExample/CompleteExample'),
+        () => import(/* webpackPrefetch: true */ './CompleteExample/CompleteExample'),
       ),
       to: '/learn/complete-example',
       title: 'Complete example',
